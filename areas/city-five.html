@@ -500,6 +500,49 @@
   }
   </script>
 
+  <!-- FAQPage Structured Data — REQUIRED on every city page (min 4 city-scoped
+       Q&As). Keep in sync with the visible #faq section (CITY-SWAP: faq zone). -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do you come to me in [City 5]?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Our team runs mobile service across all of [City 5], so most jobs happen at your home, office, or wherever works for you. Prefer to reach us another way? Just call and we'll sort it out."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How fast can you get to my [City 5] job?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most [City 5] jobs are same-day. Call in the morning and we can usually take care of it by that afternoon, depending on what the job needs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will my insurance cover the cost?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Many projects are covered by insurance, sometimes at little or no cost to you. We work directly with most major carriers, and we tell you your cost before any work begins."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "My problem seems small — should I wait?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Usually not. Small problems tend to get bigger — and more expensive — the longer they wait. Most jobs are quick and quoted upfront, so it's worth calling early."
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- BreadcrumbList Structured Data -->
   <script type="application/ld+json">
   {
