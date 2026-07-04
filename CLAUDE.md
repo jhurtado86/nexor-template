@@ -54,6 +54,34 @@ the comment with the client's real embed when available:
 - `<!-- GOOGLE MAPS EMBED GOES HERE -->`
 - Social share image: `brand_assets/og-image.jpg` (1200×630) — create before launch.
 
+## Business Identity (per client)
+
+Fill every field from the onboarding form. Leave [NEEDS INPUT] for anything
+not yet confirmed — never invent or infer.
+
+- Business name: [NEEDS INPUT]
+- Industry / trade: [NEEDS INPUT]
+- Owner: [NEEDS INPUT — confirm directly with client, do not infer from
+  social posts or social media frequency]
+- Staff / team on lot or in office: [NEEDS INPUT — names + roles. Confirm
+  whether each person is an owner or staff member. Do NOT assume ownership
+  from how often someone appears in social posts.]
+- Relationship claims (e.g. "husband-and-wife team"): PROHIBITED unless
+  the client explicitly confirms in writing. "Family-run" and "locally
+  owned" are acceptable tone signals without implying specific structure.
+  Do not use "couple," "husband and wife," or any relationship claim
+  without explicit written confirmation.
+- Supplier / franchise / dealer relationship: [NEEDS INPUT]
+- Physical address (or "service-area only — no public address"): [NEEDS INPUT]
+- Phone: [NEEDS INPUT] — display format + E.164 tel: href
+- Email: [NEEDS INPUT]
+- Domain: [NEEDS INPUT]
+- Founded year: [NEEDS INPUT]
+- Licenses / certifications: [NEEDS INPUT]
+- Official tagline: [NEEDS INPUT]
+- Review / reputation status: [NEEDS INPUT — do not add widgets until
+  confirmed]
+
 ## Site Architecture
 
 - Homepage (`index.html`)
@@ -64,7 +92,9 @@ the comment with the client's real embed when available:
 
 ## Always Do First
 
-Invoke the **frontend-design** skill before writing any frontend code, every session, no exceptions.
+Invoke the **frontend-design** skill before writing any frontend code, if available in the
+current environment. (Note: this skill may not be installed in Claude Code's environment —
+proceed without it if unavailable.)
 
 ## Content Writing Methodology
 
@@ -99,6 +129,28 @@ This is a local service business template — local SEO is the primary lead driv
 - Service pages: `Service` schema referencing the parent business.
 - City pages: `areaServed` for that specific city.
 - Validate at search.google.com/test/rich-results before launch.
+
+Schema patterns locked across 4 builds:
+- Service pages: always 3 JSON-LD blocks — Service + FAQPage +
+  BreadcrumbList. FAQPage is non-optional (minimum 6 Q&As).
+- City pages: always 3 JSON-LD blocks — LocalBusiness ref (same @id as
+  homepage, not a full re-declaration) + FAQPage + BreadcrumbList.
+  FAQPage is non-optional (minimum 4 city-scoped Q&As).
+- areaServed scoping: homepage LocalBusiness carries the full city list.
+  Individual city page schemas: areaServed = that city only. Never copy
+  the full list into a city page — it dilutes city-specific relevance.
+- Inventory / gallery pages: ImageGallery or CollectionPage schema only.
+  Never Service. Never in hasOfferCatalog.
+- aggregateRating: include ONLY when reviews are actually displayed.
+- PostalAddress: include ONLY when the client has a public physical
+  address. Omit entirely for service-area-only businesses.
+- Thank-you trio (verify as a single atomic unit before launch):
+  noindex/nofollow meta + excluded from sitemap.xml + Disallow in
+  robots.txt. All three must be present together — any one without
+  the other two = misconfigured.
+- Per-page title collision: flagship service page title must be
+  differentiated from the homepage title even when they share the same
+  primary keyword (e.g. add "for Sale," "Near You," or similar).
 
 ### Visible on-page SEO
 - Exactly ONE `<h1>` per page with the page's primary keyword
@@ -139,6 +191,71 @@ are available. If a logo is present, use it. If a palette is defined, use those 
 - Hero background: `brand_assets/Hero_background.jpg`
 - Final-CTA background: `brand_assets/cta-background.jpg`
 - Logo: styled text wordmark (`Your Business Name`) until a client logo is provided.
+
+## Photo Tier Allocation (default — override per client)
+
+Lock at strategy session. Do not re-derive per build session.
+
+| Page type | Body photos | Hero |
+|-----------|-------------|------|
+| Flagship service (primary moneymaker) | 5 | ✓ |
+| Secondary push service | 3 | ✓ |
+| Standard service | 2 | ✓ |
+| City pages | 1 | ✓ |
+| About | 2 | ✓ |
+| Inventory / gallery | No limit (reuse accepted) | ✓ |
+
+Rules:
+- One-photo-one-slot across all non-inventory pages — no photo appears
+  twice on the same page.
+- Cross-page reuse accepted on inventory; minimized elsewhere.
+- Reuse priority: prefer photos already on the inventory page when
+  cross-page reuse is unavoidable.
+- Excluded photo types (apply everywhere including inventory): readable
+  license plates, strong tilt/rotation, stained/damaged interiors.
+- Owner/people photo slots: use aspect-[3/4] container +
+  object-position: center top. Portrait orientation is the norm for
+  headshots; landscape containers crop faces too tightly.
+- Logo filenames: document EXACT filenames confirmed by ls brand_assets/
+  — do not assume naming conventions (_2x_ vs @2x differ by tool).
+
+## Hero & Asset Patterns
+
+### Hero background (default — all clients)
+Full-bleed static image: full-viewport min-h-screen, left-anchored
+hero-outer/hero-text-block container, background image + dark overlay +
+edge vignette + text-shadows. This is the default for every page on
+every build, including the homepage.
+
+### Hero video (enhancement — only when client provides a usable clip)
+Homepage hero only. Replaces the static image on the homepage; static
+image becomes the poster/fallback. Mandatory sequence — never skip steps:
+1. Trim only first → save as preview file → client approves in/out points
+2. Compress separately (H.264, strip audio, ~2-3MB target)
+3. Wire into the hero last, replacing the static image source
+gitignore: raw source file + trim preview. Only the final compressed
+clip gets committed.
+
+### City-page clone pattern
+Four CITY-SWAP comment zones mark unique content per city:
+```
+<!-- CITY-SWAP: intro -->
+<!-- CITY-SWAP: local-anchors -->
+<!-- CITY-SWAP: why-city -->
+<!-- CITY-SWAP: faq -->
+```
+Everything else is a SHARED zone. The Areas We Serve dropdown (desktop
++ mobile) must be explicitly marked and NEVER touched during a city-page
+clone pass:
+```
+<!-- SHARED ZONE: Areas We Serve dropdown —
+     do NOT modify during city-page clone-and-localize pass -->
+```
+
+### Screenshot discipline
+Claude Code MUST save actual PNG files to ./temporary screenshots/ and
+report the exact file path. Prose descriptions of a page are not a
+substitute for a real screenshot. Non-negotiable.
 
 ## Reference Images
 
@@ -197,9 +314,45 @@ If no reference image: design from scratch with high craft (see guardrails below
 - Do not stop after one screenshot pass.
 - Do not use `transition-all`.
 - Do not use default Tailwind blue/indigo as the primary color.
+- Do not publish fixed prices for quote-driven products (carports, custom
+  builds, configured/sized items). Route pricing intent to quote/visit/call.
+  Applies in body copy, FAQ answers, AND JSON-LD Offer blocks.
+- Do not state or imply any APR, interest rate, specific monthly payment,
+  or credit score threshold for financing — unless explicitly confirmed in
+  this file. Keep financing language general (affordable, flexible,
+  no-credit-check). EXCEPTION: a time-limited promo strip in a clearly
+  marked PROMO-START/END comment zone (outside permanent copy) may contain
+  specific figures since it is designed to be rotated without touching
+  page content.
+- Do not use "husband-and-wife team," "couple," or any relationship claim
+  without explicit written confirmation from the client. "Family-run" is
+  a tone signal, not a factual claim — safe without confirmation.
+- Product upgrades that carry exclusions must be documented as a PAIRED
+  entry in CLAUDE.md: the upgrade description AND its exclusion list
+  together. They cannot be decoupled during a build prompt.
+- Do not add review widgets, star ratings, or review counts until
+  reputation status is confirmed with the client.
+- Do not infer ownership, roles, or relationships from social media posts.
+  Confirm directly.
 
 ## Git Discipline
 
 - Commit or push only when the user asks. If on the default branch, branch first.
 - Keep the placeholder tokens consistent across files when editing — a renamed service or city must
   update its filename, all hrefs, nav/footer labels, schema, title/meta, and breadcrumb together.
+- Three-command pre-commit check every commit without exception:
+  git status (scope), git branch (on main), git remote -v (correct
+  client repo — not nexor-template). Never skip.
+- Logical commit separation: CLAUDE.md → own commit; brand_assets/ →
+  own commit; page builds → grouped by phase. Never mix client-layer
+  decisions with build work in one commit.
+- Commit assets immediately on placement. Do not batch asset commits
+  with page edits.
+- Set the canonical host as Primary in Vercel on day one — not at
+  launch. Code and Vercel must agree from the first deploy.
+- Submit sitemap to GSC as the full URL:
+  https://www.domain.com/sitemap.xml — not the bare filename.
+- GSC indexing priority order: services → primary city → remaining
+  cities → about. Daily cap ~10-12 URL inspections. Spread across days.
+- Re-check homepage canonical fields in GSC after 3-5 days post-launch —
+  first real confirmation that the host migration held.
