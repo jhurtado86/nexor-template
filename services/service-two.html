@@ -474,18 +474,18 @@
       border: 1px solid rgba(255,255,255,0.10);
       box-shadow: 0 1px 3px rgba(0,0,0,0.30), 0 20px 50px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.06);
     }
-    /* City name links (inline --color-ink) → pale, legible on dark */
-    #service-area .area-card a[style*="--color-ink)"] { color: var(--color-line) !important; }
-    /* Descriptions + footer note (inline --color-muted) → muted light */
-    #service-area .area-card [style*="--color-muted)"] { color: var(--color-muted-light) !important; }
+    /* City name links → pale, legible on dark */
+    #service-area .area-card-city { color: var(--color-line) !important; }
+    /* Descriptions + footer note → muted light */
+    #service-area .area-card-muted { color: var(--color-muted-light) !important; }
     /* Footer divider hairline (inline navy border) → light */
     #service-area .area-card [style*="border-color"] { border-color: rgba(255,255,255,0.12) !important; }
-    /* Navy "Primary" badge → translucent blue pill */
-    #service-area .area-card span[style*="--color-accent)"] {
+    /* "Primary" badge → translucent accent pill */
+    #service-area .area-card-badge {
       background: rgba(var(--color-accent-rgb), 0.18) !important; color: var(--color-muted-light) !important;
     }
-    /* Inline phone link (inline --color-accent) → accent */
-    #service-area .area-card a[style*="--color-accent)"] { color: var(--color-accent) !important; }
+    /* Phone link → accent */
+    #service-area .area-card-phone { color: var(--color-accent) !important; }
     /* link-arrow city links (class-based) → pale blue */
     #service-area .link-arrow { color: var(--color-muted-light) !important; }
     #service-area .link-arrow:hover { color: var(--color-line) !important; }
@@ -1084,57 +1084,57 @@
               <div class="area-dot mt-1"></div>
               <div>
                 <div class="flex items-center gap-2 mb-1">
-                  <a href="/areas/city-one.html" class="text-sm font-semibold hover:underline" style="color: var(--color-ink);">[City]</a>
-                  <span class="text-xs px-2 py-0.5 rounded-full font-semibold" style="background: rgba(var(--color-accent-rgb), 0.10); color: var(--color-accent);">Primary</span>
+                  <a href="/areas/city-one.html" class="text-sm font-semibold hover:underline area-card-city" style="color: var(--color-ink);">[City]</a>
+                  <span class="text-xs px-2 py-0.5 rounded-full font-semibold area-card-badge" style="background: rgba(var(--color-accent-rgb), 0.10); color: var(--color-accent);">Primary</span>
                 </div>
-                <p class="text-xs" style="color: var(--color-muted); line-height: 1.6;">Our home base. Same-day Service Two throughout [City] and the surrounding neighborhoods.</p>
+                <p class="text-xs area-card-muted" style="color: var(--color-muted); line-height: 1.6;">Our home base. Same-day Service Two throughout [City] and the surrounding neighborhoods.</p>
               </div>
             </div>
 
             <div class="flex items-start gap-3">
               <div class="area-dot mt-1"></div>
               <div>
-                <a href="/areas/city-two.html" class="text-sm font-semibold hover:underline block mb-1" style="color: var(--color-ink);">[City 2]</a>
-                <p class="text-xs" style="color: var(--color-muted); line-height: 1.6;">Mobile Service Two to [City 2] homes and businesses — a quick dispatch from [City].</p>
+                <a href="/areas/city-two.html" class="text-sm font-semibold hover:underline block mb-1 area-card-city" style="color: var(--color-ink);">[City 2]</a>
+                <p class="text-xs area-card-muted" style="color: var(--color-muted); line-height: 1.6;">Mobile Service Two to [City 2] homes and businesses — a quick dispatch from [City].</p>
               </div>
             </div>
 
             <div class="flex items-start gap-3">
               <div class="area-dot mt-1"></div>
               <div>
-                <a href="/areas/city-three.html" class="text-sm font-semibold hover:underline block mb-1" style="color: var(--color-ink);">[City 3]</a>
-                <p class="text-xs" style="color: var(--color-muted); line-height: 1.6;">Serving [City 3] with the same care and same-day availability as everywhere else.</p>
+                <a href="/areas/city-three.html" class="text-sm font-semibold hover:underline block mb-1 area-card-city" style="color: var(--color-ink);">[City 3]</a>
+                <p class="text-xs area-card-muted" style="color: var(--color-muted); line-height: 1.6;">Serving [City 3] with the same care and same-day availability as everywhere else.</p>
               </div>
             </div>
 
             <div class="flex items-start gap-3">
               <div class="area-dot mt-1"></div>
               <div>
-                <a href="/areas/city-four.html" class="text-sm font-semibold hover:underline block mb-1" style="color: var(--color-ink);">[City 4]</a>
-                <p class="text-xs" style="color: var(--color-muted); line-height: 1.6;">[City 4] and [City 5] are right next door — we often cover both in a single run.</p>
+                <a href="/areas/city-four.html" class="text-sm font-semibold hover:underline block mb-1 area-card-city" style="color: var(--color-ink);">[City 4]</a>
+                <p class="text-xs area-card-muted" style="color: var(--color-muted); line-height: 1.6;">[City 4] and [City 5] are right next door — we often cover both in a single run.</p>
               </div>
             </div>
 
             <div class="flex items-start gap-3">
               <div class="area-dot mt-1"></div>
               <div>
-                <a href="/areas/city-five.html" class="text-sm font-semibold hover:underline block mb-1" style="color: var(--color-ink);">[City 5]</a>
-                <p class="text-xs" style="color: var(--color-muted); line-height: 1.6;">Mobile Service Two in [City 5] — call ahead to confirm same-day availability.</p>
+                <a href="/areas/city-five.html" class="text-sm font-semibold hover:underline block mb-1 area-card-city" style="color: var(--color-ink);">[City 5]</a>
+                <p class="text-xs area-card-muted" style="color: var(--color-muted); line-height: 1.6;">Mobile Service Two in [City 5] — call ahead to confirm same-day availability.</p>
               </div>
             </div>
 
             <div class="flex items-start gap-3">
               <div class="area-dot mt-1"></div>
               <div>
-                <a href="/areas/city-six.html" class="text-sm font-semibold hover:underline block mb-1" style="color: var(--color-ink);">[City 6]</a>
-                <p class="text-xs" style="color: var(--color-muted); line-height: 1.6;">The same mobile service available to [City 6] residents as everywhere else across the [Region].</p>
+                <a href="/areas/city-six.html" class="text-sm font-semibold hover:underline block mb-1 area-card-city" style="color: var(--color-ink);">[City 6]</a>
+                <p class="text-xs area-card-muted" style="color: var(--color-muted); line-height: 1.6;">The same mobile service available to [City 6] residents as everywhere else across the [Region].</p>
               </div>
             </div>
 
           </div>
-          <p class="text-sm mt-6 pt-5 border-t" style="border-color: rgba(var(--color-accent-rgb), 0.12); color: var(--color-muted);">
+          <p class="text-sm mt-6 pt-5 border-t area-card-muted" style="border-color: rgba(var(--color-accent-rgb), 0.12); color: var(--color-muted);">
             Not sure if we cover your area?
-            <a href="tel:+15550000000" class="font-semibold hover:underline" style="color: var(--color-accent);">Call us — (555) 000-0000</a>. If you're in the [Region], we most likely do.
+            <a href="tel:+15550000000" class="font-semibold hover:underline area-card-phone" style="color: var(--color-accent);">Call us — (555) 000-0000</a>. If you're in the [Region], we most likely do.
           </p>
         </div>
       </div>
