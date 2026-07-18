@@ -1,358 +1,426 @@
-# CLAUDE.md — Nexor AI Website Template
+# CLAUDE-SKELETON.md — Nexor AI blank CLAUDE.md
 
-## What This Is
+This is the **starting point for every client's `CLAUDE.md`**. Copy it to the new client
+repo, rename it `CLAUDE.md`, and fill it in from the onboarding form.
 
-This is the **Nexor AI** website template: a generic, brandless **home‑services business** site
-built to be customized per client. Every page ships with neutral placeholder content
-(`Your Business Name`, `Service One`–`Service Six`, `[City]`, `[Region]`, `(555) 000-0000`,
-`hello@yourbusiness.com`) and a neutral placeholder color system. When onboarding a real client,
-swap the placeholders for that client's real business identity, services, service area, colors,
-logo, photos, and copy — but **keep the structure, section rhythm, nav pattern, dark sections,
-footer layout, and design system intact**.
+## How to use this skeleton
 
-> Treat the placeholder tokens as fill‑in‑the‑blank fields. Do not invent client facts; ask the
-> operator or leave the placeholder until real content is provided.
+Two layers, marked throughout:
 
-### Placeholder token reference
+- **FROZEN** — identical on every build. The proven Nexor conventions. Do NOT rewrite
+  these per client. If you improve one, improve it *here* and roll it to all future
+  builds — never fork it silently in one client's file.
+- **`[NEEDS INPUT — …]`** — a client fact to fill from the onboarding form. If the form
+  didn't provide it, leave the flag; do NOT invent it. `[DECIDE — …]` marks a judgment
+  call to resolve at strategy lock. `[DERIVE — …]` marks something computed from an asset
+  (e.g. palette from logo).
 
-| Token | Meaning |
-| --- | --- |
-| `Your Business Name` | The client's business name (wordmark + everywhere) |
-| `Service One` … `Service Six` | The six core services (one dedicated page each) |
-| `service-one.html` … `service-six.html` | Service page filenames under `/services/` |
-| `[City]` | Primary city / physical-location city |
-| `[City 2]` … `[City 6]` | Additional service-area cities, in priority order |
-| `city-one.html` … `city-six.html` | City page filenames under `/areas/` |
-| `[Region]` | The broader region the business serves |
-| `(555) 000-0000` / `tel:+15550000000` | Phone (display / link) |
-| `hello@yourbusiness.com` | Contact email |
-| `yourbusiness.com` | Canonical domain (used in canonical/OG URLs + sitemap) |
+Fill every `[NEEDS INPUT]` you can, flag the rest, resolve every `[DECIDE]` at the
+strategy-lock gate. When every flag is either filled or consciously deferred to backfill,
+`CLAUDE.md` is locked and the build (BUILD-PROMPTS.md, Code-only) begins.
 
-### Placeholder color system (swap per client)
+---
 
-Defined once via CSS custom properties / Tailwind config and reused everywhere. Neutral by design
-so a client palette drops in cleanly:
+## What This Is — FILL PER CLIENT (boilerplate frozen)
 
-- **Neutral dark** `#1A1A2E` — dark backgrounds, dark sections, footer, structural surfaces.
-- **Accent** `#E63946` — CTAs, highlights, accent text/icons. This is the single "pop" color and
-  the easiest thing to rebrand: change the accent token and the site re-skins.
-- Whites for body backgrounds, neutral grays for muted text.
+This is the **[NEEDS INPUT — Business Name]** website, built on the Nexor AI template.
+The generic template placeholders are resolved to this client's real identity below;
+anything not yet confirmed is left `[NEEDS INPUT]` and must NOT be invented. Keep the
+template's structure, section rhythm, nav pattern, dark sections, footer layout, and
+design system intact — only content, brand, service area, colors, logo, photos, and copy
+are client-specific.
 
-Do not reintroduce a hardcoded brand palette until the client's real colors are confirmed. When
-they are, update the CSS custom properties + Tailwind `theme.extend.colors` first, then sweep any
-remaining inline color literals.
+Trade: **[NEEDS INPUT — industry/trade]**. Several template modules are home-services
+artifacts that may not apply to this trade — see "Template Sections to DELETE."
 
-### Integration placeholders (wire up per client)
+Treat any remaining `[NEEDS INPUT]` field as fill-in-the-blank. Do not invent client
+facts; confirm with the client / Juan before filling.
 
-The template ships with clearly-marked placeholder comments where third‑party embeds go. Replace
-the comment with the client's real embed when available:
+---
 
-- `<!-- GHL CONTACT FORM EMBED GOES HERE -->`
-- `<!-- GHL CHAT WIDGET SCRIPT GOES HERE -->`
-- `<!-- GHL EXTERNAL TRACKING SCRIPT GOES HERE -->`
-- `<!-- GHL REVIEW WIDGET EMBED GOES HERE -->`
-- `<!-- GOOGLE MAPS EMBED GOES HERE -->`
-- Social share image: `brand_assets/og-image.jpg` (1200×630) — create before launch.
+## Resolved token reference — FILL PER CLIENT
 
-## Business Identity (per client)
+| Token | Resolved value |
+|---|---|
+| Business name | [NEEDS INPUT] (short brand: [NEEDS INPUT]) |
+| Service One … Service Six | [NEEDS INPUT — the six locked service names] |
+| service slugs | [NEEDS INPUT — one slug per service] |
+| Primary city | [NEEDS INPUT — physical-location city; anchors NAP + homepage] |
+| City 2 … City 6 | [NEEDS INPUT — priority order below] |
+| city slugs | [NEEDS INPUT] |
+| Region | [NEEDS INPUT] |
+| Phone (site) | [NEEDS INPUT — GHL tracking number ONLY; owner's personal line is never published] |
+| Email | [NEEDS INPUT] |
+| Domain | [NEEDS INPUT] — canonical host [NEEDS INPUT — www vs non-www, set as Vercel Primary day one] |
 
-Fill every field from the onboarding form. Leave [NEEDS INPUT] for anything
-not yet confirmed — never invent or infer.
+> ⚠️ **Email domain may differ from website domain.** If so, both can be correct — do NOT
+> "fix" one to match the other, and never build a URL off the email domain. Confirm.
 
-- Business name: [NEEDS INPUT]
+---
+
+## Brand color system — FROZEN methodology, FILL the values
+
+Palette is **derived from the client logo every build** — extract the hexes from
+`brand_assets/logo.png`; never assume the template's colors. Define once via CSS custom
+properties + Tailwind `theme.extend.colors`; reuse everywhere; never hardcode hexes per
+page.
+
+| Token | Hex | Role |
+|---|---|---|
+| `--color-primary` | [DERIVE from logo] | Primary brand — dark hero/sections, footer, nav, primary buttons |
+| `--color-primary-mid` | [DERIVE] | Mid-tone — hover, secondary buttons, borders/dividers on dark |
+| `--color-accent` | [DERIVE] | Accent — icons, link accents, eyebrow, highlights on dark |
+| `--color-accent-deep` | [DERIVE] | On-light fallback for the accent (see rule below) |
+| `--color-silver` / neutral | [DERIVE] | Muted borders, secondary text on dark, chrome |
+| `--color-dark` (canonical) | [= primary] | THE single dark-section background token |
+| `--color-ink` | [DERIVE] | Near-black headings/body |
+| `--color-bg` | `#FFFFFF` | Body/content backgrounds |
+| `--color-muted` | [DERIVE] | Muted/secondary text |
+
+**FROZEN rules:**
+- **Accent-on-light fallback:** a bright accent is fine as fill / text-on-dark; as small
+  text or dividers on white it goes low-contrast — fall back to `--color-accent-deep`.
+- **One canonical dark token:** `--color-dark` is the only dark-section background. Never
+  let a second near-identical dark hex drift in.
+- **Strip the template's red.** The template ships red as de-facto primary — remove it.
+  Red is semantic (emergency/urgency) only, and only if the brand actually uses it.
+  `[DECIDE — does this brand's palette include red at all? Default: no.]`
+- **Never use default Tailwind blue/indigo/sky/cyan.** Drive every color from the brand
+  tokens and derive shades from them.
+
+---
+
+## Integration placeholders — FROZEN insertion points, DECIDE per client
+
+- `<!-- GHL CONTACT FORM EMBED -->` — [NEEDS INPUT — form name]. Use the GHL embed; never a custom form.
+- `<!-- GHL CHAT WIDGET SCRIPT -->` — [NEEDS INPUT] (insert before `</body>`).
+- `<!-- GHL EXTERNAL TRACKING SCRIPT -->` — [NEEDS INPUT] (insert in `<head>`).
+- `<!-- GHL REVIEW WIDGET EMBED -->` — [DECIDE]. Wire ONLY if review count/rating is
+  confirmed AND displayed. Until then: no widget, no stars, no counts, no `aggregateRating`.
+- `<!-- GOOGLE MAPS EMBED -->` — [DECIDE — wire only if the client has a public address].
+- `<!-- INSURANCE CARRIER LOGO ROW -->` — [DECIDE]. DO NOT wire unless specific carrier
+  partnerships are confirmed. Shipping a logo row means fabricating logos (burned prior
+  builds). Cover insurance in copy, not a logo wall.
+- `<!-- FINANCING SECTION -->` — [DECIDE — delete unless financing is actually offered].
+- Social share image: `brand_assets/og-image.jpg` (1200×630) — [NEEDS INPUT — create before launch].
+
+---
+
+## Template Sections to DELETE for this client — FROZEN candidates, FILL the list
+
+Standard removable modules (delete any this trade doesn't offer):
+- Financing block / CTA — [DECIDE]
+- Insurance carrier-logo row — [DECIDE]
+- Review widget / star rating / review-count blocks — [DECIDE, default delete until confirmed]
+- Inventory / gallery page — [DECIDE — see gallery rules below]
+- Trust-badge pill row in the hero — delete by default (redundant with the eyebrow)
+- [NEEDS INPUT — any other home-services artifact irrelevant to this trade]
+
+---
+
+## Business Identity — FILL PER CLIENT (guardrails frozen)
+
+Every field is confirmed from onboarding or flagged `[NEEDS INPUT]`. Nothing inferred.
+
+- Business name / short brand: [NEEDS INPUT]
 - Industry / trade: [NEEDS INPUT]
-- Owner: [NEEDS INPUT — confirm directly with client, do not infer from
-  social posts or social media frequency]
-- Staff / team on lot or in office: [NEEDS INPUT — names + roles. Confirm
-  whether each person is an owner or staff member. Do NOT assume ownership
-  from how often someone appears in social posts.]
-- Relationship claims (e.g. "husband-and-wife team"): PROHIBITED unless
-  the client explicitly confirms in writing. "Family-run" and "locally
-  owned" are acceptable tone signals without implying specific structure.
-  Do not use "couple," "husband and wife," or any relationship claim
-  without explicit written confirmation.
+- Owner: [NEEDS INPUT]. **FROZEN rule:** owner name is referenced only in a dedicated
+  "About the Owner" section or where genuinely required — never threaded through general
+  body copy, headings, meta/OG, or CTAs.
+- Staff / team: [NEEDS INPUT — names + roles]. **Never infer staff or roles from social
+  posts. Confirm directly with the client.**
+- Relationship claims: **FROZEN** — no "family owned," "husband and wife," "couple," or
+  any relationship structure without explicit written confirmation. "Family-run" is a
+  tone signal (safe); a relationship *claim* is a fact (needs confirmation). [NEEDS INPUT]
+- Differentiator / ownership signal (e.g. veteran-owned): [NEEDS INPUT — confirmed only]
+- Owner background (for About page): [NEEDS INPUT]
+- **FROZEN framing rule:** an experience figure is a PERSONAL claim, not a business-age
+  claim. Write "[N] years in the [trade]" — never "[N] years serving [City]" (implies
+  business age). Founding year is separate and [NEEDS INPUT] until confirmed.
 - Supplier / franchise / dealer relationship: [NEEDS INPUT]
-- Physical address (or "service-area only — no public address"): [NEEDS INPUT]
-- Phone: [NEEDS INPUT] — display format + E.164 tel: href
+- Physical address: [NEEDS INPUT — or "service-area only, no public address"]
+  → this sets the schema variant (PostalAddress included vs omitted; see SEO section).
+- Phone (site): [NEEDS INPUT — GHL tracking number]
+- Phone (owner personal — NOT FOR PUBLICATION): [NEEDS INPUT — recorded only so it's never
+  mistaken for the site number; must return zero grep hits before deploy]
 - Email: [NEEDS INPUT]
-- Domain: [NEEDS INPUT]
-- Founded year: [NEEDS INPUT]
-- Licenses / certifications: [NEEDS INPUT]
+- Domain + canonical host: [NEEDS INPUT]
+- Founded year: [NEEDS INPUT — do not state or compute until confirmed]
+- Licenses / certifications: [NEEDS INPUT — publish none until confirmed]
 - Official tagline: [NEEDS INPUT]
-- Review / reputation status: [NEEDS INPUT — do not add widgets until
-  confirmed]
+- Review / reputation status: [NEEDS INPUT — until confirmed: no widget, no stars, no
+  counts, no `aggregateRating`, no testimonials. Unattributed testimonials are never published.]
+- Price range: [NEEDS INPUT — for JSON-LD `priceRange`]
 
-## Site Architecture
+### Key operational facts — [NEEDS INPUT] (must be accurate everywhere once filled)
+- Service model (in-shop / mobile / both): [NEEDS INPUT]
+- Service-area / free-travel radius: [NEEDS INPUT]
+- Intake method / primary CTA framing: [NEEDS INPUT]
+- Any confirmed differentiators: [NEEDS INPUT]
 
-- Homepage (`index.html`)
-- About (`about.html`)
-- Contact / Thank You (`thank-you.html` — `noindex, nofollow`)
-- 6 service pages at `/services/service-[one..six].html`
-- 6 city pages at `/areas/city-[one..six].html`
+### Hours — [NEEDS INPUT] (for `openingHoursSpecification`)
 
-## Always Do First
+---
 
-Invoke the **frontend-design** skill before writing any frontend code, if available in the
-current environment. (Note: this skill may not be installed in Claude Code's environment —
-proceed without it if unavailable.)
+## Services — FROZEN methodology, FILL the six
 
-## Content Writing Methodology
+**FROZEN:** select service pages for search volume + lead intent (broad high-intent
+categories over narrow component terms). Minor/related services fold in as on-page
+sections or FAQ, not their own pages. Default is six pages; flex only if the client
+genuinely needs more/fewer.
 
-For all page COPY/content, read and follow `SEO-CONTENT-PROMPT.md` (in the project root) as the
-PRIMARY writing methodology before writing any page content. Apply the COMPLETE methodology — the
-writing mission, all optimization guidelines (Google Algorithm + AI Systems), the balanced writing
-approach, content structure, language guidelines, quality signals, and the Words to Avoid list. The
-Local SEO Requirements below govern TECHNICAL implementation and work in tandem. If wording/content
-approach ever conflicts, `SEO-CONTENT-PROMPT.md` takes precedence.
+- Flagship (highest volume + call volume): [NEEDS INPUT]
+- Secondary push (differentiator / highest ticket): [NEEDS INPUT]
+- Standard ×4: [NEEDS INPUT]
+- Folded-in sub-services (sections/FAQ, not pages): [NEEDS INPUT]
 
-## Local SEO Requirements (technical)
+> ⚠️ **FROZEN anti-cannibalization:** keep distinct search intents on distinct pages
+> (e.g. repair vs replacement). Never introduce a broad umbrella page that cannibalizes
+> two narrower ones.
 
-This is a local service business template — local SEO is the primary lead driver once customized.
+---
 
-### Per-page metadata (every page)
-- Unique `<title>` under 60 chars: `"[Page Topic] | Your Business Name in [City]"`
-- Unique `<meta name="description">` under 160 chars: include a service, a city, and a CTA with phone
-- `<meta name="keywords">` with relevant local terms (service + city combinations)
-- `<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">`
-- `<link rel="canonical">` pointing to that page's own URL
-- `<html lang="en">` and a proper viewport meta
+## Site Architecture — FROZEN structure, FILL the slugs
 
-### Open Graph + Twitter (every page)
-- `og:title`, `og:description`, `og:url`, `og:type`, `og:image`, `og:locale`, `og:site_name`
-- `twitter:card` (summary_large_image), `twitter:title`, `twitter:description`, `twitter:image`
-- `og:image` / `twitter:image` → 1200×630 social share image (flag if not yet created)
+> ⚠️ **FROZEN — VERIFY BEFORE WRITING PATHS.** After cloning the template and before
+> finalizing any path here, run `find . -name "*.html"` and confirm the real tree matches.
+> Prior builds shipped `CLAUDE.md` paths that didn't match the repo and paid for it every
+> session. **Disk is the source of truth.**
 
-### Structured Data (JSON-LD)
-- Homepage: `LocalBusiness` schema. Include `name`, `telephone`, `email`, `priceRange`,
-  `openingHoursSpecification`, `areaServed` (the cities), `hasOfferCatalog` (the six services).
-  Add `PostalAddress` and `aggregateRating` only when the client has a real address / real reviews.
-- Service pages: `Service` schema referencing the parent business.
-- City pages: `areaServed` for that specific city.
-- Validate at search.google.com/test/rich-results before launch.
+- Homepage `index.html`
+- About `about.html`
+- Contact / Thank-You `thank-you.html` (noindex, nofollow)
+- 6 service pages under `/services/`: [NEEDS INPUT — slugs]
+- 6 city pages under `/areas/`: [NEEDS INPUT — slugs]
+- Inventory/gallery page: [DECIDE — include only if applicable; see gallery rules]
 
-Schema patterns locked across 4 builds:
-- Service pages: always 3 JSON-LD blocks — Service + FAQPage +
-  BreadcrumbList. FAQPage is non-optional (minimum 6 Q&As).
-- City pages: always 3 JSON-LD blocks — LocalBusiness ref (same @id as
-  homepage, not a full re-declaration) + FAQPage + BreadcrumbList.
-  FAQPage is non-optional (minimum 4 city-scoped Q&As).
-- areaServed scoping: homepage LocalBusiness carries the full city list.
-  Individual city page schemas: areaServed = that city only. Never copy
-  the full list into a city page — it dilutes city-specific relevance.
-- Inventory / gallery pages: ImageGallery or CollectionPage schema only.
-  Never Service. Never in hasOfferCatalog.
-- aggregateRating: include ONLY when reviews are actually displayed.
-- PostalAddress: include ONLY when the client has a public physical
-  address. Omit entirely for service-area-only businesses.
-- Thank-you trio (verify as a single atomic unit before launch):
-  noindex/nofollow meta + excluded from sitemap.xml + Disallow in
-  robots.txt. All three must be present together — any one without
-  the other two = misconfigured.
-- Per-page title collision: flagship service page title must be
-  differentiated from the homepage title even when they share the same
-  primary keyword (e.g. add "for Sale," "Near You," or similar).
+### City priority — FROZEN methodology, FILL the order
+Home city anchors the homepage + NAP. Deepest city page = highest-volume target and
+becomes the CITY-PAGE TEMPLATE. Order drives GSC indexing sequence.
+- [NEEDS INPUT — primary → secondary → … with a one-line rationale each]
+- [DECIDE — any cities pending real search-volume data]
 
-### Visible on-page SEO
-- Exactly ONE `<h1>` per page with the page's primary keyword
-- H2/H3 for hierarchy, no skipped levels
-- City names appear in human-readable body text, not just metadata
-- Service + city combinations appear naturally in copy
-- All images need descriptive alt text including service/location context where relevant
+---
 
-### City pages — anti-duplicate rule (critical when customizing)
-- Each city page MUST have 30–40% unique content minimum
-- Do NOT just swap the city name across otherwise-identical pages — Google penalizes doorway pages
-- Reference local landmarks, neighborhoods, highways, or area-specific details per city
-- Unique intro paragraph + unique "why [City] chooses us" angle per page
+## Always Do First — FROZEN
+Invoke the frontend-design skill before writing frontend code **if available** in the
+environment (it may not be installed in Claude Code — proceed without it if not).
 
-### Technical SEO files
-- `sitemap.xml` listing all indexable pages (homepage, about, all service + city pages; exclude thank-you)
-- `robots.txt` allowing crawl, disallowing the thank-you page, pointing to the sitemap
-- Thank-you page must have `<meta name="robots" content="noindex, nofollow">`
+## Content Writing Methodology — FROZEN
+For all page copy, read and follow `SEO-CONTENT-PROMPT.md` in full as the PRIMARY writing
+methodology before writing any content. If wording ever conflicts with the technical rules
+below, `SEO-CONTENT-PROMPT.md` wins on wording; the rules below govern technical
+implementation.
 
-### Title/description patterns
-- Homepage: `"[Primary Service] & [Secondary] in [City] | Your Business Name"`
-- Service page: `"[Service] in [City] | Your Business Name"`
-- City page: `"[Primary Service] in [City] | Your Business Name"`
+---
 
-## Final CTA Section Pattern (every page)
+## Local SEO Requirements — FROZEN (fill only the title/description tokens)
 
-All pages end with the same final CTA section just before the footer:
-- Background: `brand_assets/cta-background.jpg` with a dark overlay (~55–65% opacity) for text readability
-- Headline + supporting copy + dual CTAs (Call + Get a Free Quote)
-- Same treatment across all pages for brand consistency
+**Per-page metadata (every page):** unique `<title>` <60 chars; unique
+`<meta description>` <160 with a service + city + CTA; local `keywords`;
+`robots` index/follow with max-image/snippet/video-preview; self-referential `canonical`;
+`<html lang="en">` + viewport.
 
-## Brand Assets
+**Open Graph + Twitter (every page):** og:title/description/url/type/image/locale/site_name;
+twitter summary_large_image + title/description/image; images → 1200×630 (flag if not created).
 
-Always check the `brand_assets/` folder before designing. It may hold logos, color guides, style
-guides, or images. If real assets exist there, use them — do not use placeholders where real assets
-are available. If a logo is present, use it. If a palette is defined, use those exact values.
+**Structured Data (JSON-LD) — FROZEN patterns:**
+- Homepage: the correct `@type` for the trade `[NEEDS INPUT — e.g. AutoRepair / HVACBusiness / LocalBusiness]`
+  (never a mismatched type, never bare LocalBusiness if a specific subtype fits). Include
+  name, telephone (GHL), email, priceRange (pending), `openingHoursSpecification`,
+  `areaServed` (full city list), `hasOfferCatalog` (the six services).
+- **PostalAddress:** INCLUDE only if the client has a public address; OMIT entirely for
+  service-area businesses. `[DECIDE per address field above]`
+- **`aggregateRating`:** include ONLY when real reviews are confirmed AND displayed.
+- License numbers → `additionalProperty`.
+- **Service pages:** 3 blocks — `Service` + `FAQPage` (min 6 Q&As) + `BreadcrumbList`.
+- **City pages:** 3 blocks — `LocalBusiness` ref (same `@id` as homepage, not a
+  re-declaration) + `FAQPage` (min 4 city-scoped Q&As) + `BreadcrumbList`.
+  `areaServed` = that city only, never the full list.
+- **Inventory/gallery pages:** `ImageGallery` or `CollectionPage` only — never `Service`.
+- **Thank-you trio (one atomic unit):** noindex/nofollow meta + excluded from `sitemap.xml`
+  + Disallow in `robots.txt`.
+- **Per-page title collision:** the flagship service title must lead with a different
+  phrase than the homepage title even when they share a keyword.
+- **Offer-catalog count == live service-page count.**
+- Validate at `search.google.com/test/rich-results` before launch.
 
-- Hero background: `brand_assets/Hero_background.jpg`
-- Final-CTA background: `brand_assets/cta-background.jpg`
-- Logo: styled text wordmark (`Your Business Name`) until a client logo is provided.
+**Visible on-page SEO — FROZEN:** exactly one `<h1>`/page; H2/H3 hierarchy, no skipped
+levels; city names in human-readable body text; service+city combos appear naturally;
+descriptive alt text with service/location context.
 
-## Photo Tier Allocation (default — override per client)
+**City pages — anti-duplicate — FROZEN:** each city page ≥30–40% unique content; never
+just swap the city name (doorway-page penalty); reference real, VERIFIED local anchors
+(highways/neighborhoods/landmarks/districts) — flag `[VERIFY]` rather than invent; unique
+intro + unique "why [City] chooses us" per page.
 
-Lock at strategy session. Do not re-derive per build session.
+**Technical SEO files — FROZEN:** `sitemap.xml` (all indexable pages; exclude thank-you);
+`robots.txt` (allow crawl, disallow thank-you, point to sitemap).
 
+**Title/description patterns — FILL:**
+- Homepage: [NEEDS INPUT]
+- Service page: [NEEDS INPUT]
+- City page: [NEEDS INPUT]
+
+---
+
+## Hero & Asset Patterns — FROZEN
+
+### Hero + Final-CTA backgrounds — dedicated named slots ONLY
+- The hero background and the final-CTA background are **their own asset slots.** They are
+  filled **only** by a purpose-made image named exactly `hero-background.*` and
+  `cta-background.*` in `brand_assets/`.
+- **They NEVER use a client content/job photo.** A client's section/gallery photos are
+  never promoted into either background. Ever.
+- Until the dedicated file exists, both stay on `https://placehold.co/1920x1080` at exact
+  final dimensions. Flag as pending — never substitute another image to "fill" it.
+- **Off-limits on every content-photo and layout pass** (also enforced in WORKFLOW.md).
+  A photo/layout prompt must not touch these two backgrounds unless it is explicitly about
+  them.
+- Static full-bleed image is the default hero on every page including the homepage
+  (`min-h-screen`, left-anchored text block, image + dark overlay ~0.7 + edge vignette +
+  text-shadows).
+
+### Hero video — enhancement, homepage only
+Only when the client provides a usable clip. Replaces the static homepage hero; the
+`hero-background` image becomes the poster/fallback. **FROZEN sequence, never skipped:**
+trim only → save preview → client approves in/out → compress separately (H.264, strip
+audio, ~2–3MB) → wire in last. `.gitignore` the raw source + trim preview; commit only the
+final compressed clip.
+
+### Uniform photo sizing — every section, every page
+- **Every content photo uses the same-size aspect-ratio container** (`aspect-ratio` +
+  `object-fit: cover`), never a fixed `h-[Npx]`. One ratio applied site-wide so no photo
+  is a different size than another within or across sections.
+- This is independent of the photo *tier* (which sets how MANY photos a page gets, below).
+  Tiers govern count; this rule governs that every container is the same dimensions.
+
+### Gallery / inventory section — uniform grid, no dead space
+If the client has a dedicated gallery or inventory section:
+- **Uniform grid:** equal cells, consistent gutters, every image the same size.
+- **No dead space and no ragged last row** — size the grid so the final row fills or is
+  balanced; never leave an orphaned single image floating in an empty row.
+- Inventory/gallery page is **blocked until real photos exist** — do not ship it against
+  placeholders.
+- Excluded photo types apply here too (see below).
+
+### Photo Tier Allocation — FROZEN default (override per client at strategy lock)
 | Page type | Body photos | Hero |
-|-----------|-------------|------|
-| Flagship service (primary moneymaker) | 5 | ✓ |
+|---|---|---|
+| Flagship service | 5 | ✓ |
 | Secondary push service | 3 | ✓ |
 | Standard service | 2 | ✓ |
-| City pages | 1 | ✓ |
+| City page | 1 | ✓ |
 | About | 2 | ✓ |
 | Inventory / gallery | No limit (reuse accepted) | ✓ |
 
-Rules:
-- One-photo-one-slot across all non-inventory pages — no photo appears
-  twice on the same page.
-- Cross-page reuse accepted on inventory; minimized elsewhere.
-- Reuse priority: prefer photos already on the inventory page when
-  cross-page reuse is unavoidable.
-- Excluded photo types (apply everywhere including inventory): readable
-  license plates, strong tilt/rotation, stained/damaged interiors.
-- Owner/people photo slots: use aspect-[3/4] container +
-  object-position: center top. Portrait orientation is the norm for
-  headshots; landscape containers crop faces too tightly.
-- Logo filenames: document EXACT filenames confirmed by ls brand_assets/
-  — do not assume naming conventions (_2x_ vs @2x differ by tool).
+**FROZEN rules:** one-photo-one-slot on all non-inventory pages (no photo twice on a
+page); cross-page reuse minimized except on inventory; excluded types everywhere —
+readable license plates, strong tilt/rotation, stained/damaged subjects, anything
+privacy-sensitive; owner/people slots use `aspect-[3/4]` + `object-position: center top`
+(portrait is the norm for headshots); document EXACT asset filenames confirmed by
+`ls brand_assets/` — never assume naming.
 
-## Hero & Asset Patterns
+### City-page clone zones — FROZEN
+Four unique zones per city, everything else shared:
+`<!-- CITY-SWAP: intro -->` · `<!-- CITY-SWAP: local-anchors -->` ·
+`<!-- CITY-SWAP: why-city -->` · `<!-- CITY-SWAP: faq -->`
+The Areas We Serve dropdown (desktop + mobile) is a protected shared zone — mark it and
+never modify it during a city clone pass:
+`<!-- SHARED ZONE: Areas We Serve dropdown — do NOT modify during city clone pass -->`
 
-### Hero background (default — all clients)
-Full-bleed static image: full-viewport min-h-screen, left-anchored
-hero-outer/hero-text-block container, background image + dark overlay +
-edge vignette + text-shadows. This is the default for every page on
-every build, including the homepage.
+---
 
-### Hero video (enhancement — only when client provides a usable clip)
-Homepage hero only. Replaces the static image on the homepage; static
-image becomes the poster/fallback. Mandatory sequence — never skip steps:
-1. Trim only first → save as preview file → client approves in/out points
-2. Compress separately (H.264, strip audio, ~2-3MB target)
-3. Wire into the hero last, replacing the static image source
-gitignore: raw source file + trim preview. Only the final compressed
-clip gets committed.
+## Screenshot discipline — FROZEN (tiered)
 
-### City-page clone pattern
-Four CITY-SWAP comment zones mark unique content per city:
-```
-<!-- CITY-SWAP: intro -->
-<!-- CITY-SWAP: local-anchors -->
-<!-- CITY-SWAP: why-city -->
-<!-- CITY-SWAP: faq -->
-```
-Everything else is a SHARED zone. The Areas We Serve dropdown (desktop
-+ mobile) must be explicitly marked and NEVER touched during a city-page
-clone pass:
-```
-<!-- SHARED ZONE: Areas We Serve dropdown —
-     do NOT modify during city-page clone-and-localize pass -->
-```
+Code MUST save real PNG files to `./temporary screenshots/` and report the exact path — a
+prose description is never a substitute. **Number of rounds is tiered by page type:**
 
-### Screenshot discipline
-Claude Code MUST save actual PNG files to ./temporary screenshots/ and
-report the exact file path. Prose descriptions of a page are not a
-substitute for a real screenshot. Non-negotiable.
+- **Gated template pages — homepage, flagship service, deepest city: 2 comparison rounds.**
+  These set the pattern everything inherits; iterate until right.
+- **Clones and structural pages — remaining services/cities, about, thank-you: 1 round +
+  a click-through.** They inherit an approved parent, so verify, don't re-iterate.
+- More rounds only if the 1-round check surfaces a real problem.
 
-## Reference Images
+(Serve on localhost first — never screenshot a `file:///` path.)
 
-For THIS template we build ORIGINAL pages from the brief, NOT matching a provided reference. The
-reference-matching rules apply ONLY when a reference image is explicitly provided.
+---
 
-If a reference image is provided: match layout, spacing, typography, and color exactly. Swap in
-placeholder content (images via https://placehold.co/, generic copy). Do not improve or add to the
-design. Screenshot your output, compare against the reference, fix mismatches, re-screenshot — at
-least 2 comparison rounds. Stop only when no visible differences remain or the user says so.
+## Reference Images — FROZEN
+Default: build ORIGINAL pages from this file with high craft — do NOT match a provided
+reference. The match-exactly rules apply ONLY when a reference image is explicitly
+provided (then: match layout/spacing/type/color, swap placeholder content, don't improve
+the design, 2 comparison rounds).
 
-If no reference image: design from scratch with high craft (see guardrails below).
+## Local Server / Screenshot Workflow — FROZEN
+`node serve.mjs` (root at `http://localhost:3000`, background, don't double-start).
+`node screenshot.mjs http://localhost:3000 [label]` → `./temporary screenshots/screenshot-N[-label].png`
+(auto-incremented). Read the PNG back and analyze specifics (px sizes, exact hexes,
+spacing, alignment, radii, shadows).
 
-## Local Server
+## Output Defaults — FROZEN
+Self-contained HTML; Tailwind via CDN; `https://placehold.co/WIDTHxHEIGHT` placeholders;
+mobile-first responsive.
 
-- Always serve on localhost — never screenshot a `file:///` URL.
-- Start the dev server: `node serve.mjs` (serves the project root at http://localhost:3000).
-- `serve.mjs` lives in the project root. Start it in the background before taking screenshots.
-- If the server is already running, do not start a second instance.
+## Anti-Generic Guardrails — FROZEN
+Brand tokens only (never default Tailwind palette). Layered color-tinted shadows (never
+flat `shadow-md`). Distinct display + body fonts; tight tracking on large headings,
+generous body line-height. Layered radial gradients + SVG-noise grain for depth. Animate
+only `transform`/`opacity` (never `transition-all`), spring easing. Every clickable
+element has hover + focus-visible + active states. Image overlays + a color-treatment
+layer. Intentional spacing tokens. A base→elevated→floating depth system.
 
-## Screenshot Workflow
+---
 
-- Always screenshot from localhost: `node screenshot.mjs http://localhost:3000`
-- Screenshots save to `./temporary screenshots/screenshot-N.png` (auto-incremented, never overwritten).
-- Optional label suffix: `node screenshot.mjs http://localhost:3000 label` → `screenshot-N-label.png`
-- `screenshot.mjs` lives in the project root. Use it as-is.
-- After screenshotting, read the PNG from `temporary screenshots/` with the Read tool and analyze it.
-- When comparing, be specific: "heading is 32px but reference shows ~24px", "card gap is 16px but should be 24px".
-- Check: spacing/padding, font size/weight/line-height, colors (exact hex), alignment, border-radius, shadows, image sizing.
+## Locked Language — FROZEN framework, FILL per client
+Freeze anything that must never drift:
+- Insurance framing: [NEEDS INPUT — e.g. "works with all carriers"; never name a carrier
+  or promise coverage outcomes / $0 deductible; route to "we'll help you file the claim"]
+- Warranty: [NEEDS INPUT — publish no warranty scope until confirmed in writing]
+- Certification/quality claims: [NEEDS INPUT — no cert claim until confirmed]
+- Ownership signal: [NEEDS INPUT — confirmed only]
+- Experience framing: [NEEDS INPUT — personal-experience wording, not business-age]
+- Testimonials/reviews: [NEEDS INPUT — none publishable until reputation confirmed]
 
-## Output Defaults
+## Hard Rules — FROZEN
+- No invented facts; confirm before filling any `[NEEDS INPUT]`.
+- No price / range / "starting at" unless explicitly confirmed here — route pricing intent
+  to the quote CTA (applies to copy, FAQ, AND JSON-LD Offer blocks).
+- No insurance coverage-outcome claims.
+- No relationship claim without written confirmation.
+- No review widgets/stars/counts/`aggregateRating` until reputation is confirmed.
+- Never infer ownership/roles/relationships from social posts.
+- Never publish the owner's personal number — GHL tracking number only; grep returns zero
+  hits for the personal number before deploy.
+- Never promote a client photo into the `hero-background` / `cta-background` slots.
+- No readable license plates or privacy-sensitive photos.
+- Strip the template's red; no default Tailwind blue/indigo as primary.
+- No `transition-all`.
+- Follow the tiered screenshot rule above — don't stop after one pass on a *gated template
+  page*; a single round + click-through is correct for clones.
 
-- Self-contained HTML files, styles inline in `<style>`/Tailwind config, unless the user says otherwise.
-- Tailwind CSS via CDN: `<script src="https://cdn.tailwindcss.com"></script>`.
-- Placeholder images: https://placehold.co/WIDTHxHEIGHT.
-- Mobile-first responsive.
+## Git Discipline — FROZEN
+- Commit/push only when asked; branch first if on the default branch.
+- Rename a service/city → update its filename, all hrefs, nav/footer labels, schema,
+  title/meta, and breadcrumb together.
+- Three-command pre-commit check, no exceptions: `git status`, `git branch`,
+  `git remote -v` (the client repo, NOT nexor-template).
+- Logical commit separation: CLAUDE.md → own commit; brand_assets → own commit; page
+  builds grouped by phase. Never mix client-layer decisions with build work.
+- Commit assets immediately on placement (their own commit).
+- Set the canonical host as Vercel **Primary on day one**, not at launch.
+- Submit the sitemap to GSC as the full canonical URL. Indexing order: services → primary
+  city → remaining cities → about. ~10–12 URL inspections/day; spread across days. Re-check
+  the homepage canonical in GSC 3–5 days post-launch.
 
-## Anti-Generic Guardrails
+---
 
-- **Colors**: Never use default Tailwind palette (indigo-500, blue-600, etc.). Drive everything from
-  the brand tokens and derive shades from them.
-- **Shadows**: Never use flat `shadow-md`. Use layered, color-tinted shadows with low opacity.
-- **Typography**: Never use the same font for headings and body. Pair a display/serif with a clean
-  sans. Tight tracking (-0.03em) on large headings, generous line-height (1.7) on body.
-- **Gradients**: Layer multiple radial gradients. Add grain/texture via SVG noise filter for depth.
-- **Animations**: Only animate `transform` and `opacity`. Never `transition-all`. Spring-style easing.
-- **Interactive states**: Every clickable element needs hover, focus-visible, and active states. No exceptions.
-- **Images**: Add a gradient overlay (`bg-gradient-to-t from-black/60`) and a color treatment layer with `mix-blend-multiply`.
-- **Spacing**: Intentional, consistent spacing tokens — not random Tailwind steps.
-- **Depth**: Surfaces use a layering system (base → elevated → floating), not all on one z-plane.
+## Active Blockers — [NEEDS INPUT] summary (fill per client)
 
-## Hard Rules
+**Launch-blocking:** [NEEDS INPUT — e.g. GHL tracking number, GHL form embed, chat/tracking scripts, og-image]
 
-- Do not add sections, features, or content not in the reference (when a reference is provided).
-- Do not "improve" a reference design — match it (when a reference is provided).
-- Do not stop after one screenshot pass.
-- Do not use `transition-all`.
-- Do not use default Tailwind blue/indigo as the primary color.
-- Do not publish fixed prices for quote-driven products (carports, custom
-  builds, configured/sized items). Route pricing intent to quote/visit/call.
-  Applies in body copy, FAQ answers, AND JSON-LD Offer blocks.
-- Do not state or imply any APR, interest rate, specific monthly payment,
-  or credit score threshold for financing — unless explicitly confirmed in
-  this file. Keep financing language general (affordable, flexible,
-  no-credit-check). EXCEPTION: a time-limited promo strip in a clearly
-  marked PROMO-START/END comment zone (outside permanent copy) may contain
-  specific figures since it is designed to be rotated without touching
-  page content.
-- Do not use "husband-and-wife team," "couple," or any relationship claim
-  without explicit written confirmation from the client. "Family-run" is
-  a tone signal, not a factual claim — safe without confirmation.
-- Product upgrades that carry exclusions must be documented as a PAIRED
-  entry in CLAUDE.md: the upgrade description AND its exclusion list
-  together. They cannot be decoupled during a build prompt.
-- Do not add review widgets, star ratings, or review counts until
-  reputation status is confirmed with the client.
-- Do not infer ownership, roles, or relationships from social media posts.
-  Confirm directly.
+**Backfillable (build against placeholders, swap in one pass):** [NEEDS INPUT — e.g.
+photos, review status, certifications, founding year, social links, priceRange, warranty terms]
 
-## Git Discipline
-
-- Commit or push only when the user asks. If on the default branch, branch first.
-- Keep the placeholder tokens consistent across files when editing — a renamed service or city must
-  update its filename, all hrefs, nav/footer labels, schema, title/meta, and breadcrumb together.
-- Three-command pre-commit check every commit without exception:
-  git status (scope), git branch (on main), git remote -v (correct
-  client repo — not nexor-template). Never skip.
-- Logical commit separation: CLAUDE.md → own commit; brand_assets/ →
-  own commit; page builds → grouped by phase. Never mix client-layer
-  decisions with build work in one commit.
-- Commit assets immediately on placement. Do not batch asset commits
-  with page edits.
-- Set the canonical host as Primary in Vercel on day one — not at
-  launch. Code and Vercel must agree from the first deploy.
-- Submit sitemap to GSC as the full URL:
-  https://www.domain.com/sitemap.xml — not the bare filename.
-- GSC indexing priority order: services → primary city → remaining
-  cities → about. Daily cap ~10-12 URL inspections. Spread across days.
-- Re-check homepage canonical fields in GSC after 3-5 days post-launch —
-  first real confirmation that the host migration held.
+**Open decisions for Juan (resolve at strategy lock):** [DECIDE — e.g. cities pending
+volume data, any framing calls, gallery/inventory page yes/no]
