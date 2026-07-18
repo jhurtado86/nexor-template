@@ -27,12 +27,6 @@
             line:    'var(--color-line)',
             bg:      { DEFAULT: 'var(--color-bg)', 2: 'var(--color-bg-2)' },
             rating:  'var(--color-rating)',
-            /* DEPRECATED legacy aliases — new work uses --color-* only.
-               Remove this block once no --glass-* / --ember / --ink / --slate refs remain. */
-            glass:  { DEFAULT: 'var(--color-accent)', 400: 'var(--color-accent)', 300: 'var(--color-accent)', 200: 'var(--color-line)', 100: 'var(--color-bg-2)' },
-            steel:  { DEFAULT: 'var(--color-primary-mid)', 700: 'var(--color-primary-mid)', 600: 'var(--color-dark-3)' },
-            ember:  { DEFAULT: 'var(--color-accent)', 400: 'var(--color-accent-deep)', 300: 'var(--color-accent)' },
-            slate:  { light: 'var(--color-muted)', muted: 'var(--color-muted-light)' },
           },
           fontFamily: {
             display: ['Barlow', 'sans-serif'],
@@ -56,12 +50,12 @@
 
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Nunito', sans-serif; background: var(--color-bg); color: var(--ink-body); }
+    body { font-family: 'Nunito', sans-serif; background: var(--color-bg); color: var(--color-ink); }
     h1,h2,h3,h4 { font-family: 'Barlow', sans-serif; }
 
     .dark-section { background: var(--color-dark); }
     .dark-section .text-white        { color: var(--color-bg) !important; }
-    .dark-section .text-slate-light  { color: var(--color-muted-light) !important; }
+    .dark-section .text-muted  { color: var(--color-muted-light) !important; }
 
     .divider {
       height: 1px;
@@ -75,15 +69,15 @@
       letter-spacing: -0.02em; color: var(--color-bg); line-height: 1;
       transition: color 0.25s cubic-bezier(0.4,0,0.2,1);
     }
-    .nav-wordmark .plus { color: var(--ember); }
-    #navbar.scrolled .nav-wordmark { color: var(--ink-body); }
+    .nav-wordmark .plus { color: var(--color-accent); }
+    #navbar.scrolled .nav-wordmark { color: var(--color-ink); }
 
     .footer-wordmark {
       font-family: 'Barlow', sans-serif;
       font-weight: 800; font-size: 28px;
       letter-spacing: -0.02em; color: var(--color-bg); line-height: 1;
     }
-    .footer-wordmark .plus { color: var(--ember); }
+    .footer-wordmark .plus { color: var(--color-accent); }
 
     /* ── Nav ── */
     #navbar {
@@ -94,7 +88,7 @@
                   border-color 0.40s cubic-bezier(0.4,0,0.2,1),
                   box-shadow 0.40s cubic-bezier(0.4,0,0.2,1);
     }
-    #navbar .text-slate-light          { color: rgba(255,255,255,0.68) !important; }
+    #navbar .text-muted          { color: rgba(255,255,255,0.68) !important; }
     #navbar .hover\:text-white:hover   { color: rgba(255,255,255,1) !important; }
     #navbar #hamburger                 { color: rgba(255,255,255,0.80) !important; border-color: rgba(255,255,255,0.18) !important; }
     #mobile-menu                       { background: rgba(var(--color-dark-rgb), 0.96); backdrop-filter: blur(18px); }
@@ -108,19 +102,19 @@
       border-bottom-color: rgba(var(--color-dark-rgb), 0.07);
       box-shadow: 0 1px 24px rgba(0,0,0,0.06);
     }
-    #navbar.scrolled .text-slate-light         { color: var(--slate) !important; }
-    #navbar.scrolled .hover\:text-white:hover  { color: var(--ink-body) !important; }
-    #navbar.scrolled #hamburger                { color: var(--ink-body) !important; border-color: rgba(var(--color-dark-rgb), 0.16) !important; }
+    #navbar.scrolled .text-muted         { color: var(--color-muted) !important; }
+    #navbar.scrolled .hover\:text-white:hover  { color: var(--color-ink) !important; }
+    #navbar.scrolled #hamburger                { color: var(--color-ink) !important; border-color: rgba(var(--color-dark-rgb), 0.16) !important; }
     #navbar.scrolled #mobile-menu              { background: var(--color-bg); }
-    #navbar.scrolled #mobile-menu a.mobile-nav-link       { color: var(--slate) !important; }
-    #navbar.scrolled #mobile-menu a.mobile-nav-link:hover { color: var(--ink-body) !important; background: rgba(var(--color-dark-rgb), 0.04) !important; }
+    #navbar.scrolled #mobile-menu a.mobile-nav-link       { color: var(--color-muted) !important; }
+    #navbar.scrolled #mobile-menu a.mobile-nav-link:hover { color: var(--color-ink) !important; background: rgba(var(--color-dark-rgb), 0.04) !important; }
     #navbar.scrolled #mobile-menu { border-top-color: rgba(var(--color-dark-rgb), 0.08) !important; }
 
     /* ── Nav animated underline ── */
     .nav-link { position: relative; }
     .nav-link::after {
       content: ''; position: absolute; bottom: -2px; left: 0;
-      width: 0; height: 2px; background: var(--glass-primary);
+      width: 0; height: 2px; background: var(--color-accent);
       transition: width 0.25s cubic-bezier(0.4,0,0.2,1);
     }
     .nav-link:hover::after { width: 100%; }
@@ -159,8 +153,8 @@
       background: rgba(255,255,255,0.98); border-color: rgba(var(--color-dark-rgb), 0.08);
       box-shadow: 0 18px 48px rgba(var(--color-dark-rgb), 0.14), 0 2px 8px rgba(var(--color-dark-rgb), 0.06);
     }
-    #navbar.scrolled .nav-dropdown-menu a { color: var(--slate); }
-    #navbar.scrolled .nav-dropdown-menu a:hover { color: var(--ink-body); background: rgba(var(--color-dark-rgb), 0.04); }
+    #navbar.scrolled .nav-dropdown-menu a { color: var(--color-muted); }
+    #navbar.scrolled .nav-dropdown-menu a:hover { color: var(--color-ink); background: rgba(var(--color-dark-rgb), 0.04); }
 
     /* ── Services dropdown (mobile) ── */
     .mobile-services-toggle {
@@ -184,11 +178,11 @@
       transition: color 0.15s cubic-bezier(0.4,0,0.2,1), background 0.15s cubic-bezier(0.4,0,0.2,1);
     }
     .mobile-services-submenu a:hover { color: var(--color-bg); background: rgba(255,255,255,0.06); }
-    #navbar.scrolled .mobile-services-toggle { color: var(--slate); }
-    #navbar.scrolled .mobile-services-toggle:hover { color: var(--ink-body); background: rgba(var(--color-dark-rgb), 0.04); }
+    #navbar.scrolled .mobile-services-toggle { color: var(--color-muted); }
+    #navbar.scrolled .mobile-services-toggle:hover { color: var(--color-ink); background: rgba(var(--color-dark-rgb), 0.04); }
     #navbar.scrolled .mobile-services-submenu { border-left-color: rgba(var(--color-dark-rgb), 0.10); }
-    #navbar.scrolled .mobile-services-submenu a { color: var(--slate); }
-    #navbar.scrolled .mobile-services-submenu a:hover { color: var(--ink-body); background: rgba(var(--color-dark-rgb), 0.04); }
+    #navbar.scrolled .mobile-services-submenu a { color: var(--color-muted); }
+    #navbar.scrolled .mobile-services-submenu a:hover { color: var(--color-ink); background: rgba(var(--color-dark-rgb), 0.04); }
 
     /* ── Hero — real photo background ── */
     .hero-bg { background: var(--color-dark); }
@@ -199,7 +193,7 @@
 
     /* ── Buttons ── */
     .btn-primary {
-      background: var(--ember); color: var(--color-bg);
+      background: var(--color-accent); color: var(--color-bg);
       font-weight: 700; border-radius: 8px; padding: 14px 28px; font-size: 15px;
       letter-spacing: 0.01em;
       box-shadow: 0 4px 18px rgba(var(--color-accent-rgb), 0.30);
@@ -208,14 +202,14 @@
                   background 0.18s cubic-bezier(0.4,0,0.2,1);
       display: inline-flex; align-items: center; gap: 8px;
     }
-    .btn-primary:hover  { background: var(--ember-hover); transform: translateY(-2px); box-shadow: 0 8px 26px rgba(var(--color-accent-rgb), 0.38); }
+    .btn-primary:hover  { background: var(--color-accent-deep); transform: translateY(-2px); box-shadow: 0 8px 26px rgba(var(--color-accent-rgb), 0.38); }
     .btn-primary:active { transform: translateY(0); box-shadow: 0 2px 10px rgba(var(--color-accent-rgb), 0.22); }
-    .btn-primary:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }
+    .btn-primary:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
     .trust-badge {
       background: rgba(var(--color-accent-rgb), 0.12); border: 1px solid rgba(var(--color-accent-rgb), 0.28);
       border-radius: 100px; padding: 6px 14px; font-size: 13px; font-weight: 500;
-      color: var(--glass-pale); display: inline-flex; align-items: center; gap: 6px;
+      color: var(--color-line); display: inline-flex; align-items: center; gap: 6px;
     }
 
     /* ── Phone pulse ── */
@@ -246,7 +240,7 @@
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--color-bg-2); }
     ::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--glass-primary); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
   </style>
 </head>
 <body class="font-body leading-body">
@@ -265,7 +259,7 @@
       <!-- Desktop Nav -->
       <div class="hidden md:flex items-center gap-7">
         <div class="nav-dropdown">
-          <a href="/#services" class="nav-link nav-dropdown-trigger text-sm font-medium text-slate-light hover:text-white transition-colors duration-150" aria-haspopup="true">
+          <a href="/#services" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150" aria-haspopup="true">
             Services
             <svg class="nav-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </a>
@@ -281,7 +275,7 @@
         <!-- SHARED ZONE: Areas We Serve dropdown — do NOT modify during
              city-page clone-and-localize pass. All city entries constant. -->
         <div class="nav-dropdown">
-          <a href="/#service-area" class="nav-link nav-dropdown-trigger text-sm font-medium text-slate-light hover:text-white transition-colors duration-150" aria-haspopup="true">
+          <a href="/#service-area" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150" aria-haspopup="true">
             Areas We Serve
             <svg class="nav-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </a>
@@ -295,10 +289,10 @@
           </div>
         </div>
         <!-- END SHARED ZONE: Areas We Serve dropdown -->
-        <a href="/#insurance"   class="nav-link text-sm font-medium text-slate-light hover:text-white transition-colors duration-150">Insurance</a>
-        <a href="/about.html" class="nav-link text-sm font-medium text-slate-light hover:text-white transition-colors duration-150">About</a>
-        <a href="/#reviews"     class="nav-link text-sm font-medium text-slate-light hover:text-white transition-colors duration-150">Reviews</a>
-        <a href="/#contact"     class="nav-link text-sm font-medium text-slate-light hover:text-white transition-colors duration-150">Contact</a>
+        <a href="/#insurance"   class="nav-link text-sm font-medium text-muted hover:text-white transition-colors duration-150">Insurance</a>
+        <a href="/about.html" class="nav-link text-sm font-medium text-muted hover:text-white transition-colors duration-150">About</a>
+        <a href="/#reviews"     class="nav-link text-sm font-medium text-muted hover:text-white transition-colors duration-150">Reviews</a>
+        <a href="/#contact"     class="nav-link text-sm font-medium text-muted hover:text-white transition-colors duration-150">Contact</a>
         <a href="tel:+15550000000" class="btn-primary text-sm py-2.5 px-5 phone-pulse ml-4">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.54 6.54l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           (555) 000-0000
@@ -384,7 +378,7 @@
 
         <!-- Success check badge -->
         <div class="check-badge mb-7">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--ember)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
 
         <!-- Eyebrow -->
@@ -413,7 +407,7 @@
       </div>
 
       <!-- Ember accent bridge -->
-      <div class="absolute bottom-0 left-0 right-0 z-20" style="height: 4px; background: linear-gradient(90deg, transparent 0%, var(--ember) 18%, var(--ember) 82%, transparent 100%); opacity: 0.90;"></div>
+      <div class="absolute bottom-0 left-0 right-0 z-20" style="height: 4px; background: linear-gradient(90deg, transparent 0%, var(--color-accent) 18%, var(--color-accent) 82%, transparent 100%); opacity: 0.90;"></div>
     </section>
   </main>
 
@@ -430,15 +424,15 @@
           <a href="/" class="flex items-center mb-2" aria-label="Your Business Name home">
             <span class="footer-wordmark">Your Business Name</span>
           </a>
-          <p style="font-family: 'Barlow', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ember); margin-bottom: 14px; opacity: 0.85;">Trusted Local Home Services</p>
-          <p class="text-slate-light text-sm mb-5" style="line-height: 1.7;">Professional home services you can count on — serving [City] and the surrounding [Region].</p>
+          <p style="font-family: 'Barlow', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 14px; opacity: 0.85;">Trusted Local Home Services</p>
+          <p class="text-muted text-sm mb-5" style="line-height: 1.7;">Professional home services you can count on — serving [City] and the surrounding [Region].</p>
           <div class="space-y-2">
             <a href="tel:+15550000000" class="flex items-center gap-2 text-white text-sm font-medium hover:opacity-80 transition-opacity duration-150">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--glass-light)" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.54 6.54l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.54 6.54l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               (555) 000-0000
             </a>
-            <a href="mailto:hello@yourbusiness.com" class="flex items-center gap-2 text-slate-light text-sm hover:text-white transition-colors duration-150">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--glass-light)" stroke-width="2.2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:hello@yourbusiness.com" class="flex items-center gap-2 text-muted text-sm hover:text-white transition-colors duration-150">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               hello@yourbusiness.com
             </a>
           </div>
@@ -448,12 +442,12 @@
         <div>
           <h2 class="font-display font-700 text-white text-sm uppercase tracking-widest mb-4">Services</h2>
           <ul class="space-y-2.5">
-            <li><a href="/services/service-two.html" class="text-slate-light text-sm hover:text-white transition-colors duration-150">Service Two</a></li>
-            <li><a href="/services/service-one.html"       class="text-slate-light text-sm hover:text-white transition-colors duration-150">Service One</a></li>
-            <li><a href="/services/service-three.html"        class="text-slate-light text-sm hover:text-white transition-colors duration-150">Service Three</a></li>
-            <li><a href="/services/service-four.html"    class="text-slate-light text-sm hover:text-white transition-colors duration-150">Service Four</a></li>
-            <li><a href="/services/service-five.html"           class="text-slate-light text-sm hover:text-white transition-colors duration-150">Service Five</a></li>
-            <li><a href="/services/service-six.html"  class="text-slate-light text-sm hover:text-white transition-colors duration-150">Service Six</a></li>
+            <li><a href="/services/service-two.html" class="text-muted text-sm hover:text-white transition-colors duration-150">Service Two</a></li>
+            <li><a href="/services/service-one.html"       class="text-muted text-sm hover:text-white transition-colors duration-150">Service One</a></li>
+            <li><a href="/services/service-three.html"        class="text-muted text-sm hover:text-white transition-colors duration-150">Service Three</a></li>
+            <li><a href="/services/service-four.html"    class="text-muted text-sm hover:text-white transition-colors duration-150">Service Four</a></li>
+            <li><a href="/services/service-five.html"           class="text-muted text-sm hover:text-white transition-colors duration-150">Service Five</a></li>
+            <li><a href="/services/service-six.html"  class="text-muted text-sm hover:text-white transition-colors duration-150">Service Six</a></li>
           </ul>
         </div>
 
@@ -461,12 +455,12 @@
         <div>
           <h2 class="font-display font-700 text-white text-sm uppercase tracking-widest mb-4">Company</h2>
           <ul class="space-y-2.5">
-            <li><a href="/#why-us"       class="text-slate-light text-sm hover:text-white transition-colors duration-150">About Us</a></li>
-            <li><a href="/#reviews"      class="text-slate-light text-sm hover:text-white transition-colors duration-150">Reviews</a></li>
-            <li><a href="/#insurance"    class="text-slate-light text-sm hover:text-white transition-colors duration-150">Insurance Partners</a></li>
-            <li><a href="/#service-area" class="text-slate-light text-sm hover:text-white transition-colors duration-150">Service Areas</a></li>
-            <li><a href="/#contact"      class="text-slate-light text-sm hover:text-white transition-colors duration-150">Contact</a></li>
-            <li><a href="#"              class="text-slate-light text-sm hover:text-white transition-colors duration-150">Privacy Policy</a></li>
+            <li><a href="/#why-us"       class="text-muted text-sm hover:text-white transition-colors duration-150">About Us</a></li>
+            <li><a href="/#reviews"      class="text-muted text-sm hover:text-white transition-colors duration-150">Reviews</a></li>
+            <li><a href="/#insurance"    class="text-muted text-sm hover:text-white transition-colors duration-150">Insurance Partners</a></li>
+            <li><a href="/#service-area" class="text-muted text-sm hover:text-white transition-colors duration-150">Service Areas</a></li>
+            <li><a href="/#contact"      class="text-muted text-sm hover:text-white transition-colors duration-150">Contact</a></li>
+            <li><a href="#"              class="text-muted text-sm hover:text-white transition-colors duration-150">Privacy Policy</a></li>
           </ul>
         </div>
 
@@ -474,12 +468,12 @@
         <div>
           <h2 class="font-display font-700 text-white text-sm uppercase tracking-widest mb-4">Areas We Serve</h2>
           <ul class="space-y-2.5">
-            <li><a href="/areas/city-one.html" class="text-slate-light text-sm hover:text-white transition-colors duration-150">[City]</a></li>
-            <li><a href="/areas/city-two.html" class="text-slate-light text-sm hover:text-white transition-colors duration-150">[City 2]</a></li>
-            <li><a href="/areas/city-three.html" class="text-slate-light text-sm hover:text-white transition-colors duration-150">[City 3]</a></li>
-            <li><a href="/areas/city-four.html" class="text-slate-light text-sm hover:text-white transition-colors duration-150">[City 4]</a></li>
-            <li><a href="/areas/city-five.html" class="text-slate-light text-sm hover:text-white transition-colors duration-150">[City 5]</a></li>
-            <li><a href="/areas/city-six.html" class="text-slate-light text-sm hover:text-white transition-colors duration-150">[City 6]</a></li>
+            <li><a href="/areas/city-one.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City]</a></li>
+            <li><a href="/areas/city-two.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City 2]</a></li>
+            <li><a href="/areas/city-three.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City 3]</a></li>
+            <li><a href="/areas/city-four.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City 4]</a></li>
+            <li><a href="/areas/city-five.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City 5]</a></li>
+            <li><a href="/areas/city-six.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City 6]</a></li>
           </ul>
         </div>
 
@@ -488,13 +482,13 @@
       <div class="divider mb-6"></div>
 
       <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
-        <p class="text-slate-light text-xs text-center sm:text-left">
+        <p class="text-muted text-xs text-center sm:text-left">
           © 2026 Your Business Name. All rights reserved. Serving [City] &amp; the [Region], TX.
         </p>
         <div class="flex items-center gap-4">
-          <a href="#" class="text-xs text-slate-light hover:text-white transition-colors duration-150">Privacy Policy</a>
+          <a href="#" class="text-xs text-muted hover:text-white transition-colors duration-150">Privacy Policy</a>
           <span style="color: rgba(255,255,255,0.20);">·</span>
-          <a href="#" class="text-xs text-slate-light hover:text-white transition-colors duration-150">Terms</a>
+          <a href="#" class="text-xs text-muted hover:text-white transition-colors duration-150">Terms</a>
         </div>
       </div>
     </div>

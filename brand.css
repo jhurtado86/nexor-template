@@ -30,19 +30,3 @@
   --color-dark-3-rgb:      54, 61, 78;
   --color-ink-rgb:         26, 29, 40;
 }
-
-/* DEPRECATED legacy aliases — new work uses --color-* only.
-   Remove this block once no --glass-* / --ember / --ink / --slate refs remain. */
-:root {
-  --glass-primary: var(--color-accent);
-  --glass-hover:   var(--color-accent-deep);
-  --glass-light:   var(--color-accent);
-  --glass-pale:    var(--color-line);
-  --glass-ultra:   var(--color-bg-2);
-  --ink:           var(--color-dark);
-  --ink-body:      var(--color-ink);
-  --ember:         var(--color-accent);
-  --ember-hover:   var(--color-accent-deep);
-  --slate:         var(--color-muted);
-  --slate-muted:   var(--color-muted-light);
-}

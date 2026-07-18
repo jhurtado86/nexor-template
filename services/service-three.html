@@ -46,12 +46,6 @@
             line:    'var(--color-line)',
             bg:      { DEFAULT: 'var(--color-bg)', 2: 'var(--color-bg-2)' },
             rating:  'var(--color-rating)',
-            /* DEPRECATED legacy aliases — new work uses --color-* only.
-               Remove this block once no --glass-* / --ember / --ink / --slate refs remain. */
-            glass:  { DEFAULT: 'var(--color-accent)', 400: 'var(--color-accent)', 300: 'var(--color-accent)', 200: 'var(--color-line)', 100: 'var(--color-bg-2)' },
-            steel:  { DEFAULT: 'var(--color-primary-mid)', 700: 'var(--color-primary-mid)', 600: 'var(--color-dark-3)' },
-            ember:  { DEFAULT: 'var(--color-accent)', 400: 'var(--color-accent-deep)', 300: 'var(--color-accent)' },
-            slate:  { light: 'var(--color-muted)', muted: 'var(--color-muted-light)' },
           },
           fontFamily: {
             display: ['Barlow', 'sans-serif'],
@@ -75,7 +69,7 @@
 
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Nunito', sans-serif; background: var(--color-bg); color: var(--ink-body); }
+    body { font-family: 'Nunito', sans-serif; background: var(--color-bg); color: var(--color-ink); }
     h1,h2,h3,h4 { font-family: 'Barlow', sans-serif; }
 
     /* ── Section backgrounds ── */
@@ -89,18 +83,18 @@
 
     /* ── Dark-section text overrides ── */
     .dark-section .text-white        { color: var(--color-bg) !important; }
-    .dark-section .text-slate-light  { color: var(--color-muted-light) !important; }
+    .dark-section .text-muted  { color: var(--color-muted-light) !important; }
     .dark-section .btn-outline       { color: var(--color-bg); border-color: rgba(255,255,255,0.28); }
     .dark-section .btn-outline:hover { border-color: rgba(255,255,255,0.60); background: rgba(255,255,255,0.06); }
     .dark-section .divider           { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent); }
-    .dark-section .section-title-accent { background: linear-gradient(90deg, transparent 0%, var(--ember) 25%, var(--ember) 75%, transparent 100%); }
+    .dark-section .section-title-accent { background: linear-gradient(90deg, transparent 0%, var(--color-accent) 25%, var(--color-accent) 75%, transparent 100%); }
 
     /* ── Light-section text overrides ── */
     .section-dark .text-white,
-    .section-mid  .text-white       { color: var(--ink-body); }
-    .section-dark .text-slate-light,
-    .section-mid  .text-slate-light { color: var(--color-muted); }
-    .hero-bg .text-slate-light      { color: var(--color-muted-light); }
+    .section-mid  .text-white       { color: var(--color-ink); }
+    .section-dark .text-muted,
+    .section-mid  .text-muted { color: var(--color-muted); }
+    .hero-bg .text-muted      { color: var(--color-muted-light); }
 
     /* ── Divider ── */
     .divider {
@@ -122,15 +116,15 @@
       letter-spacing: -0.02em; color: var(--color-bg); line-height: 1;
       transition: color 0.25s cubic-bezier(0.4,0,0.2,1);
     }
-    .nav-wordmark .plus { color: var(--ember); }
-    #navbar.scrolled .nav-wordmark { color: var(--ink-body); }
+    .nav-wordmark .plus { color: var(--color-accent); }
+    #navbar.scrolled .nav-wordmark { color: var(--color-ink); }
 
     .footer-wordmark {
       font-family: 'Barlow', sans-serif;
       font-weight: 800; font-size: 28px;
       letter-spacing: -0.02em; color: var(--color-bg); line-height: 1;
     }
-    .footer-wordmark .plus { color: var(--ember); }
+    .footer-wordmark .plus { color: var(--color-accent); }
 
     /* ── Nav ── */
     #navbar {
@@ -141,7 +135,7 @@
                   border-color 0.40s cubic-bezier(0.4,0,0.2,1),
                   box-shadow 0.40s cubic-bezier(0.4,0,0.2,1);
     }
-    #navbar .text-slate-light          { color: rgba(255,255,255,0.68) !important; }
+    #navbar .text-muted          { color: rgba(255,255,255,0.68) !important; }
     #navbar .hover\:text-white:hover   { color: rgba(255,255,255,1) !important; }
     #navbar #hamburger                 { color: rgba(255,255,255,0.80) !important; border-color: rgba(255,255,255,0.18) !important; }
     #mobile-menu                       { background: rgba(var(--color-dark-rgb), 0.96); backdrop-filter: blur(18px); }
@@ -155,19 +149,19 @@
       border-bottom-color: rgba(var(--color-dark-rgb), 0.07);
       box-shadow: 0 1px 24px rgba(0,0,0,0.06);
     }
-    #navbar.scrolled .text-slate-light         { color: var(--slate) !important; }
-    #navbar.scrolled .hover\:text-white:hover  { color: var(--ink-body) !important; }
-    #navbar.scrolled #hamburger                { color: var(--ink-body) !important; border-color: rgba(var(--color-dark-rgb), 0.16) !important; }
+    #navbar.scrolled .text-muted         { color: var(--color-muted) !important; }
+    #navbar.scrolled .hover\:text-white:hover  { color: var(--color-ink) !important; }
+    #navbar.scrolled #hamburger                { color: var(--color-ink) !important; border-color: rgba(var(--color-dark-rgb), 0.16) !important; }
     #navbar.scrolled #mobile-menu              { background: var(--color-bg); }
-    #navbar.scrolled #mobile-menu a.mobile-nav-link       { color: var(--slate) !important; }
-    #navbar.scrolled #mobile-menu a.mobile-nav-link:hover { color: var(--ink-body) !important; background: rgba(var(--color-dark-rgb), 0.04) !important; }
+    #navbar.scrolled #mobile-menu a.mobile-nav-link       { color: var(--color-muted) !important; }
+    #navbar.scrolled #mobile-menu a.mobile-nav-link:hover { color: var(--color-ink) !important; background: rgba(var(--color-dark-rgb), 0.04) !important; }
     #navbar.scrolled #mobile-menu { border-top-color: rgba(var(--color-dark-rgb), 0.08) !important; }
 
     /* ── Nav animated underline ── */
     .nav-link { position: relative; }
     .nav-link::after {
       content: ''; position: absolute; bottom: -2px; left: 0;
-      width: 0; height: 2px; background: var(--glass-primary);
+      width: 0; height: 2px; background: var(--color-accent);
       transition: width 0.25s cubic-bezier(0.4,0,0.2,1);
     }
     .nav-link:hover::after { width: 100%; }
@@ -207,9 +201,9 @@
       background: rgba(255,255,255,0.98); border-color: rgba(var(--color-dark-rgb), 0.08);
       box-shadow: 0 18px 48px rgba(var(--color-dark-rgb), 0.14), 0 2px 8px rgba(var(--color-dark-rgb), 0.06);
     }
-    #navbar.scrolled .nav-dropdown-menu a { color: var(--slate); }
-    #navbar.scrolled .nav-dropdown-menu a:hover { color: var(--ink-body); background: rgba(var(--color-dark-rgb), 0.04); }
-    #navbar.scrolled .nav-dropdown-menu a[aria-current="page"] { color: var(--ink-body); background: rgba(var(--color-accent-rgb), 0.12); }
+    #navbar.scrolled .nav-dropdown-menu a { color: var(--color-muted); }
+    #navbar.scrolled .nav-dropdown-menu a:hover { color: var(--color-ink); background: rgba(var(--color-dark-rgb), 0.04); }
+    #navbar.scrolled .nav-dropdown-menu a[aria-current="page"] { color: var(--color-ink); background: rgba(var(--color-accent-rgb), 0.12); }
 
     /* ── Services dropdown (mobile) ── */
     .mobile-services-toggle {
@@ -234,11 +228,11 @@
     }
     .mobile-services-submenu a:hover { color: var(--color-bg); background: rgba(255,255,255,0.06); }
     .mobile-services-submenu a[aria-current="page"] { color: var(--color-bg); font-weight: 700; }
-    #navbar.scrolled .mobile-services-toggle { color: var(--slate); }
-    #navbar.scrolled .mobile-services-toggle:hover { color: var(--ink-body); background: rgba(var(--color-dark-rgb), 0.04); }
+    #navbar.scrolled .mobile-services-toggle { color: var(--color-muted); }
+    #navbar.scrolled .mobile-services-toggle:hover { color: var(--color-ink); background: rgba(var(--color-dark-rgb), 0.04); }
     #navbar.scrolled .mobile-services-submenu { border-left-color: rgba(var(--color-dark-rgb), 0.10); }
-    #navbar.scrolled .mobile-services-submenu a { color: var(--slate); }
-    #navbar.scrolled .mobile-services-submenu a:hover { color: var(--ink-body); background: rgba(var(--color-dark-rgb), 0.04); }
+    #navbar.scrolled .mobile-services-submenu a { color: var(--color-muted); }
+    #navbar.scrolled .mobile-services-submenu a:hover { color: var(--color-ink); background: rgba(var(--color-dark-rgb), 0.04); }
 
     /* ── Hero — real photo background ── */
     .hero-bg { background: var(--color-dark); }
@@ -249,7 +243,7 @@
     .hero-bg .trust-badge {
       background: rgba(var(--color-accent-rgb), 0.12);
       border-color: rgba(var(--color-accent-rgb), 0.28);
-      color: var(--glass-pale);
+      color: var(--color-line);
     }
     .hero-bg .btn-outline { color: rgba(255,255,255,0.88); border-color: rgba(255,255,255,0.20); }
     .hero-bg .btn-outline:hover { border-color: rgba(var(--color-accent-rgb), 0.50); background: rgba(var(--color-dark-rgb), 0.14); transform: translateY(-2px); }
@@ -257,7 +251,7 @@
 
     /* ── Buttons ── */
     .btn-primary {
-      background: var(--ember); color: var(--color-bg);
+      background: var(--color-accent); color: var(--color-bg);
       font-weight: 700; border-radius: 8px; padding: 14px 28px; font-size: 15px;
       letter-spacing: 0.01em;
       box-shadow: 0 4px 18px rgba(var(--color-accent-rgb), 0.30);
@@ -266,12 +260,12 @@
                   background 0.18s cubic-bezier(0.4,0,0.2,1);
       display: inline-flex; align-items: center; gap: 8px;
     }
-    .btn-primary:hover  { background: var(--ember-hover); transform: translateY(-2px); box-shadow: 0 8px 26px rgba(var(--color-accent-rgb), 0.38); }
+    .btn-primary:hover  { background: var(--color-accent-deep); transform: translateY(-2px); box-shadow: 0 8px 26px rgba(var(--color-accent-rgb), 0.38); }
     .btn-primary:active { transform: translateY(0); box-shadow: 0 2px 10px rgba(var(--color-accent-rgb), 0.22); }
-    .btn-primary:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; }
+    .btn-primary:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
     .btn-outline {
-      background: transparent; color: var(--ink-body);
+      background: transparent; color: var(--color-ink);
       font-weight: 600; border: 1.5px solid rgba(var(--color-dark-rgb), 0.22);
       border-radius: 8px; padding: 13px 28px; font-size: 15px;
       transition: transform 0.18s cubic-bezier(0.4,0,0.2,1),
@@ -279,9 +273,9 @@
                   background 0.18s cubic-bezier(0.4,0,0.2,1);
       display: inline-flex; align-items: center; gap: 8px;
     }
-    .btn-outline:hover  { border-color: var(--glass-primary); background: rgba(var(--color-dark-rgb), 0.05); transform: translateY(-2px); }
+    .btn-outline:hover  { border-color: var(--color-accent); background: rgba(var(--color-dark-rgb), 0.05); transform: translateY(-2px); }
     .btn-outline:active { transform: translateY(0); }
-    .btn-outline:focus-visible { outline: 2px solid var(--glass-primary); outline-offset: 3px; }
+    .btn-outline:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
     /* ── Cards ── */
     .service-card {
@@ -296,7 +290,7 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 20px 48px rgba(var(--color-dark-rgb), 0.13), 0 0 0 1.5px rgba(var(--color-dark-rgb), 0.20);
       border-color: transparent;
     }
-    .service-card:focus-visible { outline: 2px solid var(--glass-primary); outline-offset: 3px; }
+    .service-card:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
 
     .feature-card {
       background: var(--color-bg); border: 1px solid rgba(var(--color-dark-rgb), 0.07); border-radius: 16px; padding: 28px 24px;
@@ -324,11 +318,11 @@
     .trust-badge {
       background: rgba(var(--color-dark-rgb), 0.07); border: 1px solid rgba(var(--color-dark-rgb), 0.15);
       border-radius: 100px; padding: 6px 14px; font-size: 13px; font-weight: 500;
-      color: var(--glass-primary); display: inline-flex; align-items: center; gap: 6px;
+      color: var(--color-accent); display: inline-flex; align-items: center; gap: 6px;
     }
     .section-title-accent {
       display: inline-block; width: 64px; height: 3px;
-      background: linear-gradient(90deg, transparent 0%, var(--ember) 25%, var(--ember) 75%, transparent 100%);
+      background: linear-gradient(90deg, transparent 0%, var(--color-accent) 25%, var(--color-accent) 75%, transparent 100%);
       border-radius: 2px; margin-bottom: 12px;
     }
     .icon-wrap {
@@ -348,11 +342,11 @@
     }
     .link-arrow {
       display: inline-flex; align-items: center; gap: 6px;
-      font-size: 14px; font-weight: 600; color: var(--glass-primary);
+      font-size: 14px; font-weight: 600; color: var(--color-accent);
       transition: color 0.18s cubic-bezier(0.4,0,0.2,1), gap 0.18s cubic-bezier(0.4,0,0.2,1);
     }
-    .link-arrow:hover { color: var(--glass-hover); gap: 10px; }
-    .link-arrow:focus-visible { outline: 2px solid var(--glass-primary); outline-offset: 2px; border-radius: 4px; }
+    .link-arrow:hover { color: var(--color-accent-deep); gap: 10px; }
+    .link-arrow:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 4px; }
 
     /* ── Area card ── */
     .area-card {
@@ -362,7 +356,7 @@
     }
     .area-dot {
       width: 8px; height: 8px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--glass-primary), var(--glass-hover));
+      background: linear-gradient(135deg, var(--color-accent), var(--color-accent-deep));
       box-shadow: 0 0 6px rgba(var(--color-dark-rgb), 0.40); flex-shrink: 0;
     }
 
@@ -400,7 +394,7 @@
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--color-bg-2); }
     ::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--glass-primary); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
 
     /* ── Breadcrumb ── */
     .breadcrumb { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; }
@@ -460,27 +454,27 @@
       border: 1px solid rgba(255,255,255,0.10);
       box-shadow: 0 1px 3px rgba(0,0,0,0.30), 0 20px 50px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.06);
     }
-    /* City name links (inline ink-body) → pale, legible on dark */
-    #service-area .area-card a[style*="ink-body"] { color: var(--color-line) !important; }
-    /* Descriptions + footer note (inline slate) → muted light */
-    #service-area .area-card [style*="--slate"] { color: var(--color-muted-light) !important; }
+    /* City name links (inline --color-ink) → pale, legible on dark */
+    #service-area .area-card a[style*="--color-ink)"] { color: var(--color-line) !important; }
+    /* Descriptions + footer note (inline --color-muted) → muted light */
+    #service-area .area-card [style*="--color-muted)"] { color: var(--color-muted-light) !important; }
     /* Footer divider hairline (inline navy border) → light */
     #service-area .area-card [style*="border-color"] { border-color: rgba(255,255,255,0.12) !important; }
     /* Navy "Primary" badge → translucent blue pill */
-    #service-area .area-card span[style*="glass-primary"] {
+    #service-area .area-card span[style*="--color-accent)"] {
       background: rgba(var(--color-accent-rgb), 0.18) !important; color: var(--color-muted-light) !important;
     }
-    /* Inline phone link (glass-primary) → ember accent */
-    #service-area .area-card a[style*="glass-primary"] { color: var(--ember) !important; }
+    /* Inline phone link (inline --color-accent) → accent */
+    #service-area .area-card a[style*="--color-accent)"] { color: var(--color-accent) !important; }
     /* link-arrow city links (class-based) → pale blue */
     #service-area .link-arrow { color: var(--color-muted-light) !important; }
     #service-area .link-arrow:hover { color: var(--color-line) !important; }
     /* Area dots brighter on dark */
     #service-area .area-dot {
-      background: linear-gradient(135deg, var(--glass-light), var(--glass-primary)) !important;
+      background: linear-gradient(135deg, var(--color-accent), var(--color-accent)) !important;
       box-shadow: 0 0 8px rgba(var(--color-accent-rgb), 0.55) !important;
     }
-    #insurance strong { color: var(--ember) !important; }
+    #insurance strong { color: var(--color-accent) !important; }
   </style>
 
   <!-- Service Structured Data -->
@@ -545,7 +539,7 @@
       <!-- Desktop Nav -->
       <div class="hidden md:flex items-center gap-7">
         <div class="nav-dropdown">
-          <a href="/#services" class="nav-link nav-dropdown-trigger text-sm font-medium text-slate-light hover:text-white transition-colors duration-150" aria-haspopup="true">
+          <a href="/#services" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150" aria-haspopup="true">
             Services
             <svg class="nav-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </a>
@@ -561,7 +555,7 @@
         <!-- SHARED ZONE: Areas We Serve dropdown — do NOT modify during
              city-page clone-and-localize pass. All city entries constant. -->
         <div class="nav-dropdown">
-          <a href="/#service-area" class="nav-link nav-dropdown-trigger text-sm font-medium text-slate-light hover:text-white transition-colors duration-150" aria-haspopup="true">
+          <a href="/#service-area" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150" aria-haspopup="true">
             Areas We Serve
             <svg class="nav-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </a>
@@ -575,10 +569,10 @@
           </div>
         </div>
         <!-- END SHARED ZONE: Areas We Serve dropdown -->
-        <a href="/#insurance"   class="nav-link text-sm font-medium text-slate-light hover:text-white transition-colors duration-150">Insurance</a>
-        <a href="/about.html" class="nav-link text-sm font-medium text-slate-light hover:text-white transition-colors duration-150">About</a>
-        <a href="/#reviews"     class="nav-link text-sm font-medium text-slate-light hover:text-white transition-colors duration-150">Reviews</a>
-        <a href="/#contact"     class="nav-link text-sm font-medium text-slate-light hover:text-white transition-colors duration-150">Contact</a>
+        <a href="/#insurance"   class="nav-link text-sm font-medium text-muted hover:text-white transition-colors duration-150">Insurance</a>
+        <a href="/about.html" class="nav-link text-sm font-medium text-muted hover:text-white transition-colors duration-150">About</a>
+        <a href="/#reviews"     class="nav-link text-sm font-medium text-muted hover:text-white transition-colors duration-150">Reviews</a>
+        <a href="/#contact"     class="nav-link text-sm font-medium text-muted hover:text-white transition-colors duration-150">Contact</a>
         <a href="tel:+15550000000" class="btn-primary text-sm py-2.5 px-5 phone-pulse ml-4">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.54 6.54l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           (555) 000-0000
@@ -688,12 +682,12 @@
         </div>
 
         <!-- Eyebrow -->
-        <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ember); margin-bottom: 20px; text-shadow: 0 1px 8px rgba(0,0,0,0.30);">Our Services — [City] &amp; [Region]</p>
+        <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 20px; text-shadow: 0 1px 8px rgba(0,0,0,0.30);">Our Services — [City] &amp; [Region]</p>
 
         <h1 class="font-display text-white mb-5" style="font-size: clamp(2.4rem, 6vw, 3.8rem); letter-spacing: -0.03em; line-height: 1.06; font-weight: 800; text-shadow: 0 2px 24px rgba(0,0,0,0.45);">
           Service Three<br />
           in [City] —<br />
-          <span style="color: var(--ember);">Done Right the First Time.</span>
+          <span style="color: var(--color-accent);">Done Right the First Time.</span>
         </h1>
 
         <p class="mb-8 max-w-xl" style="color: rgba(255,255,255,0.88); font-size: clamp(1rem, 2.2vw, 1.125rem); line-height: 1.72; text-shadow: 0 1px 8px rgba(0,0,0,0.35);">
@@ -716,24 +710,24 @@
         <div class="flex flex-wrap gap-8">
           <div>
             <div class="font-display font-700 text-2xl text-white" style="text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Top</div>
-            <div class="text-slate-light text-sm mt-0.5">Five-Star Reviews</div>
+            <div class="text-muted text-sm mt-0.5">Five-Star Reviews</div>
           </div>
           <div class="w-px" style="background: rgba(255,255,255,0.14);"></div>
           <div>
             <div class="font-display font-700 text-2xl text-white" style="text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Mobile</div>
-            <div class="text-slate-light text-sm mt-0.5">Service Available</div>
+            <div class="text-muted text-sm mt-0.5">Service Available</div>
           </div>
           <div class="w-px" style="background: rgba(255,255,255,0.14);"></div>
           <div>
             <div class="font-display font-700 text-2xl text-white" style="text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Free</div>
-            <div class="text-slate-light text-sm mt-0.5">Estimates</div>
+            <div class="text-muted text-sm mt-0.5">Estimates</div>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Accent bridge -->
-    <div class="absolute bottom-0 left-0 right-0 z-20" style="height: 4px; background: linear-gradient(90deg, transparent 0%, var(--ember) 18%, var(--ember) 82%, transparent 100%); opacity: 0.90;"></div>
+    <div class="absolute bottom-0 left-0 right-0 z-20" style="height: 4px; background: linear-gradient(90deg, transparent 0%, var(--color-accent) 18%, var(--color-accent) 82%, transparent 100%); opacity: 0.90;"></div>
   </section>
 
   <!-- ============================================================
@@ -753,13 +747,13 @@
             <h2 class="font-display text-4xl lg:text-[2.75rem] font-700 text-white mb-6" style="letter-spacing: -0.03em; line-height: 1.1;">
               What Our Service Three Covers in [City]
             </h2>
-            <p class="text-slate-light text-lg mb-5" style="line-height: 1.7;">
+            <p class="text-muted text-lg mb-5" style="line-height: 1.7;">
               This is placeholder copy for Service Three. Describe the problem this service solves for the customer, what's included, and why it matters. Keep it direct and helpful — the way you'd explain it to a neighbor.
             </p>
-            <p class="text-slate-light text-lg mb-5" style="line-height: 1.7;">
+            <p class="text-muted text-lg mb-5" style="line-height: 1.7;">
               Our team handles Service Three across [City] and the surrounding [Region] every day. We come to you, get the job done on schedule, and give you a clear quote before any work starts — so there are no surprises.
             </p>
-            <p class="text-slate-light text-lg" style="line-height: 1.7;">
+            <p class="text-muted text-lg" style="line-height: 1.7;">
               Every home and every job is a little different. Tell us what you're dealing with and we'll walk you through your options honestly, recommend only what you actually need, and stand behind the result.
             </p>
           </div>
@@ -767,23 +761,23 @@
           <!-- Right: quick guide -->
           <div class="fade-up" style="transition-delay: 0.1s;">
             <div class="area-card">
-              <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ember); margin-bottom: 16px;">Service Three — Quick Guide</p>
+              <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 16px;">Service Three — Quick Guide</p>
               <h3 class="font-display font-700 text-white text-base mb-4">It might be time to call if:</h3>
               <ul class="space-y-3 mb-6">
                 <li class="flex items-start gap-2.5 text-sm" style="color: var(--color-muted); line-height: 1.65;">
-                  <svg class="mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  <svg class="mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                   You've noticed the first warning signs
                 </li>
                 <li class="flex items-start gap-2.5 text-sm" style="color: var(--color-muted); line-height: 1.65;">
-                  <svg class="mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  <svg class="mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                   A quick fix hasn't held up
                 </li>
                 <li class="flex items-start gap-2.5 text-sm" style="color: var(--color-muted); line-height: 1.65;">
-                  <svg class="mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  <svg class="mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                   You want it handled right the first time
                 </li>
                 <li class="flex items-start gap-2.5 text-sm" style="color: var(--color-muted); line-height: 1.65;">
-                  <svg class="mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  <svg class="mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                   You'd rather not put it off any longer
                 </li>
               </ul>
@@ -810,7 +804,7 @@
           <h2 class="font-display text-4xl lg:text-5xl font-700 text-white mb-4" style="letter-spacing: -0.03em;">
             What's Included with Every Service Three
           </h2>
-          <p class="text-slate-light text-lg max-w-2xl mx-auto" style="line-height: 1.7;">
+          <p class="text-muted text-lg max-w-2xl mx-auto" style="line-height: 1.7;">
             No shortcuts, no missing pieces. Every Service Three job covers the same complete process — whether you're in [City], [City 2], [City 3], or anywhere in the [Region].
           </p>
         </div>
@@ -819,50 +813,50 @@
 
           <div class="feature-card fade-up">
             <div class="icon-wrap">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             </div>
             <h3 class="font-display font-700 text-white text-lg mb-2">Upfront, Honest Quote</h3>
-            <p class="text-slate-light text-sm" style="line-height: 1.7;">A clear price before any work begins — what we quote is what you pay. No hidden fees, no surprises at the end.</p>
+            <p class="text-muted text-sm" style="line-height: 1.7;">A clear price before any work begins — what we quote is what you pay. No hidden fees, no surprises at the end.</p>
           </div>
 
           <div class="feature-card fade-up" style="transition-delay: 0.05s;">
             <div class="icon-wrap">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
             <h3 class="font-display font-700 text-white text-lg mb-2">Quality Materials</h3>
-            <p class="text-slate-light text-sm" style="line-height: 1.7;">We use materials chosen to last — matched to the job and built to hold up to everyday wear in the [Region].</p>
+            <p class="text-muted text-sm" style="line-height: 1.7;">We use materials chosen to last — matched to the job and built to hold up to everyday wear in the [Region].</p>
           </div>
 
           <div class="feature-card fade-up" style="transition-delay: 0.10s;">
             <div class="icon-wrap">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2" stroke-linecap="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
             </div>
             <h3 class="font-display font-700 text-white text-lg mb-2">Experienced Team</h3>
-            <p class="text-slate-light text-sm" style="line-height: 1.7;">The people who do the work know it inside out. You get a professional who explains each step and answers your questions.</p>
+            <p class="text-muted text-sm" style="line-height: 1.7;">The people who do the work know it inside out. You get a professional who explains each step and answers your questions.</p>
           </div>
 
           <div class="feature-card fade-up" style="transition-delay: 0.15s;">
             <div class="icon-wrap">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
             <h3 class="font-display font-700 text-white text-lg mb-2">Clean Job, Start to Finish</h3>
-            <p class="text-slate-light text-sm" style="line-height: 1.7;">No mess left behind. We protect your space, tidy up completely, and leave it better than we found it.</p>
+            <p class="text-muted text-sm" style="line-height: 1.7;">No mess left behind. We protect your space, tidy up completely, and leave it better than we found it.</p>
           </div>
 
           <div class="feature-card fade-up" style="transition-delay: 0.20s;">
             <div class="icon-wrap">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
             <h3 class="font-display font-700 text-white text-lg mb-2">On-Time Service</h3>
-            <p class="text-slate-light text-sm" style="line-height: 1.7;">We show up when we say we will. Same-day and next-day appointments are available across [City] and the [Region].</p>
+            <p class="text-muted text-sm" style="line-height: 1.7;">We show up when we say we will. Same-day and next-day appointments are available across [City] and the [Region].</p>
           </div>
 
           <div class="feature-card fade-up" style="transition-delay: 0.25s;">
             <div class="icon-wrap" style="background: rgba(var(--color-accent-rgb), 0.14); border-color: rgba(var(--color-accent-rgb), 0.28);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
             </div>
             <h3 class="font-display font-700 text-white text-lg mb-2">Satisfaction Guarantee</h3>
-            <p class="text-slate-light text-sm" style="line-height: 1.7;">If something isn't right, we come back and make it right. Our work is backed by a satisfaction guarantee.</p>
+            <p class="text-muted text-sm" style="line-height: 1.7;">If something isn't right, we come back and make it right. Our work is backed by a satisfaction guarantee.</p>
           </div>
 
         </div>
@@ -878,15 +872,15 @@
           <h2 class="font-display text-4xl lg:text-5xl font-700 text-white mb-4" style="letter-spacing: -0.03em;">
             Straightforward Pricing,<br />No Surprises
           </h2>
-          <p class="text-slate-light text-lg max-w-2xl mx-auto" style="line-height: 1.7;">
-            You get a clear, <strong style="color: var(--ink-body);">upfront quote</strong> before we start — and that's what you pay. Our team makes the whole process simple, from the first call to the final walkthrough.
+          <p class="text-muted text-lg max-w-2xl mx-auto" style="line-height: 1.7;">
+            You get a clear, <strong style="color: var(--color-ink);">upfront quote</strong> before we start — and that's what you pay. Our team makes the whole process simple, from the first call to the final walkthrough.
           </p>
         </div>
 
         <div class="fade-up" style="transition-delay: 0.06s;">
           <div class="area-card mb-10">
             <div class="text-center mb-5">
-              <span class="text-xs font-700 uppercase tracking-widest" style="color: var(--glass-primary); font-family: 'Barlow', sans-serif;">What Every Job Includes</span>
+              <span class="text-xs font-700 uppercase tracking-widest" style="color: var(--color-accent); font-family: 'Barlow', sans-serif;">What Every Job Includes</span>
             </div>
             <div class="flex flex-wrap justify-center gap-3">
               <span class="insurer-pill">Upfront Quote</span>
@@ -898,24 +892,24 @@
               <span class="insurer-pill">Clean Workmanship</span>
               <span class="insurer-pill">Friendly Team</span>
             </div>
-            <p class="text-center mt-5 text-sm" style="color: var(--slate);">Have a question about pricing? Call us — we're happy to give you a free estimate.</p>
+            <p class="text-center mt-5 text-sm" style="color: var(--color-muted);">Have a question about pricing? Call us — we're happy to give you a free estimate.</p>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div class="text-center">
-              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-display font-800 text-xl mx-auto mb-4" style="background: var(--glass-primary); font-family: 'Barlow', sans-serif;">1</div>
+              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-display font-800 text-xl mx-auto mb-4" style="background: var(--color-accent); font-family: 'Barlow', sans-serif;">1</div>
               <h3 class="font-display font-700 text-white text-base mb-2">Call or Book Online</h3>
-              <p class="text-sm text-slate-light" style="line-height: 1.65;">Tell us what you need and where you are. We'll answer your questions and get you a quote — usually in just a few minutes.</p>
+              <p class="text-sm text-muted" style="line-height: 1.65;">Tell us what you need and where you are. We'll answer your questions and get you a quote — usually in just a few minutes.</p>
             </div>
             <div class="text-center">
-              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-display font-800 text-xl mx-auto mb-4" style="background: var(--glass-primary); font-family: 'Barlow', sans-serif;">2</div>
+              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-display font-800 text-xl mx-auto mb-4" style="background: var(--color-accent); font-family: 'Barlow', sans-serif;">2</div>
               <h3 class="font-display font-700 text-white text-base mb-2">We Confirm &amp; Schedule</h3>
-              <p class="text-sm text-slate-light" style="line-height: 1.65;">We lock in a time that works for you — often same-day — and arrive ready to handle your Service Three from start to finish.</p>
+              <p class="text-sm text-muted" style="line-height: 1.65;">We lock in a time that works for you — often same-day — and arrive ready to handle your Service Three from start to finish.</p>
             </div>
             <div class="text-center">
-              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-display font-800 text-xl mx-auto mb-4" style="background: var(--glass-primary); font-family: 'Barlow', sans-serif;">3</div>
+              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-display font-800 text-xl mx-auto mb-4" style="background: var(--color-accent); font-family: 'Barlow', sans-serif;">3</div>
               <h3 class="font-display font-700 text-white text-base mb-2">Job Done, Done Right</h3>
-              <p class="text-sm text-slate-light" style="line-height: 1.65;">We finish the work, clean up, and walk you through it. Most customers are surprised how easy we made it.</p>
+              <p class="text-sm text-muted" style="line-height: 1.65;">We finish the work, clean up, and walk you through it. Most customers are surprised how easy we made it.</p>
             </div>
           </div>
         </div>
@@ -931,9 +925,9 @@
           <div class="fade-up">
             <div class="section-title-accent mb-3"></div>
             <h2 class="font-display text-4xl lg:text-[2.75rem] font-700 text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.1;">
-              Why [City] Chooses<br />Your Business Name<br /><span style="color: var(--ember);">for Service Three</span>
+              Why [City] Chooses<br />Your Business Name<br /><span style="color: var(--color-accent);">for Service Three</span>
             </h2>
-            <p class="text-slate-light text-lg mb-6" style="line-height: 1.7;">
+            <p class="text-muted text-lg mb-6" style="line-height: 1.7;">
               Our team does every Service Three the same way — quality work, a clean job site, and an honest price. Customers across [City], [City 2], and [City 3] send their family and friends our way because the work holds up and we explain every step.
             </p>
             <a href="tel:+15550000000" class="btn-primary">
@@ -946,34 +940,34 @@
 
             <div class="feature-card">
               <div class="icon-wrap">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
               </div>
               <h3 class="font-display font-700 text-white text-lg mb-2">Flawless Workmanship</h3>
-              <p class="text-slate-light text-sm" style="line-height: 1.7;">Careful, precise work every time — our team treats your home like their own and leaves it looking great.</p>
+              <p class="text-muted text-sm" style="line-height: 1.7;">Careful, precise work every time — our team treats your home like their own and leaves it looking great.</p>
             </div>
 
             <div class="feature-card">
               <div class="icon-wrap">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2.2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
               </div>
               <h3 class="font-display font-700 text-white text-lg mb-2">Honest, Transparent Pricing</h3>
-              <p class="text-slate-light text-sm" style="line-height: 1.7;">Clear quote upfront. No hidden fees, no surprise charges when the job is done.</p>
+              <p class="text-muted text-sm" style="line-height: 1.7;">Clear quote upfront. No hidden fees, no surprise charges when the job is done.</p>
             </div>
 
             <div class="feature-card">
               <div class="icon-wrap">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
               </div>
               <h3 class="font-display font-700 text-white text-lg mb-2">Mobile Service Available</h3>
-              <p class="text-slate-light text-sm" style="line-height: 1.7;">We come to your home or workplace across [City], [City 4], [City 5], and the rest of the [Region].</p>
+              <p class="text-muted text-sm" style="line-height: 1.7;">We come to your home or workplace across [City], [City 4], [City 5], and the rest of the [Region].</p>
             </div>
 
             <div class="feature-card">
               <div class="icon-wrap">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               </div>
               <h3 class="font-display font-700 text-white text-lg mb-2">Five-Star Reviews</h3>
-              <p class="text-slate-light text-sm" style="line-height: 1.7;">Local homeowners recommend us by name — check our reviews to see what they say about the work.</p>
+              <p class="text-muted text-sm" style="line-height: 1.7;">Local homeowners recommend us by name — check our reviews to see what they say about the work.</p>
             </div>
 
           </div>
@@ -990,7 +984,7 @@
           <h2 class="font-display text-4xl lg:text-5xl font-700 text-white mb-4" style="letter-spacing: -0.03em;">
             How Service Three Works at Your Business Name
           </h2>
-          <p class="text-slate-light text-lg max-w-xl mx-auto" style="line-height: 1.7;">
+          <p class="text-muted text-lg max-w-xl mx-auto" style="line-height: 1.7;">
             From your first call to the final walkthrough — here's exactly what to expect when you book Service Three in [City] or anywhere in the [Region].
           </p>
         </div>
@@ -999,33 +993,33 @@
 
           <div class="relative">
             <div class="feature-card h-full">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-display font-800 text-lg mb-4 flex-shrink-0" style="background: var(--glass-primary); font-family: 'Barlow', sans-serif;">1</div>
+              <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-display font-800 text-lg mb-4 flex-shrink-0" style="background: var(--color-accent); font-family: 'Barlow', sans-serif;">1</div>
               <h3 class="font-display font-700 text-white text-lg mb-2">Call or Book</h3>
-              <p class="text-slate-light text-sm" style="line-height: 1.7;">Call (555) 000-0000 or fill out the quote form. Tell us what you need and where you are. Takes about two minutes.</p>
+              <p class="text-muted text-sm" style="line-height: 1.7;">Call (555) 000-0000 or fill out the quote form. Tell us what you need and where you are. Takes about two minutes.</p>
             </div>
           </div>
 
           <div class="relative">
             <div class="feature-card h-full">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-display font-800 text-lg mb-4 flex-shrink-0" style="background: var(--glass-primary); font-family: 'Barlow', sans-serif;">2</div>
+              <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-display font-800 text-lg mb-4 flex-shrink-0" style="background: var(--color-accent); font-family: 'Barlow', sans-serif;">2</div>
               <h3 class="font-display font-700 text-white text-lg mb-2">We Confirm &amp; Schedule</h3>
-              <p class="text-slate-light text-sm" style="line-height: 1.7;">We confirm the details, give you a clear quote, and lock in a same-day or next-day appointment at your location.</p>
+              <p class="text-muted text-sm" style="line-height: 1.7;">We confirm the details, give you a clear quote, and lock in a same-day or next-day appointment at your location.</p>
             </div>
           </div>
 
           <div class="relative">
             <div class="feature-card h-full">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-display font-800 text-lg mb-4 flex-shrink-0" style="background: var(--glass-primary); font-family: 'Barlow', sans-serif;">3</div>
+              <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-display font-800 text-lg mb-4 flex-shrink-0" style="background: var(--color-accent); font-family: 'Barlow', sans-serif;">3</div>
               <h3 class="font-display font-700 text-white text-lg mb-2">Service Day</h3>
-              <p class="text-slate-light text-sm" style="line-height: 1.7;">Our team arrives on time, protects your space, and handles your Service Three with care. Most jobs are done quickly.</p>
+              <p class="text-muted text-sm" style="line-height: 1.7;">Our team arrives on time, protects your space, and handles your Service Three with care. Most jobs are done quickly.</p>
             </div>
           </div>
 
           <div class="relative">
             <div class="feature-card h-full" style="border-color: rgba(var(--color-accent-rgb), 0.20);">
-              <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-display font-800 text-lg mb-4 flex-shrink-0" style="background: var(--ember); font-family: 'Barlow', sans-serif;">4</div>
+              <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-display font-800 text-lg mb-4 flex-shrink-0" style="background: var(--color-accent); font-family: 'Barlow', sans-serif;">4</div>
               <h3 class="font-display font-700 text-white text-lg mb-2">All Done</h3>
-              <p class="text-slate-light text-sm" style="line-height: 1.7;">We walk you through the finished work, clean up completely, and make sure you're happy before we leave.</p>
+              <p class="text-muted text-sm" style="line-height: 1.7;">We walk you through the finished work, clean up completely, and make sure you're happy before we leave.</p>
             </div>
           </div>
 
@@ -1042,7 +1036,7 @@
           <h2 class="font-display text-4xl lg:text-5xl font-700 text-white mb-4" style="letter-spacing: -0.03em;">
             Service Three Across [City] &amp; the [Region]
           </h2>
-          <p class="text-slate-light text-lg max-w-xl mx-auto" style="line-height: 1.7;">
+          <p class="text-muted text-lg max-w-xl mx-auto" style="line-height: 1.7;">
             Your Business Name is based in [City] and dispatches mobile service across the [Region]. We come to you — wherever you are in the area.
           </p>
         </div>
@@ -1054,57 +1048,57 @@
               <div class="area-dot mt-1"></div>
               <div>
                 <div class="flex items-center gap-2 mb-1">
-                  <a href="/areas/city-one.html" class="text-sm font-semibold hover:underline" style="color: var(--ink-body);">[City]</a>
-                  <span class="text-xs px-2 py-0.5 rounded-full font-semibold" style="background: rgba(var(--color-accent-rgb), 0.10); color: var(--glass-primary);">Primary</span>
+                  <a href="/areas/city-one.html" class="text-sm font-semibold hover:underline" style="color: var(--color-ink);">[City]</a>
+                  <span class="text-xs px-2 py-0.5 rounded-full font-semibold" style="background: rgba(var(--color-accent-rgb), 0.10); color: var(--color-accent);">Primary</span>
                 </div>
-                <p class="text-xs" style="color: var(--slate); line-height: 1.6;">Our home base. Same-day Service Three throughout [City] and the surrounding neighborhoods.</p>
+                <p class="text-xs" style="color: var(--color-muted); line-height: 1.6;">Our home base. Same-day Service Three throughout [City] and the surrounding neighborhoods.</p>
               </div>
             </div>
 
             <div class="flex items-start gap-3">
               <div class="area-dot mt-1"></div>
               <div>
-                <a href="/areas/city-two.html" class="text-sm font-semibold hover:underline block mb-1" style="color: var(--ink-body);">[City 2]</a>
-                <p class="text-xs" style="color: var(--slate); line-height: 1.6;">Mobile Service Three to [City 2] homes and businesses — a quick dispatch from [City].</p>
+                <a href="/areas/city-two.html" class="text-sm font-semibold hover:underline block mb-1" style="color: var(--color-ink);">[City 2]</a>
+                <p class="text-xs" style="color: var(--color-muted); line-height: 1.6;">Mobile Service Three to [City 2] homes and businesses — a quick dispatch from [City].</p>
               </div>
             </div>
 
             <div class="flex items-start gap-3">
               <div class="area-dot mt-1"></div>
               <div>
-                <a href="/areas/city-three.html" class="text-sm font-semibold hover:underline block mb-1" style="color: var(--ink-body);">[City 3]</a>
-                <p class="text-xs" style="color: var(--slate); line-height: 1.6;">Serving [City 3] with the same care and same-day availability as everywhere else.</p>
+                <a href="/areas/city-three.html" class="text-sm font-semibold hover:underline block mb-1" style="color: var(--color-ink);">[City 3]</a>
+                <p class="text-xs" style="color: var(--color-muted); line-height: 1.6;">Serving [City 3] with the same care and same-day availability as everywhere else.</p>
               </div>
             </div>
 
             <div class="flex items-start gap-3">
               <div class="area-dot mt-1"></div>
               <div>
-                <a href="/areas/city-four.html" class="text-sm font-semibold hover:underline block mb-1" style="color: var(--ink-body);">[City 4]</a>
-                <p class="text-xs" style="color: var(--slate); line-height: 1.6;">[City 4] and [City 5] are right next door — we often cover both in a single run.</p>
+                <a href="/areas/city-four.html" class="text-sm font-semibold hover:underline block mb-1" style="color: var(--color-ink);">[City 4]</a>
+                <p class="text-xs" style="color: var(--color-muted); line-height: 1.6;">[City 4] and [City 5] are right next door — we often cover both in a single run.</p>
               </div>
             </div>
 
             <div class="flex items-start gap-3">
               <div class="area-dot mt-1"></div>
               <div>
-                <a href="/areas/city-five.html" class="text-sm font-semibold hover:underline block mb-1" style="color: var(--ink-body);">[City 5]</a>
-                <p class="text-xs" style="color: var(--slate); line-height: 1.6;">Mobile Service Three in [City 5] — call ahead to confirm same-day availability.</p>
+                <a href="/areas/city-five.html" class="text-sm font-semibold hover:underline block mb-1" style="color: var(--color-ink);">[City 5]</a>
+                <p class="text-xs" style="color: var(--color-muted); line-height: 1.6;">Mobile Service Three in [City 5] — call ahead to confirm same-day availability.</p>
               </div>
             </div>
 
             <div class="flex items-start gap-3">
               <div class="area-dot mt-1"></div>
               <div>
-                <a href="/areas/city-six.html" class="text-sm font-semibold hover:underline block mb-1" style="color: var(--ink-body);">[City 6]</a>
-                <p class="text-xs" style="color: var(--slate); line-height: 1.6;">The same mobile service available to [City 6] residents as everywhere else across the [Region].</p>
+                <a href="/areas/city-six.html" class="text-sm font-semibold hover:underline block mb-1" style="color: var(--color-ink);">[City 6]</a>
+                <p class="text-xs" style="color: var(--color-muted); line-height: 1.6;">The same mobile service available to [City 6] residents as everywhere else across the [Region].</p>
               </div>
             </div>
 
           </div>
-          <p class="text-sm mt-6 pt-5 border-t" style="border-color: rgba(var(--color-accent-rgb), 0.12); color: var(--slate);">
+          <p class="text-sm mt-6 pt-5 border-t" style="border-color: rgba(var(--color-accent-rgb), 0.12); color: var(--color-muted);">
             Not sure if we cover your area?
-            <a href="tel:+15550000000" class="font-semibold hover:underline" style="color: var(--glass-primary);">Call us — (555) 000-0000</a>. If you're in the [Region], we most likely do.
+            <a href="tel:+15550000000" class="font-semibold hover:underline" style="color: var(--color-accent);">Call us — (555) 000-0000</a>. If you're in the [Region], we most likely do.
           </p>
         </div>
       </div>
@@ -1124,51 +1118,51 @@
         <div class="space-y-4 fade-up" style="transition-delay: 0.06s;">
 
           <details class="rounded-2xl border overflow-hidden" style="border-color: rgba(var(--color-dark-rgb), 0.09); background: var(--color-bg);" open>
-            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--ink-body);">
+            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--color-ink);">
               How long does Service Three take?
-              <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="px-7 pb-6 text-sm" style="color: var(--slate); line-height: 1.75; border-top: 1px solid rgba(var(--color-dark-rgb), 0.06);">
+            <div class="px-7 pb-6 text-sm" style="color: var(--color-muted); line-height: 1.75; border-top: 1px solid rgba(var(--color-dark-rgb), 0.06);">
               <div class="pt-4">Placeholder answer. Set expectations on timing for Service Three — most jobs are completed quickly, and our team will give you a clear timeframe when you book so you can plan your day.</div>
             </div>
           </details>
 
           <details class="rounded-2xl border overflow-hidden" style="border-color: rgba(var(--color-dark-rgb), 0.09); background: var(--color-bg);">
-            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--ink-body);">
+            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--color-ink);">
               How much does Service Three cost in [City]?
-              <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="px-7 pb-6 text-sm" style="color: var(--slate); line-height: 1.75; border-top: 1px solid rgba(var(--color-dark-rgb), 0.06);">
+            <div class="px-7 pb-6 text-sm" style="color: var(--color-muted); line-height: 1.75; border-top: 1px solid rgba(var(--color-dark-rgb), 0.06);">
               <div class="pt-4">Placeholder answer. Every job is a little different, so we give you a free, upfront quote before any work starts — no hidden fees and no surprises. Call us with the details and we'll walk you through it.</div>
             </div>
           </details>
 
           <details class="rounded-2xl border overflow-hidden" style="border-color: rgba(var(--color-dark-rgb), 0.09); background: var(--color-bg);">
-            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--ink-body);">
+            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--color-ink);">
               Can you come to my home or office?
-              <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="px-7 pb-6 text-sm" style="color: var(--slate); line-height: 1.75; border-top: 1px solid rgba(var(--color-dark-rgb), 0.06);">
+            <div class="px-7 pb-6 text-sm" style="color: var(--color-muted); line-height: 1.75; border-top: 1px solid rgba(var(--color-dark-rgb), 0.06);">
               <div class="pt-4">Yes — mobile service is one of the most popular options. Our team brings everything to your home or workplace across [City], [City 2], [City 3], [City 4], [City 5], and [City 6]. You don't have to rearrange your day.</div>
             </div>
           </details>
 
           <details class="rounded-2xl border overflow-hidden" style="border-color: rgba(var(--color-dark-rgb), 0.09); background: var(--color-bg);">
-            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--ink-body);">
+            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--color-ink);">
               Do you offer a guarantee on Service Three?
-              <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="px-7 pb-6 text-sm" style="color: var(--slate); line-height: 1.75; border-top: 1px solid rgba(var(--color-dark-rgb), 0.06);">
+            <div class="px-7 pb-6 text-sm" style="color: var(--color-muted); line-height: 1.75; border-top: 1px solid rgba(var(--color-dark-rgb), 0.06);">
               <div class="pt-4">Placeholder answer. Our work is backed by a satisfaction guarantee — if something isn't right, we'll come back and make it right. Describe your specific guarantee or warranty terms here.</div>
             </div>
           </details>
 
           <details class="rounded-2xl border overflow-hidden" style="border-color: rgba(var(--color-dark-rgb), 0.09); background: var(--color-bg);">
-            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--ink-body);">
+            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--color-ink);">
               How soon can you get to me?
-              <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="px-7 pb-6 text-sm" style="color: var(--slate); line-height: 1.75; border-top: 1px solid rgba(var(--color-dark-rgb), 0.06);">
+            <div class="px-7 pb-6 text-sm" style="color: var(--color-muted); line-height: 1.75; border-top: 1px solid rgba(var(--color-dark-rgb), 0.06);">
               <div class="pt-4">Placeholder answer. Same-day and next-day appointments are often available across [City] and the [Region]. Call us and we'll find the soonest time that works for you.</div>
             </div>
           </details>
@@ -1186,7 +1180,7 @@
           <h2 class="font-display text-3xl lg:text-4xl font-700 text-white mb-3" style="letter-spacing: -0.03em;">
             Other Services at Your Business Name
           </h2>
-          <p class="text-slate-light text-base max-w-xl mx-auto" style="line-height: 1.7;">
+          <p class="text-muted text-base max-w-xl mx-auto" style="line-height: 1.7;">
             Service Three not the only thing on your list? Our team handles every job at the same standard.
           </p>
         </div>
@@ -1195,56 +1189,56 @@
 
           <a href="/services/service-two.html" class="service-card block">
             <div class="icon-wrap">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2" stroke-linecap="round"><path d="M3 17L7 7h10l4 10H3z"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"><path d="M3 17L7 7h10l4 10H3z"/></svg>
             </div>
             <h3 class="font-display font-700 text-white text-xl mb-2">Service Two</h3>
-            <p class="text-slate-light text-sm" style="line-height: 1.7;">Short, benefit-led description of Service Two goes here — what it is and who it's for.</p>
+            <p class="text-muted text-sm" style="line-height: 1.7;">Short, benefit-led description of Service Two goes here — what it is and who it's for.</p>
             <span class="link-arrow mt-5">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
           </a>
 
           <a href="/services/service-three.html" class="service-card block">
             <div class="icon-wrap">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/></svg>
             </div>
             <h3 class="font-display font-700 text-white text-xl mb-2">Service Three</h3>
-            <p class="text-slate-light text-sm" style="line-height: 1.7;">Short, benefit-led description of Service Three goes here — what it is and who it's for.</p>
+            <p class="text-muted text-sm" style="line-height: 1.7;">Short, benefit-led description of Service Three goes here — what it is and who it's for.</p>
             <span class="link-arrow mt-5">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
           </a>
 
           <a href="/services/service-four.html" class="service-card block">
             <div class="icon-wrap">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
             <h3 class="font-display font-700 text-white text-xl mb-2">Service Four</h3>
-            <p class="text-slate-light text-sm" style="line-height: 1.7;">Short, benefit-led description of Service Four goes here — what it is and who it's for.</p>
+            <p class="text-muted text-sm" style="line-height: 1.7;">Short, benefit-led description of Service Four goes here — what it is and who it's for.</p>
             <span class="link-arrow mt-5">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
           </a>
 
           <a href="/services/service-five.html" class="service-card block">
             <div class="icon-wrap">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
             </div>
             <h3 class="font-display font-700 text-white text-xl mb-2">Service Five</h3>
-            <p class="text-slate-light text-sm" style="line-height: 1.7;">Short, benefit-led description of Service Five goes here — what it is and who it's for.</p>
+            <p class="text-muted text-sm" style="line-height: 1.7;">Short, benefit-led description of Service Five goes here — what it is and who it's for.</p>
             <span class="link-arrow mt-5">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
           </a>
 
           <a href="/services/service-six.html" class="service-card block">
             <div class="icon-wrap">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2" stroke-linecap="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/></svg>
             </div>
             <h3 class="font-display font-700 text-white text-xl mb-2">Service Six</h3>
-            <p class="text-slate-light text-sm" style="line-height: 1.7;">Short, benefit-led description of Service Six goes here — what it is and who it's for.</p>
+            <p class="text-muted text-sm" style="line-height: 1.7;">Short, benefit-led description of Service Six goes here — what it is and who it's for.</p>
             <span class="link-arrow mt-5">Learn more <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>
           </a>
 
           <div class="service-card flex flex-col justify-between" style="background: linear-gradient(135deg, rgba(var(--color-accent-rgb), 0.06) 0%, rgba(var(--color-accent-rgb), 0.02) 100%);">
             <div>
               <div class="icon-wrap">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--glass-primary)" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.54 6.54l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.54 6.54l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               </div>
               <h3 class="font-display font-700 text-white text-xl mb-2">Not Sure What You Need?</h3>
-              <p class="text-slate-light text-sm mb-4" style="line-height: 1.7;">Tell us what's going on and we'll point you in the right direction. Free estimates, no pressure.</p>
+              <p class="text-muted text-sm mb-4" style="line-height: 1.7;">Tell us what's going on and we'll point you in the right direction. Free estimates, no pressure.</p>
             </div>
             <a href="tel:+15550000000" class="link-arrow">Call for pricing <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></a>
           </div>
@@ -1268,9 +1262,9 @@
       <div class="relative z-10 max-w-3xl mx-auto px-5 text-center fade-up">
         <div class="flex justify-center mb-3"><div class="section-title-accent"></div></div>
         <h2 class="font-display text-4xl lg:text-5xl font-800 text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.1;">
-          Ready for Service Three<br />in [City]?<br /><span style="color: var(--ember);">Call Your Business Name Today.</span>
+          Ready for Service Three<br />in [City]?<br /><span style="color: var(--color-accent);">Call Your Business Name Today.</span>
         </h2>
-        <p class="text-slate-light text-lg mb-10 max-w-xl mx-auto" style="line-height: 1.7;">
+        <p class="text-muted text-lg mb-10 max-w-xl mx-auto" style="line-height: 1.7;">
           Same-day service, quality work, and a free estimate on every job. Our team covers all of [City] and the [Region] — call now or fill out the quote form and we'll be in touch right away.
         </p>
         <div class="flex flex-wrap gap-4 justify-center mb-10">
@@ -1284,23 +1278,23 @@
           </a>
         </div>
         <div class="flex flex-wrap items-center justify-center gap-5">
-          <span class="flex items-center gap-1.5 text-slate-light text-sm">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--glass-light)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span class="flex items-center gap-1.5 text-muted text-sm">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             Free estimates
           </span>
           <span style="color: rgba(255,255,255,0.20);">·</span>
-          <span class="flex items-center gap-1.5 text-slate-light text-sm">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--glass-light)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span class="flex items-center gap-1.5 text-muted text-sm">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             Quality workmanship
           </span>
           <span style="color: rgba(255,255,255,0.20);">·</span>
-          <span class="flex items-center gap-1.5 text-slate-light text-sm">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--glass-light)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span class="flex items-center gap-1.5 text-muted text-sm">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             Mobile service across the [Region]
           </span>
           <span style="color: rgba(255,255,255,0.20);">·</span>
-          <span class="flex items-center gap-1.5 text-slate-light text-sm">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--glass-light)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <span class="flex items-center gap-1.5 text-muted text-sm">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             Same-day availability
           </span>
         </div>
@@ -1322,15 +1316,15 @@
           <a href="/" class="flex items-center mb-2" aria-label="Your Business Name home">
             <span class="footer-wordmark">Your Business Name</span>
           </a>
-          <p style="font-family: 'Barlow', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--ember); margin-bottom: 14px; opacity: 0.85;">Trusted Local Home Services</p>
-          <p class="text-slate-light text-sm mb-5" style="line-height: 1.7;">Professional home services you can count on — serving [City] and the surrounding [Region].</p>
+          <p style="font-family: 'Barlow', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 14px; opacity: 0.85;">Trusted Local Home Services</p>
+          <p class="text-muted text-sm mb-5" style="line-height: 1.7;">Professional home services you can count on — serving [City] and the surrounding [Region].</p>
           <div class="space-y-2">
             <a href="tel:+15550000000" class="flex items-center gap-2 text-white text-sm font-medium hover:opacity-80 transition-opacity duration-150">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--glass-light)" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.54 6.54l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.54 6.54l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               (555) 000-0000
             </a>
-            <a href="mailto:hello@yourbusiness.com" class="flex items-center gap-2 text-slate-light text-sm hover:text-white transition-colors duration-150">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--glass-light)" stroke-width="2.2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <a href="mailto:hello@yourbusiness.com" class="flex items-center gap-2 text-muted text-sm hover:text-white transition-colors duration-150">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               hello@yourbusiness.com
             </a>
           </div>
@@ -1340,12 +1334,12 @@
         <div>
           <h2 class="font-display font-700 text-white text-sm uppercase tracking-widest mb-4">Services</h2>
           <ul class="space-y-2.5">
-            <li><a href="/services/service-two.html" class="text-slate-light text-sm hover:text-white transition-colors duration-150">Service Two</a></li>
-            <li><a href="/services/service-one.html"       class="text-slate-light text-sm hover:text-white transition-colors duration-150">Service One</a></li>
+            <li><a href="/services/service-two.html" class="text-muted text-sm hover:text-white transition-colors duration-150">Service Two</a></li>
+            <li><a href="/services/service-one.html"       class="text-muted text-sm hover:text-white transition-colors duration-150">Service One</a></li>
             <li><a href="/services/service-three.html"        class="text-white text-sm font-semibold" aria-current="page">Service Three</a></li>
-            <li><a href="/services/service-four.html"    class="text-slate-light text-sm hover:text-white transition-colors duration-150">Service Four</a></li>
-            <li><a href="/services/service-five.html"           class="text-slate-light text-sm hover:text-white transition-colors duration-150">Service Five</a></li>
-            <li><a href="/services/service-six.html"  class="text-slate-light text-sm hover:text-white transition-colors duration-150">Service Six</a></li>
+            <li><a href="/services/service-four.html"    class="text-muted text-sm hover:text-white transition-colors duration-150">Service Four</a></li>
+            <li><a href="/services/service-five.html"           class="text-muted text-sm hover:text-white transition-colors duration-150">Service Five</a></li>
+            <li><a href="/services/service-six.html"  class="text-muted text-sm hover:text-white transition-colors duration-150">Service Six</a></li>
           </ul>
         </div>
 
@@ -1353,12 +1347,12 @@
         <div>
           <h2 class="font-display font-700 text-white text-sm uppercase tracking-widest mb-4">Company</h2>
           <ul class="space-y-2.5">
-            <li><a href="/#why-us"       class="text-slate-light text-sm hover:text-white transition-colors duration-150">About Us</a></li>
-            <li><a href="/#reviews"      class="text-slate-light text-sm hover:text-white transition-colors duration-150">Reviews</a></li>
-            <li><a href="/#insurance"    class="text-slate-light text-sm hover:text-white transition-colors duration-150">Insurance Partners</a></li>
-            <li><a href="/#service-area" class="text-slate-light text-sm hover:text-white transition-colors duration-150">Service Areas</a></li>
-            <li><a href="/#contact"      class="text-slate-light text-sm hover:text-white transition-colors duration-150">Contact</a></li>
-            <li><a href="#"              class="text-slate-light text-sm hover:text-white transition-colors duration-150">Privacy Policy</a></li>
+            <li><a href="/#why-us"       class="text-muted text-sm hover:text-white transition-colors duration-150">About Us</a></li>
+            <li><a href="/#reviews"      class="text-muted text-sm hover:text-white transition-colors duration-150">Reviews</a></li>
+            <li><a href="/#insurance"    class="text-muted text-sm hover:text-white transition-colors duration-150">Insurance Partners</a></li>
+            <li><a href="/#service-area" class="text-muted text-sm hover:text-white transition-colors duration-150">Service Areas</a></li>
+            <li><a href="/#contact"      class="text-muted text-sm hover:text-white transition-colors duration-150">Contact</a></li>
+            <li><a href="#"              class="text-muted text-sm hover:text-white transition-colors duration-150">Privacy Policy</a></li>
           </ul>
         </div>
 
@@ -1366,12 +1360,12 @@
         <div>
           <h2 class="font-display font-700 text-white text-sm uppercase tracking-widest mb-4">Areas We Serve</h2>
           <ul class="space-y-2.5">
-            <li><a href="/areas/city-one.html" class="text-slate-light text-sm hover:text-white transition-colors duration-150">[City]</a></li>
-            <li><a href="/areas/city-two.html" class="text-slate-light text-sm hover:text-white transition-colors duration-150">[City 2]</a></li>
-            <li><a href="/areas/city-three.html" class="text-slate-light text-sm hover:text-white transition-colors duration-150">[City 3]</a></li>
-            <li><a href="/areas/city-four.html" class="text-slate-light text-sm hover:text-white transition-colors duration-150">[City 4]</a></li>
-            <li><a href="/areas/city-five.html" class="text-slate-light text-sm hover:text-white transition-colors duration-150">[City 5]</a></li>
-            <li><a href="/areas/city-six.html" class="text-slate-light text-sm hover:text-white transition-colors duration-150">[City 6]</a></li>
+            <li><a href="/areas/city-one.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City]</a></li>
+            <li><a href="/areas/city-two.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City 2]</a></li>
+            <li><a href="/areas/city-three.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City 3]</a></li>
+            <li><a href="/areas/city-four.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City 4]</a></li>
+            <li><a href="/areas/city-five.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City 5]</a></li>
+            <li><a href="/areas/city-six.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City 6]</a></li>
           </ul>
         </div>
 
@@ -1380,13 +1374,13 @@
       <div class="divider mb-6"></div>
 
       <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
-        <p class="text-slate-light text-xs text-center sm:text-left">
+        <p class="text-muted text-xs text-center sm:text-left">
           © 2026 Your Business Name. All rights reserved. Serving [City] &amp; the [Region], TX.
         </p>
         <div class="flex items-center gap-4">
-          <a href="#" class="text-xs text-slate-light hover:text-white transition-colors duration-150">Privacy Policy</a>
+          <a href="#" class="text-xs text-muted hover:text-white transition-colors duration-150">Privacy Policy</a>
           <span style="color: rgba(255,255,255,0.20);">·</span>
-          <a href="#" class="text-xs text-slate-light hover:text-white transition-colors duration-150">Terms</a>
+          <a href="#" class="text-xs text-muted hover:text-white transition-colors duration-150">Terms</a>
         </div>
       </div>
     </div>
