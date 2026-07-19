@@ -383,6 +383,13 @@ Freeze anything that must never drift:
 - Ownership signal: [NEEDS INPUT — confirmed only]
 - Experience framing: [NEEDS INPUT — personal-experience wording, not business-age]
 - Testimonials/reviews: [NEEDS INPUT — none publishable until reputation confirmed]
+- **Guarantee / warranty scope, licensing & insurance status, and insurance-coverage
+  outcomes are `[NEEDS INPUT]` per client and must NEVER be asserted in base template
+  copy** — not in body, headings, cards, trust badges/pills, meta, or JSON-LD. Ship them
+  as claim-free or self-flagged placeholders (see the service-page guarantee-FAQ answer
+  for the pattern); the client confirms scope in writing before any such claim goes live.
+  Covers "satisfaction guarantee," "Licensed & Insured," and "we bill your carrier / most
+  claims cost little or nothing."
 
 ## Hard Rules — FROZEN
 - No invented facts; confirm before filling any `[NEEDS INPUT]`.
