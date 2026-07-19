@@ -49,6 +49,8 @@ facts; confirm with the client / Juan before filling.
 | City 2 … City 6 | [NEEDS INPUT — priority order below] |
 | city slugs | [NEEDS INPUT] |
 | Region | [NEEDS INPUT] |
+| State (full) | [NEEDS INPUT — e.g. Texas] |
+| State abbreviation | [NEEDS INPUT — e.g. TX] |
 | Phone (site) | [NEEDS INPUT — GHL tracking number ONLY; owner's personal line is never published] |
 | Email | [NEEDS INPUT] |
 | Domain | [NEEDS INPUT] — canonical host [NEEDS INPUT — www vs non-www, set as Vercel Primary day one] |
