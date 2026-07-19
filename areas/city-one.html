@@ -461,30 +461,21 @@
     #insurance strong { color: var(--color-accent) !important; }
   </style>
 
-  <!-- Service Structured Data -->
+  <!-- LocalBusiness ref — same @id as the homepage business entity (NOT a re-declaration). Single-city areaServed. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Home Services in [City], [ST]",
-    "serviceType": "Professional Home Services",
+    "@type": "LocalBusiness",
+    "@id": "https://yourbusiness.com/#business",
+    "name": "Your Business Name",
+    "url": "https://yourbusiness.com/",
+    "telephone": "+15550000000",
+    "email": "hello@yourbusiness.com",
     "description": "Professional home services in [City], [ST] — covering all six core services, with same-day appointments, free estimates, and mobile service across [City] and the [Region].",
-    "url": "https://yourbusiness.com/areas/city-one.html",
-    "provider": {
-      "@type": "LocalBusiness",
-      "@id": "https://yourbusiness.com/#business",
-      "name": "Your Business Name",
-      "telephone": "+15550000000",
-      "email": "hello@yourbusiness.com"
-    },
     "areaServed": {
       "@type": "City",
       "name": "[City]",
       "containedInPlace": { "@type": "State", "name": "[State]" }
-    },
-    "offers": {
-      "@type": "Offer",
-      "description": "Free estimates and clear, upfront pricing - call for a quote."
     }
   }
   </script>
