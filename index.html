@@ -409,15 +409,6 @@
     ::-webkit-scrollbar-track { background: var(--color-bg-2); }
     ::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
-
-    /* ---- Recent Work gallery — before/after tag layered on uniform .photo-frame tiles ---- */
-    .ba-tag {
-      position: absolute; top: 10px; left: 10px; z-index: 2;
-      font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 10.5px;
-      letter-spacing: 0.09em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px;
-      background: var(--color-accent); color: var(--color-bg); box-shadow: 0 2px 8px rgba(var(--color-accent-rgb), 0.34);
-    }
-    .ba-tag.is-before { background: rgba(var(--color-dark-rgb), 0.80); color: var(--color-bg); box-shadow: 0 2px 8px rgba(0,0,0,0.28); }
   </style>
 
   <!-- Homepage business schema. Set [BUSINESS @TYPE] to the trade's schema.org type — e.g. AutoRepair, HVACBusiness, PlumbingBusiness, RoofingContractor; fall back to LocalBusiness only if no specific subtype fits. -->
@@ -984,15 +975,13 @@
         </div>
 
         <!-- Uniform gallery grid — every cell is the standard .photo-frame (4:3).
-             8 tiles fill a complete last row at 2 and 4 columns (no ragged row). -->
+             8 tiles fill complete rows at 1 and 2 columns (no ragged row). -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 fade-up" style="transition-delay: 0.06s;">
           <figure class="photo-frame">
-            <span class="ba-tag is-before">Before</span>
-            <img src="https://placehold.co/1200x900" alt="Home services project in [City] by Your Business Name — before" loading="lazy" />
+            <img src="https://placehold.co/1200x900" alt="Home services project in [City] by Your Business Name" loading="lazy" />
           </figure>
           <figure class="photo-frame">
-            <span class="ba-tag">After</span>
-            <img src="https://placehold.co/1200x900" alt="Home services project in [City] by Your Business Name — after" loading="lazy" />
+            <img src="https://placehold.co/1200x900" alt="Home services team at work in [City] by Your Business Name" loading="lazy" />
           </figure>
           <figure class="photo-frame">
             <img src="https://placehold.co/1200x900" alt="Recent home services project in [City] by Your Business Name" loading="lazy" />
