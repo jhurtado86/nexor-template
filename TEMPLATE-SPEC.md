@@ -61,10 +61,15 @@ ratio, consistent gutters, **no dead space and no ragged/orphaned last row** (co
 + item count chosen so rows fill). Blocked until real photos exist. Ships commented-out /
 flagged in the base template, not active.
 
-### Removable optional modules (NOT baked into `index.html`)
-Wrapped in clearly-marked `<!-- OPTIONAL MODULE: … -->` blocks so a build deletes them in
-one cut, not a hunt: insurance carrier-logo row, financing block/CTA, review-widget block.
-None are active by default.
+### Removable optional modules
+Two modules, each wrapped in clearly-marked `<!-- OPTIONAL MODULE: … -->` blocks and
+commented out so a build enables/deletes them in one cut, not a hunt: **insurance
+carrier-logo row** and **review-widget block**. Each module's paired nav + footer links
+are commented out alongside it (a build that enables a module re-enables its links).
+None are active by default. Financing is **not** a module in the base template — "&
+Financing" was dropped from the insurance heading; add financing per-client only if
+offered. (The service pages keep a separate, always-on "Straightforward Pricing" section
+under `id="pricing"` — that is page content, not an optional module.)
 
 ### Navigation
 Sticky nav: transparent-at-top → solid on scroll. Standardized **Services** and **Areas**
