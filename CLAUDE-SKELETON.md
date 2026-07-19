@@ -297,6 +297,28 @@ final compressed clip.
 - This is independent of the photo *tier* (which sets how MANY photos a page gets, below).
   Tiers govern count; this rule governs that every container is the same dimensions.
 
+### Split-section layout — FROZEN
+Interior page content is built from **alternating split sections**: two ~50/50 columns —
+a text column and **one** uniform `.photo-frame` photo — stacking text-first on mobile.
+The photo side alternates down the page (right, left, right…) and section backgrounds
+alternate light/dark. **One photo per split; never a photo grid inside a split.** Text
+column = optional eyebrow → H2 → 1–2 short paragraphs → optional 2×2 checklist → optional
+inline `link-arrow`. The photo *tier* (below) sets how many splits a page gets — one split
+per photo slot (flagship service = 5 splits, standard = 2, city = 1 coverage split).
+
+### Cards — icon-free, centered — FROZEN
+Service / feature / value cards ship **without icons or emblems** (no icon squares, no
+emblem circles) and with **centered text**. Card containers (border/shadow/radius) are
+unchanged. **Numbered step cards keep their 01–04 numbers** — those aren't icons. Cards on
+a dark section take a translucent dark-card treatment so text stays legible. The contact
+block keeps its functional call/email/address icons (contact affordances, not card emblems).
+
+### Homepage FAQ + gallery — FROZEN
+The homepage ships an **active** FAQ accordion (5–6 token Q&As, same `<details>` styling as
+service/city pages) and an **active** uniform gallery grid (8 `.photo-frame` tiles at 2-
+and 4-column breakpoints so the last row always fills). These are page sections, distinct
+from the optional inventory/gallery *page* below.
+
 ### Gallery / inventory section — uniform grid, no dead space
 If the client has a dedicated gallery or inventory section:
 - **Uniform grid:** equal cells, consistent gutters, every image the same size.
