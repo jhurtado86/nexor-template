@@ -468,17 +468,26 @@
     .work-overlay-cap .s { font-size: 13.5px; color: rgba(255,255,255,0.82); margin-top: 3px; }
   </style>
 
-  <!-- LocalBusiness Structured Data -->
+  <!-- Homepage business schema. Set [BUSINESS @TYPE] to the trade's schema.org type — e.g. AutoRepair, HVACBusiness, PlumbingBusiness, RoofingContractor; fall back to LocalBusiness only if no specific subtype fits. -->
+  <!-- REMOVE this PostalAddress block (the "address" property in the JSON-LD below) entirely for service-area clients with no public address. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "[BUSINESS @TYPE]",
     "@id": "https://yourbusiness.com/#business",
     "name": "Your Business Name",
     "description": "Professional home services in [City], [ST] and across the [Region]. Serving homes and businesses with same-day appointments, free estimates, and mobile service.",
     "url": "https://yourbusiness.com/",
     "telephone": "+15550000000",
     "email": "hello@yourbusiness.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "[Street Address]",
+      "addressLocality": "[City]",
+      "addressRegion": "[ST]",
+      "postalCode": "[ZIP]",
+      "addressCountry": "US"
+    },
     "priceRange": "[priceRange]",
     "openingHoursSpecification": [
       {
