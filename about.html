@@ -14,7 +14,7 @@
   <meta property="og:description" content="The Your Business Name story — the team keeping [City] and the [Region] covered, one honest job at a time. Call (555) 000-0000." />
   <meta property="og:url" content="https://yourbusiness.com/about.html" />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://yourbusiness.com/brand_assets/og-image.jpg" /><!-- PLACEHOLDER: create 1200×630 social share image -->
+  <meta property="og:image" content="https://placehold.co/1200x630" /><!-- PLACEHOLDER: create 1200×630 social share image -->
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:locale" content="en_US" />
@@ -24,7 +24,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="About Your Business Name | Home Services in [City], [ST]" />
   <meta name="twitter:description" content="The Your Business Name story — the team keeping [City] and the [Region] covered. Call (555) 000-0000." />
-  <meta name="twitter:image" content="https://yourbusiness.com/brand_assets/og-image.jpg" /><!-- PLACEHOLDER: same 1200×630 image -->
+  <meta name="twitter:image" content="https://placehold.co/1200x630" /><!-- PLACEHOLDER: same 1200×630 image -->
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/brand.css" />
@@ -230,7 +230,7 @@
     #navbar.scrolled .mobile-services-submenu a { color: var(--color-muted); }
     #navbar.scrolled .mobile-services-submenu a:hover { color: var(--color-ink); background: rgba(var(--color-dark-rgb), 0.04); }
 
-    /* ── About hero (navy, no photo) ── */
+    /* ── About hero (hero-background photo slot; navy is the fallback) ── */
     .about-hero {
       position: relative; overflow: hidden; background: var(--color-dark);
     }
@@ -548,6 +548,15 @@
        HERO (navy, no photo)
   ============================================================ -->
   <section class="about-hero" style="padding-top: clamp(132px, 18vw, 184px); padding-bottom: clamp(64px, 9vw, 104px);" aria-label="About Your Business Name">
+    <!-- OFF-LIMITS: hero-background — dedicated named file only, never a content photo -->
+    <img
+      src="https://placehold.co/1920x1080"
+      alt="About Your Business Name — home services in [City] and the [Region]"
+      aria-hidden="true"
+      style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; z-index: 0;"
+    />
+    <!-- Dark overlay for legibility over the hero photo -->
+    <div class="absolute inset-0" style="z-index: 1; background: linear-gradient(180deg, rgba(var(--color-dark-rgb), 0.74) 0%, rgba(var(--color-dark-rgb), 0.55) 45%, rgba(var(--color-dark-rgb), 0.80) 100%);"></div>
     <!-- Atmosphere layers -->
     <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 90% at 50% 0%, rgba(var(--color-dark-rgb), 0.34) 0%, transparent 60%);"></div>
     <div class="absolute inset-0" style="background: radial-gradient(ellipse 40% 50% at 88% 12%, rgba(var(--color-accent-rgb), 0.14) 0%, transparent 60%);"></div>
@@ -608,6 +617,9 @@
 
           <!-- Right: quick facts panel -->
           <div class="fade-up">
+            <div class="photo-frame photo-frame--portrait mb-6">
+              <img src="https://placehold.co/900x1200" alt="[Owner Name], owner of Your Business Name in [City]" loading="lazy" />
+            </div>
             <div class="story-panel">
               <p class="font-display font-800 text-3xl text-white mb-1" style="letter-spacing:-0.02em;">Quick Facts</p>
               <p class="text-muted text-sm mb-6">Your Business Name at a glance</p>
@@ -635,6 +647,12 @@
             </div>
           </div>
 
+        </div>
+
+        <!-- About body photos (uniform 4:3 content photos) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12 fade-up">
+          <div class="photo-frame"><img src="https://placehold.co/1200x900" alt="Your Business Name team in [City]" loading="lazy" /></div>
+          <div class="photo-frame"><img src="https://placehold.co/1200x900" alt="Home services in [City] by Your Business Name" loading="lazy" /></div>
         </div>
       </div>
     </section>
@@ -744,7 +762,8 @@
     <!-- SECTION: final-cta -->
     <!-- Standard pattern: cta-background.jpg + dark overlay + gradient layers -->
     <section class="dark-section relative py-24 overflow-hidden" aria-label="Get to know Your Business Name — call today">
-      <div class="absolute inset-0" style="background: url('/brand_assets/cta-background.jpg') center center / cover no-repeat;"></div>
+      <!-- OFF-LIMITS: cta-background — dedicated named file only, never a content photo -->
+      <div class="absolute inset-0" style="background: url('https://placehold.co/1920x1080') center center / cover no-repeat;"></div>
       <div class="absolute inset-0" style="background: rgba(var(--color-dark-rgb), 0.62);"></div>
       <div class="dark-cta-ramp"></div>
       <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 80% at 50% 40%, rgba(var(--color-dark-rgb), 0.44) 0%, transparent 65%);"></div>
