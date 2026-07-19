@@ -158,9 +158,10 @@ Photo tier: 1 uniform slot (in the coverage split). Schema scaffold: **3 blocks*
 `areaServed` = single-city token, not the full list.
 
 ### `about.html`
-Owner-story section: 1 owner-portrait (3:4) + 2 body photos (4:3) → value → why-us →
-final-CTA → footer. About photo tier = **2 body + 1 portrait** (3 uniform slots). Do not
-trim to 2 — that leaves a ragged/orphaned pair, which the no-dead-space rule forbids.
+Full-height hero (same treatment as every other page) → two alternating split sections
+(SPLIT 1 light: story text + one 4:3 photo; SPLIT 2 dark: text + 2×2 checklist + one 4:3
+photo) → values → why-us → final-CTA → footer. About photo tier = **2 photos (2 splits)**,
+one photo per split — no portrait slot, no photo grid.
 
 ### `thank-you.html`
 Ships the **trio pre-wired**: `<meta robots noindex,nofollow>` + excluded from

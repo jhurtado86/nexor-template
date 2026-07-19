@@ -230,13 +230,22 @@
     #navbar.scrolled .mobile-services-submenu a { color: var(--color-muted); }
     #navbar.scrolled .mobile-services-submenu a:hover { color: var(--color-ink); background: rgba(var(--color-dark-rgb), 0.04); }
 
-    /* ── About hero (hero-background photo slot; navy is the fallback) ── */
-    .about-hero {
-      position: relative; overflow: hidden; background: var(--color-dark);
+    /* ── Hero — real photo background (same full-height treatment as every other page) ── */
+    .hero-bg { background: var(--color-dark); }
+    .hero-bg .text-muted { color: var(--color-muted-light); }
+    .hero-vignette {
+      background: radial-gradient(ellipse 120% 100% at 50% 50%, transparent 35%, rgba(0,0,0,0.50) 100%);
+      pointer-events: none;
     }
-    .about-hero .eyebrow {
-      font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700;
-      letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent);
+    .hero-bg .btn-outline { color: rgba(255,255,255,0.88); border-color: rgba(255,255,255,0.20); }
+    .hero-bg .btn-outline:hover { border-color: rgba(var(--color-accent-rgb), 0.50); background: rgba(var(--color-dark-rgb), 0.14); transform: translateY(-2px); }
+    @media (max-width: 767px) { .hero-text-block h1 { font-size: 2.15rem !important; } }
+    @media (min-width: 1024px) {
+      .hero-outer {
+        max-width: none !important; margin-left: 0 !important; margin-right: 0 !important;
+        padding-left: clamp(48px, 5vw, 96px) !important; padding-right: 0 !important;
+      }
+      .hero-text-block { max-width: 580px !important; }
     }
 
     /* ── Buttons ── */
@@ -289,14 +298,6 @@
       margin-bottom: 16px; flex-shrink: 0;
       box-shadow: 0 2px 8px rgba(var(--color-dark-rgb), 0.09), inset 0 1px 0 rgba(255,255,255,0.60);
     }
-
-    /* ── Story side panel ── */
-    .story-panel {
-      background: linear-gradient(135deg, rgba(var(--color-dark-rgb), 0.05) 0%, rgba(var(--color-dark-rgb), 0.015) 100%), var(--color-bg);
-      border: 1px solid rgba(var(--color-dark-rgb), 0.12); border-radius: 18px; padding: 30px 32px;
-      box-shadow: 0 1px 3px rgba(var(--color-dark-rgb), 0.05), 0 10px 28px rgba(var(--color-dark-rgb), 0.10), 0 22px 56px rgba(var(--color-dark-rgb), 0.09), 0 0 0 1px rgba(var(--color-dark-rgb), 0.06);
-    }
-    .stars { color: var(--color-rating); letter-spacing: 1px; }
 
     /* ── Mobile menu ── */
     #mobile-menu { display: none; }
@@ -540,43 +541,63 @@
   </nav>
 
   <!-- ============================================================
-       HERO (navy, no photo)
+       HERO (full-height, hero-background photo slot; navy is the fallback)
   ============================================================ -->
-  <section class="about-hero" style="padding-top: clamp(132px, 18vw, 184px); padding-bottom: clamp(64px, 9vw, 104px);" aria-label="About Your Business Name">
+  <section class="hero-bg relative min-h-screen flex items-center overflow-hidden" style="padding-top: clamp(88px, 14vw, 128px); padding-bottom: clamp(56px, 8vw, 96px);" aria-label="About Your Business Name">
+
     <!-- OFF-LIMITS: hero-background — dedicated named file only, never a content photo -->
     <img
       src="https://placehold.co/1920x1080"
       alt="About Your Business Name — home services in [City] and the [Region]"
       aria-hidden="true"
-      style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; z-index: 0;"
+      style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 65% center; z-index: 0;"
     />
-    <!-- Dark overlay for legibility over the hero photo -->
-    <div class="absolute inset-0" style="z-index: 1; background: linear-gradient(180deg, rgba(var(--color-dark-rgb), 0.74) 0%, rgba(var(--color-dark-rgb), 0.55) 45%, rgba(var(--color-dark-rgb), 0.80) 100%);"></div>
-    <!-- Atmosphere layers -->
-    <div class="absolute inset-0" style="background: radial-gradient(ellipse 70% 90% at 50% 0%, rgba(var(--color-dark-rgb), 0.34) 0%, transparent 60%);"></div>
-    <div class="absolute inset-0" style="background: radial-gradient(ellipse 40% 50% at 88% 12%, rgba(var(--color-accent-rgb), 0.14) 0%, transparent 60%);"></div>
-    <div class="absolute inset-0" style="background: radial-gradient(ellipse 120% 100% at 50% 50%, transparent 40%, rgba(0,0,0,0.34) 100%); pointer-events: none;"></div>
 
-    <div class="relative z-10 max-w-3xl mx-auto px-5 text-center fade-up">
-      <!-- Breadcrumb -->
-      <nav class="breadcrumb mb-5 justify-center" aria-label="Breadcrumb" style="display:inline-flex;">
-        <a href="/">Home</a>
-        <span class="sep" aria-hidden="true">/</span>
-        <span class="current">About</span>
-      </nav>
+    <!-- Overlay -->
+    <div style="position: absolute; inset: 0; z-index: 1; background:
+      linear-gradient(180deg, rgba(var(--color-dark-rgb), 0.72) 0%, rgba(var(--color-dark-rgb), 0.32) 25%, rgba(var(--color-dark-rgb), 0.28) 65%, rgba(var(--color-dark-rgb), 0.75) 100%),
+      radial-gradient(ellipse 65% 100% at 0% 50%, rgba(var(--color-dark-rgb), 0.78) 0%, transparent 65%);
+    "></div>
 
-      <p class="eyebrow mb-4" style="text-shadow: 0 1px 8px rgba(0,0,0,0.30);">Trusted Local Home Services</p>
+    <!-- Edge vignette -->
+    <div class="hero-vignette absolute inset-0 z-[2]"></div>
 
-      <h1 class="font-display text-white mb-5" style="font-size: clamp(2.5rem, 6vw, 3.9rem); letter-spacing: -0.03em; line-height: 1.05; font-weight: 800; text-shadow: 0 2px 24px rgba(0,0,0,0.45);">
-        About <span style="color: var(--color-accent);">Your Business Name</span>
-      </h1>
+    <div class="hero-outer relative z-10 max-w-5xl mx-auto px-5 w-full">
+      <div class="hero-text-block max-w-2xl fade-up">
 
-      <p class="max-w-2xl mx-auto" style="color: rgba(255,255,255,0.84); font-size: clamp(1rem, 2.2vw, 1.15rem); line-height: 1.72;">
-        Your Business Name is the home services team for [City] and the [Region]. From the first call to the final walkthrough, we treat every home like it's our own.
-      </p>
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb mb-5" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <span class="sep" aria-hidden="true">/</span>
+          <span class="current">About</span>
+        </nav>
+
+        <!-- Eyebrow -->
+        <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-line); margin-bottom: 20px; text-shadow: 0 1px 8px rgba(0,0,0,0.45);">Trusted Local Home Services — [City] &amp; [Region]</p>
+
+        <h1 class="font-display text-white mb-5" style="font-size: clamp(2.4rem, 6vw, 3.8rem); letter-spacing: -0.03em; line-height: 1.06; font-weight: 800; text-shadow: 0 2px 24px rgba(0,0,0,0.45);">
+          About <span style="color: var(--color-accent);">Your Business Name</span>
+        </h1>
+
+        <p class="mb-8 max-w-xl" style="color: rgba(255,255,255,0.88); font-size: clamp(1rem, 2.2vw, 1.125rem); line-height: 1.72; text-shadow: 0 1px 8px rgba(0,0,0,0.35);">
+          Your Business Name is the home services team for [City] and the [Region]. From the first call to the final walkthrough, we treat every home like it's our own — honest pricing, careful work, and real follow-through.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-4">
+          <a href="tel:+15550000000" class="btn-primary text-base px-7 py-4">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.54 6.54l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Call Now — (555) 000-0000
+          </a>
+          <a href="/#contact" class="btn-outline text-base px-7 py-4">
+            Get a Free Quote
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+      </div>
     </div>
 
-    <!-- Ember accent bridge -->
+    <!-- Accent bridge -->
     <div class="absolute bottom-0 left-0 right-0 z-20" style="height: 4px; background: linear-gradient(90deg, transparent 0%, var(--color-accent) 18%, var(--color-accent) 82%, transparent 100%); opacity: 0.90;"></div>
   </section>
 
@@ -585,69 +606,69 @@
   ============================================================ -->
   <main id="main-content">
 
-    <!-- SECTION: our story / meet our team -->
-    <section id="our-story" class="section-dark atmo wash-navy-tr py-20" aria-label="The Your Business Name story — meet our team">
+    <!-- SPLIT 1 (light): our story — text left, one photo right -->
+    <section id="our-story" class="section-dark atmo wash-navy-tr py-24" aria-label="The Your Business Name story — meet the team">
       <div class="max-w-6xl mx-auto px-5">
-        <div class="grid lg:grid-cols-3 gap-12 items-start">
+        <div class="grid lg:grid-cols-2 gap-14 items-center">
 
-          <!-- Left: prose (2 cols) -->
-          <div class="lg:col-span-2 fade-up">
-            <div class="section-title-accent mb-3"></div>
-            <h2 class="font-display text-4xl lg:text-[2.75rem] font-700 text-white mb-6" style="letter-spacing: -0.03em; line-height: 1.1;">
-              Our Story — Meet the Team
+          <div class="fade-up lg:order-1" style="transition-delay: 0.1s;">
+            <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 14px;">Our Story</p>
+            <h2 class="font-display text-4xl lg:text-[2.5rem] font-700 text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.12;">
+              Meet the Team Behind Your Business Name
             </h2>
-            <p class="text-muted text-lg mb-5" style="line-height: 1.7;">
-              Your Business Name started with one simple idea: treat every home like it belongs to family. We've built our name across the [Region] one job at a time — answering the phone, showing up when we say we will, and walking you through exactly what your home needs and why.
-            </p>
-            <p class="text-muted text-lg mb-5" style="line-height: 1.7;">
-              For our team, the work is really about trust. Your home is where your family lives, so we hold every job to a high standard — quality materials and careful work made to last for years. We keep pricing fair and transparent, and we tell you the cost before we pick up a tool.
-            </p>
-            <p class="text-muted text-lg mb-5" style="line-height: 1.7;">
-              That care is the reason people come back. Neighbors trust our team with their homes, then point their friends and coworkers our way.
-            </p>
-            <p class="text-muted text-lg" style="line-height: 1.7;">
-              Rooted in [City] and serving [City 2], [City 3], [City 4], [City 5], and [City 6], Your Business Name feels less like a faceless company and more like calling someone you already know. That is the feeling our team works for on every job — the kind that keeps you coming back.
-            </p>
+            <p class="text-muted text-lg mb-5" style="line-height: 1.7;">Your Business Name started with one simple idea: treat every home like it belongs to family. We've built our name across the [Region] one job at a time — answering the phone, showing up when we say we will, and explaining exactly what your home needs and why.</p>
+            <p class="text-muted text-lg mb-5" style="line-height: 1.7;">The work is really about trust. Your home is where your family lives, so we hold every job to a high standard — quality materials and careful work made to last. We keep pricing fair and transparent, and we tell you the cost before we pick up a tool.</p>
+            <p class="text-muted text-lg" style="line-height: 1.7;">That care is the reason people come back. Neighbors trust us with their homes, then point their friends and coworkers our way.</p>
           </div>
 
-          <!-- Right: quick facts panel -->
-          <div class="fade-up">
-            <div class="photo-frame photo-frame--portrait mb-6">
-              <img src="https://placehold.co/900x1200" alt="[Owner Name], owner of Your Business Name in [City]" loading="lazy" />
-            </div>
-            <div class="story-panel">
-              <p class="font-display font-800 text-3xl text-white mb-1" style="letter-spacing:-0.02em;">Quick Facts</p>
-              <p class="text-muted text-sm mb-6">Your Business Name at a glance</p>
-
-              <div class="divider mb-6"></div>
-
-              <dl class="space-y-4">
-                <div>
-                  <dt class="text-xs font-700 uppercase tracking-widest" style="color: var(--color-accent);">Owner</dt>
-                  <dd class="text-white font-600 mt-0.5">[Owner Name]</dd>
-                </div>
-                <div>
-                  <dt class="text-xs font-700 uppercase tracking-widest" style="color: var(--color-accent);">Home Base</dt>
-                  <dd class="text-white font-600 mt-0.5">[City], [ST]</dd>
-                </div>
-                <div>
-                  <dt class="text-xs font-700 uppercase tracking-widest" style="color: var(--color-accent);">Serving</dt>
-                  <dd class="text-white font-600 mt-0.5">[City] &amp; the [Region]</dd>
-                </div>
-                <div>
-                  <dt class="text-xs font-700 uppercase tracking-widest" style="color: var(--color-accent);">How to Reach Us</dt>
-                  <dd class="mt-1"><a href="tel:+15550000000" class="text-white font-700 hover:opacity-80 transition-opacity">(555) 000-0000</a></dd>
-                </div>
-              </dl>
+          <div class="fade-up lg:order-2">
+            <div class="photo-frame">
+              <img src="https://placehold.co/1200x900" alt="The Your Business Name team on a job in [City]" loading="lazy" />
             </div>
           </div>
 
         </div>
+      </div>
+    </section>
 
-        <!-- About body photos (uniform 4:3 content photos) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-12 fade-up">
-          <div class="photo-frame"><img src="https://placehold.co/1200x900" alt="Your Business Name team in [City]" loading="lazy" /></div>
-          <div class="photo-frame"><img src="https://placehold.co/1200x900" alt="Home services in [City] by Your Business Name" loading="lazy" /></div>
+    <!-- SPLIT 2 (dark): rooted local — text + 2×2 checklist left, one photo right -->
+    <section id="rooted-local" class="dark-section py-24" aria-label="Rooted in [City], trusted across the [Region]">
+      <div class="max-w-6xl mx-auto px-5">
+        <div class="grid lg:grid-cols-2 gap-14 items-center">
+
+          <div class="fade-up lg:order-1" style="transition-delay: 0.1s;">
+            <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 14px;">Rooted Local</p>
+            <h2 class="font-display text-4xl lg:text-[2.5rem] font-700 text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.12;">
+              Rooted in [City], Trusted Across the [Region]
+            </h2>
+            <p class="text-muted text-lg mb-5" style="line-height: 1.7;">Rooted in [City] and serving [City 2], [City 3], [City 4], [City 5], and [City 6], Your Business Name feels less like a faceless company and more like calling someone you already know.</p>
+            <p class="text-muted text-lg mb-7" style="line-height: 1.7;">Every job runs the same way, wherever you are in the [Region] — clear communication, careful work, and a clean finish. That's the standard our whole team is measured against.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 mt-2 mb-2">
+              <div class="flex items-start gap-2.5 text-sm text-muted" style="line-height: 1.6;">
+                <svg class="mt-0.5 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Upfront, honest pricing
+              </div>
+              <div class="flex items-start gap-2.5 text-sm text-muted" style="line-height: 1.6;">
+                <svg class="mt-0.5 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Mobile service across the [Region]
+              </div>
+              <div class="flex items-start gap-2.5 text-sm text-muted" style="line-height: 1.6;">
+                <svg class="mt-0.5 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Quality materials, careful work
+              </div>
+              <div class="flex items-start gap-2.5 text-sm text-muted" style="line-height: 1.6;">
+                <svg class="mt-0.5 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Same-day response on most jobs
+              </div>
+            </div>
+          </div>
+
+          <div class="fade-up lg:order-2">
+            <div class="photo-frame">
+              <img src="https://placehold.co/1200x900" alt="Your Business Name completing a job in [City]" loading="lazy" />
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

@@ -335,7 +335,7 @@ If the client has a dedicated gallery or inventory section:
 | Secondary push service | 3 | ✓ |
 | Standard service | 2 | ✓ |
 | City page | 1 | ✓ |
-| About | 2 body + 1 portrait | ✓ |
+| About | 2 (2 splits) | ✓ |
 | Inventory / gallery | No limit (reuse accepted) | ✓ |
 
 **FROZEN rules:** one-photo-one-slot on all non-inventory pages (no photo twice on a
