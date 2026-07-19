@@ -23,6 +23,30 @@ await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
 await page.evaluate(() => {
   document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
 });
+// Auto-scroll to the bottom so lazy-loaded (loading="lazy") images below the initial
+// viewport are actually fetched and rendered, then return to the top so the full-page
+// capture is complete and correctly positioned.
+await page.evaluate(async () => {
+  await new Promise((resolve) => {
+    let y = 0;
+    const step = 400;
+    const timer = setInterval(() => {
+      window.scrollBy(0, step);
+      y += step;
+      if (y >= document.body.scrollHeight) { clearInterval(timer); resolve(); }
+    }, 60);
+  });
+});
+// Let the images kicked off by the scroll settle (network idle), then wait for them to
+// decode — bounded, so a hung/rate-limited image can never stall the capture.
+await page.waitForNetworkIdle({ idleTime: 500, timeout: 15000 }).catch(() => {});
+await Promise.race([
+  page.evaluate(() => Promise.all(
+    [...document.images].map((img) => img.complete ? Promise.resolve() : img.decode().catch(() => {}))
+  )),
+  new Promise((r) => setTimeout(r, 4000)),
+]);
+await page.evaluate(() => window.scrollTo(0, 0));
 await new Promise(r => setTimeout(r, 650));
 await page.screenshot({ path: outPath, fullPage: true });
 await browser.close();
