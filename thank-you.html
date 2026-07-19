@@ -72,6 +72,12 @@
     .nav-wordmark .plus { color: var(--color-accent); }
     #navbar.scrolled .nav-wordmark { color: var(--color-ink); }
 
+    /* Nav bar + logo sizing — driven by --nav-height / --nav-logo-height /
+       --footer-logo-height in brand.css (size the nav off the client logo). */
+    #navbar .nav-row { height: var(--nav-height); }
+    .nav-logo    { height: var(--nav-logo-height); width: auto; display: block; }
+    .footer-logo { height: var(--footer-logo-height); width: auto; display: block; }
+
     .footer-wordmark {
       font-family: 'Barlow', sans-serif;
       font-weight: 800; font-size: 28px;
@@ -120,7 +126,7 @@
     .nav-link:hover::after { width: 100%; }
 
     /* ── Services dropdown (desktop) ── */
-    .nav-dropdown { position: relative; }
+    .nav-dropdown { position: relative; height: var(--nav-height); display: flex; align-items: center; }
     .nav-dropdown-trigger { display: inline-flex; align-items: center; gap: 5px; }
     .nav-dropdown-trigger .nav-chev { transition: transform 0.25s cubic-bezier(0.4,0,0.2,1); }
     .nav-dropdown:hover .nav-chev,
@@ -248,10 +254,10 @@
   <!-- ============================================================
        STICKY NAVIGATION
   ============================================================ -->
-  <nav id="navbar" class="py-3">
-    <div class="max-w-6xl mx-auto px-5 flex items-center justify-between">
+  <nav id="navbar">
+    <div class="nav-row max-w-6xl mx-auto px-5 flex items-center justify-between">
 
-      <!-- LOGO PLACEHOLDER — replace <span> with <img> when client logo is ready -->
+      <!-- LOGO PLACEHOLDER — swap the <span> for <img class="nav-logo" ...>; height comes from --nav-logo-height in brand.css -->
       <a href="/" class="flex items-center group" aria-label="Your Business Name home">
         <span class="nav-wordmark">Your Business Name</span>
       </a>
@@ -420,7 +426,7 @@
 
         <!-- Brand -->
         <div class="col-span-2 md:col-span-1">
-          <!-- LOGO PLACEHOLDER — replace <span> with <img> when client logo is ready -->
+          <!-- LOGO PLACEHOLDER — swap the <span> for <img class="footer-logo" ...>; height comes from --footer-logo-height in brand.css -->
           <a href="/" class="flex items-center mb-2" aria-label="Your Business Name home">
             <span class="footer-wordmark">Your Business Name</span>
           </a>

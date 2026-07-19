@@ -92,6 +92,29 @@ page.
 
 ---
 
+## Nav & logo sizing — FROZEN methodology, FILL the values
+
+Nav height is **sized off the client logo** — a documented cross-build issue: past builds
+needed a 96–104px nav to fit 76px+ logos, and the template never inherited it. It is now
+driven by three tokens in `brand.css` (the defaults are a **starting point, not a fixed
+value** — resize per client from the logo):
+
+| Token | Default | Role |
+|---|---|---|
+| `--nav-height` | `96px` | Nav bar height. |
+| `--nav-logo-height` | `72px` | Client logo `<img>` height in the nav (swap the `<span>` wordmark for `<img class="nav-logo">`). |
+| `--footer-logo-height` | `116px` | Client logo `<img>` height in the footer (`<img class="footer-logo">`). |
+
+**FROZEN rules:**
+- These tokens are the ONLY place nav/logo heights are set. Every page consumes them —
+  the sticky + scrolled nav state, the mobile nav, and the desktop dropdowns all key off
+  `--nav-height` — so per-client resizing is **one edit in `brand.css`, never a 15-file sweep.**
+- Size `--nav-height` off the logo: it must clear `--nav-logo-height` with breathing room.
+- Changing the token keeps the scrolled/solid nav, the transparent-at-top state, hero
+  clearance, the mobile toggle, and the dropdown menus aligned — verify these after a resize.
+
+---
+
 ## Integration placeholders — FROZEN insertion points, DECIDE per client
 
 - `<!-- GHL CONTACT FORM EMBED -->` — [NEEDS INPUT — form name]. Use the GHL embed; never a custom form.

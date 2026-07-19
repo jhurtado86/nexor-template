@@ -29,6 +29,11 @@
   --color-dark-rgb:        35, 40, 56;
   --color-dark-3-rgb:      54, 61, 78;
   --color-ink-rgb:         26, 29, 40;
+
+  /* size the nav off the client logo — see CLAUDE.md logo rules */
+  --nav-height:         96px;   /* nav bar height — starting point, not fixed */
+  --nav-logo-height:    72px;   /* client logo <img> height in the nav */
+  --footer-logo-height: 116px;  /* client logo <img> height in the footer */
 }
 
 /* ============================================================

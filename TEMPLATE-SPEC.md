@@ -94,13 +94,17 @@ offered. Pricing/transparency messaging lives inside a service-page split and th
 
 ### Navigation
 Sticky nav: transparent-at-top → solid on scroll. Standardized **Services** and **Areas**
-dropdowns (desktop + mobile). Nav height sized off the logo; logo left-aligned. The Areas
-dropdown carries the shared-zone guard:
+dropdowns (desktop + mobile). Nav height is **sized off the logo** via three `brand.css`
+tokens — `--nav-height` (96px), `--nav-logo-height` (72px), `--footer-logo-height` (116px)
+— the defaults are a starting point, not a fixed value; resize per client in one edit, not
+a 15-file sweep. Every page (sticky + scrolled state, mobile nav, dropdowns) consumes the
+tokens. Logo left-aligned. The Areas dropdown carries the shared-zone guard:
 `<!-- SHARED ZONE: Areas We Serve dropdown — do NOT modify during city clone pass -->`
 
 ### Footer
-Locked column structure; footer logo at a legible default size (not the old 50/60px);
-same canonical dark background token as the hero/dark sections.
+Locked column structure; footer logo sized by `--footer-logo-height` (116px default — a
+legible size, not the old 50/60px); same canonical dark background token as the hero/dark
+sections.
 
 ### Final-CTA partial
 A single shared final-CTA section (cta-background slot + ~0.7 overlay + headline + dual
