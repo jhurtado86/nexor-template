@@ -240,11 +240,6 @@
       background: radial-gradient(ellipse 120% 100% at 50% 50%, transparent 35%, rgba(0,0,0,0.50) 100%);
       pointer-events: none;
     }
-    .hero-bg .trust-badge {
-      background: rgba(var(--color-accent-rgb), 0.12);
-      border-color: rgba(var(--color-accent-rgb), 0.28);
-      color: var(--color-line);
-    }
     .hero-bg .btn-outline { color: rgba(255,255,255,0.88); border-color: rgba(255,255,255,0.20); }
     .hero-bg .btn-outline:hover { border-color: rgba(var(--color-accent-rgb), 0.50); background: rgba(var(--color-dark-rgb), 0.14); transform: translateY(-2px); }
     @media (max-width: 767px) { .hero-text-block h1 { font-size: 2.15rem !important; } }
@@ -309,11 +304,6 @@
     .insurer-pill:hover { background: rgba(var(--color-dark-rgb), 0.14); border-color: rgba(var(--color-dark-rgb), 0.30); transform: translateY(-1px); }
 
     /* ── Badges & accents ── */
-    .trust-badge {
-      background: rgba(var(--color-dark-rgb), 0.07); border: 1px solid rgba(var(--color-dark-rgb), 0.15);
-      border-radius: 100px; padding: 6px 14px; font-size: 13px; font-weight: 500;
-      color: var(--color-accent); display: inline-flex; align-items: center; gap: 6px;
-    }
     .section-title-accent {
       display: inline-block; width: 64px; height: 3px;
       background: linear-gradient(90deg, transparent 0%, var(--color-accent) 25%, var(--color-accent) 75%, transparent 100%);
@@ -696,24 +686,9 @@
           <span class="current">Service Six</span>
         </nav>
 
-        <!-- Trust badges -->
-        <div class="flex flex-wrap gap-2 mb-7">
-          <span class="trust-badge">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            [Licensed &amp; Insured — verify]
-          </span>
-          <span class="trust-badge">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Same-Day Service
-          </span>
-          <span class="trust-badge">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>
-            Free Estimates
-          </span>
-        </div>
 
         <!-- Eyebrow -->
-        <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 20px; text-shadow: 0 1px 8px rgba(0,0,0,0.30);">Our Services — [City] &amp; [Region]</p>
+        <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-line); margin-bottom: 20px; text-shadow: 0 1px 8px rgba(0,0,0,0.45);">Our Services — [City] &amp; [Region]</p>
 
         <h1 class="font-display text-white mb-5" style="font-size: clamp(2.4rem, 6vw, 3.8rem); letter-spacing: -0.03em; line-height: 1.06; font-weight: 800; text-shadow: 0 2px 24px rgba(0,0,0,0.45);">
           Service Six<br />
