@@ -83,7 +83,10 @@ same canonical dark background token as the hero/dark sections.
 
 ### Final-CTA partial
 A single shared final-CTA section (cta-background slot + ~0.7 overlay + headline + dual
-CTAs: Call + Get a Quote) — **identical on every page**, before the footer.
+CTAs: Call + Get a Quote) — **identical on every page except `thank-you.html`**, before the
+footer. `thank-you.html` deliberately omits it: a confirmation page shouldn't push another
+conversion, so it ends on its single confirmation hero + footer and carries only the
+`hero-background` OFF-LIMITS marker (one, not two).
 
 ### Guardrails realized in CSS (ship by default, not re-applied per build)
 Distinct display + body font pairing; layered color-tinted shadows (no flat `shadow-md`);
@@ -124,12 +127,15 @@ Photo tier: 1 uniform slot. Schema scaffold: **3 blocks** — `LocalBusiness` re
 token, not the full list.
 
 ### `about.html`
-Owner-story section (2 photo slots, one owner-portrait 3:4) → team (optional) → value →
-final-CTA → footer.
+Owner-story section: 1 owner-portrait (3:4) + 2 body photos (4:3) → value → why-us →
+final-CTA → footer. About photo tier = **2 body + 1 portrait** (3 uniform slots). Do not
+trim to 2 — that leaves a ragged/orphaned pair, which the no-dead-space rule forbids.
 
 ### `thank-you.html`
 Ships the **trio pre-wired**: `<meta robots noindex,nofollow>` + excluded from
 `sitemap.xml` + Disallowed in `robots.txt`. "Request Received" badge lives here only.
+Single confirmation hero + footer, **no final-CTA partial** (see Final-CTA partial above) —
+one `hero-background` OFF-LIMITS marker, no `cta-background`.
 
 ---
 
