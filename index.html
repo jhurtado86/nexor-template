@@ -161,7 +161,6 @@
       letter-spacing: -0.02em; color: var(--color-bg); line-height: 1;
       transition: color 0.25s cubic-bezier(0.4,0,0.2,1);
     }
-    .nav-wordmark .plus { color: var(--color-accent); }
     #navbar.scrolled .nav-wordmark { color: var(--color-ink); }
 
     /* Nav bar + logo sizing — driven by --nav-height / --nav-logo-height /
@@ -175,7 +174,6 @@
       font-weight: 800; font-size: 28px;
       letter-spacing: -0.02em; color: var(--color-bg); line-height: 1;
     }
-    .footer-wordmark .plus { color: var(--color-accent); }
 
     #navbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 50;
@@ -386,9 +384,12 @@
       box-shadow: 0 0 6px rgba(var(--color-dark-rgb), 0.40); flex-shrink: 0;
     }
 
-    .stars { color: var(--color-rating); letter-spacing: 1px; }
-
-    #mobile-menu { display: none; }
+    #mobile-menu {
+      display: none;
+      max-height: calc(100vh - var(--nav-height) - 12px);
+      max-height: calc(100dvh - var(--nav-height) - 12px);
+      overflow-y: auto;
+    }
     #mobile-menu.open { display: block; }
 
     .fade-up {
@@ -397,10 +398,16 @@
     }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    .phone-pulse { animation: pulse-ring 2.5s cubic-bezier(0.4,0,0.6,1) infinite; }
+    .phone-pulse { position: relative; }
+    .phone-pulse::after {
+      content: ""; position: absolute; inset: -3px; border-radius: 11px;
+      border: 2px solid rgba(var(--color-accent-rgb), 0.45);
+      opacity: 0; pointer-events: none;
+      animation: pulse-ring 2.5s cubic-bezier(0.4,0,0.6,1) infinite;
+    }
     @keyframes pulse-ring {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(var(--color-accent-rgb), 0.4); }
-      50%       { box-shadow: 0 0 0 10px rgba(var(--color-accent-rgb), 0); }
+      0%        { transform: scale(0.98); opacity: 0.55; }
+      70%, 100% { transform: scale(1.15); opacity: 0; }
     }
 
     @media (min-width: 1024px) {
@@ -409,6 +416,23 @@
         padding-left: clamp(48px, 5vw, 96px) !important; padding-right: 0 !important;
       }
       .hero-text-block { max-width: 600px !important; }
+    }
+
+    /* ── Skip link, anchor offset, FAQ chevron, reduced motion ── */
+    .skip-link {
+      position: absolute; top: 0; left: -9999px; z-index: 100;
+      background: var(--color-bg); color: var(--color-ink);
+      padding: 10px 18px; border-radius: 0 0 10px 0; font-weight: 600;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+    }
+    .skip-link:focus { left: 0; }
+    section[id] { scroll-margin-top: calc(var(--nav-height) + 8px); }
+    .faq-chevron { transition: transform 0.22s cubic-bezier(0.4,0,0.2,1); }
+    details[open] .faq-chevron { transform: rotate(180deg); }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .phone-pulse::after { animation: none; opacity: 0; }
+      .fade-up { opacity: 1; transform: none; transition: none; }
     }
 
     ::-webkit-scrollbar { width: 6px; }
@@ -477,6 +501,8 @@
 </head>
 <body class="font-body leading-body">
 
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
   <!-- ============================================================
        STICKY NAVIGATION
   ============================================================ -->
@@ -491,33 +517,33 @@
       <!-- Desktop Nav -->
       <div class="hidden md:flex items-center gap-7">
         <div class="nav-dropdown">
-          <a href="/#services" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150" aria-haspopup="true">
+          <a href="/#services" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150">
             Services
             <svg class="nav-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </a>
-          <div class="nav-dropdown-menu" role="menu" aria-label="Services">
-            <a href="/services/service-one.html" role="menuitem">Service One</a>
-            <a href="/services/service-two.html" role="menuitem">Service Two</a>
-            <a href="/services/service-three.html" role="menuitem">Service Three</a>
-            <a href="/services/service-five.html" role="menuitem">Service Five</a>
-            <a href="/services/service-four.html" role="menuitem">Service Four</a>
-            <a href="/services/service-six.html" role="menuitem">Service Six</a>
+          <div class="nav-dropdown-menu" aria-label="Services">
+            <a href="/services/service-one.html">Service One</a>
+            <a href="/services/service-two.html">Service Two</a>
+            <a href="/services/service-three.html">Service Three</a>
+            <a href="/services/service-four.html">Service Four</a>
+            <a href="/services/service-five.html">Service Five</a>
+            <a href="/services/service-six.html">Service Six</a>
           </div>
         </div>
         <!-- SHARED ZONE: Areas We Serve dropdown — do NOT modify during
              city-page clone-and-localize pass. All city entries constant. -->
         <div class="nav-dropdown">
-          <a href="/#service-area" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150" aria-haspopup="true">
+          <a href="/#service-area" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150">
             Areas We Serve
             <svg class="nav-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </a>
-          <div class="nav-dropdown-menu" role="menu" aria-label="Areas We Serve">
-            <a href="/areas/city-one.html" role="menuitem">[City]</a>
-            <a href="/areas/city-two.html" role="menuitem">[City 2]</a>
-            <a href="/areas/city-three.html" role="menuitem">[City 3]</a>
-            <a href="/areas/city-four.html" role="menuitem">[City 4]</a>
-            <a href="/areas/city-five.html" role="menuitem">[City 5]</a>
-            <a href="/areas/city-six.html" role="menuitem">[City 6]</a>
+          <div class="nav-dropdown-menu" aria-label="Areas We Serve">
+            <a href="/areas/city-one.html">[City]</a>
+            <a href="/areas/city-two.html">[City 2]</a>
+            <a href="/areas/city-three.html">[City 3]</a>
+            <a href="/areas/city-four.html">[City 4]</a>
+            <a href="/areas/city-five.html">[City 5]</a>
+            <a href="/areas/city-six.html">[City 6]</a>
           </div>
         </div>
         <!-- END SHARED ZONE: Areas We Serve dropdown -->
@@ -532,7 +558,7 @@
       </div>
 
       <!-- Mobile hamburger -->
-      <button id="hamburger" class="md:hidden p-2 rounded-lg border border-white/10 text-white hover:border-white/30 transition-colors duration-150" aria-label="Open menu">
+      <button id="hamburger" class="md:hidden p-2 rounded-lg border border-white/10 text-white hover:border-white/30 transition-colors duration-150" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
         <svg id="hamburger-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <line x1="3" y1="6" x2="21" y2="6"/>
           <line x1="3" y1="12" x2="21" y2="12"/>
@@ -552,8 +578,8 @@
           <a href="/services/service-one.html">Service One</a>
           <a href="/services/service-two.html">Service Two</a>
           <a href="/services/service-three.html">Service Three</a>
-          <a href="/services/service-five.html">Service Five</a>
           <a href="/services/service-four.html">Service Four</a>
+          <a href="/services/service-five.html">Service Five</a>
           <a href="/services/service-six.html">Service Six</a>
         </div>
         <!-- SHARED ZONE: Areas We Serve dropdown — do NOT modify during
@@ -592,7 +618,7 @@
     <img
       src="https://placehold.co/1920x1080"
       alt="Professional home services in [City] and across the [Region] — Your Business Name"
-      aria-hidden="true"
+      fetchpriority="high"
       style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; z-index: 0;"
     />
 
@@ -636,17 +662,17 @@
         <!-- Stats row -->
         <div class="flex flex-wrap gap-8">
           <div>
-            <div class="font-display font-700 text-2xl text-white" style="text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Upfront</div>
+            <div class="font-display font-bold text-2xl text-white" style="text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Upfront</div>
             <div class="text-muted text-sm mt-0.5">Honest Pricing</div>
           </div>
           <div class="w-px" style="background: rgba(255,255,255,0.14);"></div>
           <div>
-            <div class="font-display font-700 text-2xl text-white" style="text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Mobile</div>
+            <div class="font-display font-bold text-2xl text-white" style="text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Mobile</div>
             <div class="text-muted text-sm mt-0.5">Service Available</div>
           </div>
           <div class="w-px" style="background: rgba(255,255,255,0.14);"></div>
           <div>
-            <div class="font-display font-700 text-2xl text-white" style="text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Free</div>
+            <div class="font-display font-bold text-2xl text-white" style="text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Free</div>
             <div class="text-muted text-sm mt-0.5">Free Estimates</div>
           </div>
         </div>
@@ -670,7 +696,7 @@
           <!-- Text -->
           <div class="fade-up">
             <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 14px;">Local &amp; Trusted</p>
-            <h2 class="font-display text-4xl lg:text-[2.75rem] font-700 text-white mb-6" style="letter-spacing: -0.03em; line-height: 1.1;">
+            <h2 class="font-display text-4xl lg:text-[2.75rem] font-bold text-white mb-6" style="letter-spacing: -0.03em; line-height: 1.1;">
               Your Local Home Services Team in [City]
             </h2>
             <p class="text-muted text-lg mb-5" style="line-height: 1.7;">
@@ -704,7 +730,7 @@
         <div class="text-center mb-12 fade-up">
           <div class="flex justify-center mb-3"><div class="section-title-accent"></div></div>
           <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 14px;">How It Works</p>
-          <h2 class="font-display text-4xl lg:text-5xl font-700 text-white mb-4" style="letter-spacing: -0.03em;">
+          <h2 class="font-display text-4xl lg:text-5xl font-bold text-white mb-4" style="letter-spacing: -0.03em;">
             Getting Started Is Simple
           </h2>
           <p class="text-muted text-lg max-w-2xl mx-auto" style="line-height: 1.7;">
@@ -715,26 +741,26 @@
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 fade-up" style="transition-delay: 0.06s;">
 
           <div class="feature-card text-center">
-            <div class="font-display font-800 mb-3" style="font-size: 2.25rem; line-height: 1; color: var(--color-accent);">01</div>
-            <h3 class="font-display font-700 text-white text-lg mb-2">Call or Message Us</h3>
+            <div class="font-display font-extrabold mb-3" style="font-size: 2.25rem; line-height: 1; color: var(--color-accent);">01</div>
+            <h3 class="font-display font-bold text-white text-lg mb-2">Call or Message Us</h3>
             <p class="text-muted text-sm" style="line-height: 1.7;">Tell us what you need anywhere in [City] or the [Region]. We answer your questions and get you a fast quote.</p>
           </div>
 
           <div class="feature-card text-center">
-            <div class="font-display font-800 mb-3" style="font-size: 2.25rem; line-height: 1; color: var(--color-accent);">02</div>
-            <h3 class="font-display font-700 text-white text-lg mb-2">Get Your Free Quote</h3>
+            <div class="font-display font-extrabold mb-3" style="font-size: 2.25rem; line-height: 1; color: var(--color-accent);">02</div>
+            <h3 class="font-display font-bold text-white text-lg mb-2">Get Your Free Quote</h3>
             <p class="text-muted text-sm" style="line-height: 1.7;">You get a clear, upfront price before any work begins — no surprises and no pressure.</p>
           </div>
 
           <div class="feature-card text-center">
-            <div class="font-display font-800 mb-3" style="font-size: 2.25rem; line-height: 1; color: var(--color-accent);">03</div>
-            <h3 class="font-display font-700 text-white text-lg mb-2">Book Your Time</h3>
+            <div class="font-display font-extrabold mb-3" style="font-size: 2.25rem; line-height: 1; color: var(--color-accent);">03</div>
+            <h3 class="font-display font-bold text-white text-lg mb-2">Book Your Time</h3>
             <p class="text-muted text-sm" style="line-height: 1.7;">Pick a time that works for you. Same-day and mobile service are available across the [Region].</p>
           </div>
 
           <div class="feature-card text-center">
-            <div class="font-display font-800 mb-3" style="font-size: 2.25rem; line-height: 1; color: var(--color-accent);">04</div>
-            <h3 class="font-display font-700 text-white text-lg mb-2">We Handle It</h3>
+            <div class="font-display font-extrabold mb-3" style="font-size: 2.25rem; line-height: 1; color: var(--color-accent);">04</div>
+            <h3 class="font-display font-bold text-white text-lg mb-2">We Handle It</h3>
             <p class="text-muted text-sm" style="line-height: 1.7;">Our own crew shows up on time, does the job right, and cleans up before we leave.</p>
           </div>
 
@@ -750,7 +776,7 @@
 
         <div class="text-center mb-12 fade-up">
           <div class="flex justify-center mb-3"><div class="section-title-accent"></div></div>
-          <h2 class="font-display text-4xl lg:text-5xl font-700 text-white mb-4" style="letter-spacing: -0.03em;">
+          <h2 class="font-display text-4xl lg:text-5xl font-bold text-white mb-4" style="letter-spacing: -0.03em;">
             Our Services in [City] &amp; the [Region]
           </h2>
           <p class="text-muted text-lg max-w-2xl mx-auto" style="line-height: 1.7;">
@@ -761,7 +787,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 fade-up" style="transition-delay: 0.06s;">
 
           <a href="/services/service-one.html" class="service-card block text-center">
-            <h3 class="font-display font-700 text-white text-xl mb-2">Service One</h3>
+            <h3 class="font-display font-bold text-white text-xl mb-2">Service One</h3>
             <p class="text-muted text-sm mb-5" style="line-height: 1.7;">Our most-requested service in [City]. We handle every job from start to finish with quality materials matched to the work and a clean, precise result — and most jobs are completed the same day.</p>
             <span class="link-arrow">
               Learn more
@@ -770,7 +796,7 @@
           </a>
 
           <a href="/services/service-two.html" class="service-card block text-center">
-            <h3 class="font-display font-700 text-white text-xl mb-2">Service Two</h3>
+            <h3 class="font-display font-bold text-white text-xl mb-2">Service Two</h3>
             <p class="text-muted text-sm mb-5" style="line-height: 1.7;">A faster, smaller-scale fix handled the right way. Your Business Name takes care of it efficiently — often in about an hour — and the work in [City] is done with the same care.</p>
             <span class="link-arrow">
               Learn more
@@ -779,7 +805,7 @@
           </a>
 
           <a href="/services/service-three.html" class="service-card block text-center">
-            <h3 class="font-display font-700 text-white text-xl mb-2">Service Three</h3>
+            <h3 class="font-display font-bold text-white text-xl mb-2">Service Three</h3>
             <p class="text-muted text-sm mb-5" style="line-height: 1.7;">Careful, thorough work you can count on. Our team gets it done right — often in about an hour — and you'll notice the difference right away.</p>
             <span class="link-arrow">
               Learn more
@@ -787,17 +813,8 @@
             </span>
           </a>
 
-          <a href="/services/service-five.html" class="service-card block text-center">
-            <h3 class="font-display font-700 text-white text-xl mb-2">Service Five</h3>
-            <p class="text-muted text-sm mb-5" style="line-height: 1.7;">When you need it done right, our team handles it the same day across [City] and the [Region] — clean work, careful attention to detail, and a precise finish.</p>
-            <span class="link-arrow">
-              Learn more
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-            </span>
-          </a>
-
           <a href="/services/service-four.html" class="service-card block text-center">
-            <h3 class="font-display font-700 text-white text-xl mb-2">Service Four</h3>
+            <h3 class="font-display font-bold text-white text-xl mb-2">Service Four</h3>
             <p class="text-muted text-sm mb-5" style="line-height: 1.7;">You don't have to come to us. Our team loads up and comes to your home, office, or wherever works for you — across all of [City], [City 2], [City 3], [City 4], [City 5], and [City 6].</p>
             <span class="link-arrow">
               Learn more
@@ -805,8 +822,17 @@
             </span>
           </a>
 
+          <a href="/services/service-five.html" class="service-card block text-center">
+            <h3 class="font-display font-bold text-white text-xl mb-2">Service Five</h3>
+            <p class="text-muted text-sm mb-5" style="line-height: 1.7;">When you need it done right, our team handles it the same day across [City] and the [Region] — clean work, careful attention to detail, and a precise finish.</p>
+            <span class="link-arrow">
+              Learn more
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+          </a>
+
           <a href="/services/service-six.html" class="service-card block text-center">
-            <h3 class="font-display font-700 text-white text-xl mb-2">Service Six</h3>
+            <h3 class="font-display font-bold text-white text-xl mb-2">Service Six</h3>
             <p class="text-muted text-sm mb-5" style="line-height: 1.7;">When you need it handled fast, our team responds quickly — using quality materials matched to the job and installed with the same care we bring to every job at Your Business Name.</p>
             <span class="link-arrow">
               Learn more
@@ -835,7 +861,7 @@
           <!-- Text (right) -->
           <div class="fade-up order-1 lg:order-2" style="transition-delay: 0.1s;">
             <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 14px;">Why [City] Chooses Us</p>
-            <h2 class="font-display text-4xl lg:text-[2.75rem] font-700 text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.1;">
+            <h2 class="font-display text-4xl lg:text-[2.75rem] font-bold text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.1;">
               Honesty. Attention to Detail. Dedication.
             </h2>
             <p class="text-muted text-lg mb-7" style="line-height: 1.7;">
@@ -880,7 +906,7 @@
 
         <div class="text-center mb-12 fade-up">
           <div class="flex justify-center mb-3"><div class="section-title-accent"></div></div>
-          <h2 class="font-display text-4xl lg:text-5xl font-700 text-white mb-4" style="letter-spacing: -0.03em;">
+          <h2 class="font-display text-4xl lg:text-5xl font-bold text-white mb-4" style="letter-spacing: -0.03em;">
             Serving [City] &amp; the [Region]
           </h2>
           <p class="text-muted text-lg max-w-2xl mx-auto" style="line-height: 1.7;">
@@ -972,7 +998,7 @@
         <div class="text-center mb-12 fade-up">
           <div class="flex justify-center mb-3"><div class="section-title-accent"></div></div>
           <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 14px;">Our Work</p>
-          <h2 class="font-display text-4xl lg:text-5xl font-700 text-white mb-4" style="letter-spacing: -0.03em;">
+          <h2 class="font-display text-4xl lg:text-5xl font-bold text-white mb-4" style="letter-spacing: -0.03em;">
             Real Home Services Jobs From Around [City]
           </h2>
           <p class="text-muted text-lg max-w-2xl mx-auto" style="line-height: 1.7;">
@@ -1021,7 +1047,7 @@
 
         <div class="text-center mb-12 fade-up">
           <div class="flex justify-center mb-3"><div class="section-title-accent"></div></div>
-          <h2 class="font-display text-4xl lg:text-5xl font-700 text-white mb-4" style="letter-spacing: -0.03em;">
+          <h2 class="font-display text-4xl lg:text-5xl font-bold text-white mb-4" style="letter-spacing: -0.03em;">
             Insurance,<br />Made Simple
           </h2>
           <p class="text-muted text-lg max-w-2xl mx-auto" style="line-height: 1.7;">
@@ -1032,7 +1058,7 @@
         <div class="fade-up" style="transition-delay: 0.06s;">
           <div class="area-card mb-10">
             <div class="text-center mb-5">
-              <span class="text-xs font-700 uppercase tracking-widest" style="color: var(--color-accent); font-family: 'Barlow', sans-serif;">We Work Directly With These Carriers</span>
+              <span class="text-xs font-bold uppercase tracking-widest" style="color: var(--color-accent); font-family: 'Barlow', sans-serif;">We Work Directly With These Carriers</span>
             </div>
             <div class="flex flex-wrap justify-center gap-3">
               <span class="insurer-pill">Allstate</span>
@@ -1049,18 +1075,18 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div class="text-center">
-              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-display font-800 text-xl mx-auto mb-4" style="background: var(--color-accent); font-family: 'Barlow', sans-serif;">1</div>
-              <h3 class="font-display font-700 text-white text-base mb-2">Call or Book Online</h3>
+              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-display font-extrabold text-xl mx-auto mb-4" style="background: var(--color-accent); font-family: 'Barlow', sans-serif;">1</div>
+              <h3 class="font-display font-bold text-white text-base mb-2">Call or Book Online</h3>
               <p class="text-sm text-muted" style="line-height: 1.65;">Tell us about the job and, if you're filing a claim, who your insurance carrier is. We can usually walk you through your options in just a few minutes over the phone.</p>
             </div>
             <div class="text-center">
-              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-display font-800 text-xl mx-auto mb-4" style="background: var(--color-accent); font-family: 'Barlow', sans-serif;">2</div>
-              <h3 class="font-display font-700 text-white text-base mb-2">We Work With Your Insurance</h3>
+              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-display font-extrabold text-xl mx-auto mb-4" style="background: var(--color-accent); font-family: 'Barlow', sans-serif;">2</div>
+              <h3 class="font-display font-bold text-white text-base mb-2">We Work With Your Insurance</h3>
               <p class="text-sm text-muted" style="line-height: 1.65;">Your Business Name reaches out to your carrier directly to verify your coverage and what's needed to move forward. We keep you in the loop the whole way through.</p>
             </div>
             <div class="text-center">
-              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-display font-800 text-xl mx-auto mb-4" style="background: var(--color-accent); font-family: 'Barlow', sans-serif;">3</div>
-              <h3 class="font-display font-700 text-white text-base mb-2">Job Done, Stress-Free</h3>
+              <div class="w-12 h-12 rounded-full flex items-center justify-center text-white font-display font-extrabold text-xl mx-auto mb-4" style="background: var(--color-accent); font-family: 'Barlow', sans-serif;">3</div>
+              <h3 class="font-display font-bold text-white text-base mb-2">Job Done, Stress-Free</h3>
               <p class="text-sm text-muted" style="line-height: 1.65;">Once everything's confirmed, our team schedules the work at your location — your home, office, or wherever works for you. We handle the details so you don't have to.</p>
             </div>
           </div>
@@ -1080,7 +1106,7 @@
 
         <div class="text-center mb-12 fade-up">
           <div class="flex justify-center mb-3"><div class="section-title-accent"></div></div>
-          <h2 class="font-display text-4xl lg:text-5xl font-700 text-white mb-4" style="letter-spacing: -0.03em;">
+          <h2 class="font-display text-4xl lg:text-5xl font-bold text-white mb-4" style="letter-spacing: -0.03em;">
             Reviews From Across<br />[City] &amp; the [Region]
           </h2>
           <p class="text-muted text-lg max-w-xl mx-auto" style="line-height: 1.7;">
@@ -1092,7 +1118,7 @@
           <div style="background: var(--color-bg); border-radius: 16px; padding: 20px 20px 12px; box-shadow: 0 24px 60px -20px rgba(0,0,0,0.55), 0 2px 0 rgba(255,255,255,0.04) inset; max-width: 1040px; margin: 0 auto;">
             <div style="text-align: center; padding: 28px 20px;">
               
-              <p class="font-display font-700" style="color: var(--color-ink); font-size: 1rem; margin: 12px 0 6px;">Review widget goes here</p>
+              <p class="font-display font-bold" style="color: var(--color-ink); font-size: 1rem; margin: 12px 0 6px;">Review widget goes here</p>
               <p class="text-sm" style="color: var(--color-muted);">Paste the GHL review widget embed to show live customer reviews.</p>
             </div>
           </div>
@@ -1113,7 +1139,7 @@
         <div class="text-center mb-12 fade-up">
           <div class="flex justify-center mb-3"><div class="section-title-accent"></div></div>
           <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 14px;">Good to Know</p>
-          <h2 class="font-display text-4xl lg:text-5xl font-700 text-white mb-4" style="letter-spacing: -0.03em;">
+          <h2 class="font-display text-4xl lg:text-5xl font-bold text-white mb-4" style="letter-spacing: -0.03em;">
             Common Questions
           </h2>
         </div>
@@ -1121,7 +1147,7 @@
         <div class="space-y-4 fade-up" style="transition-delay: 0.06s;">
 
           <details class="rounded-2xl border overflow-hidden" style="border-color: rgba(var(--color-dark-rgb), 0.09); background: var(--color-bg);" open>
-            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--color-ink);">
+            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-bold text-lg" style="color: var(--color-ink);">
               What areas do you serve?
               <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
@@ -1131,7 +1157,7 @@
           </details>
 
           <details class="rounded-2xl border overflow-hidden" style="border-color: rgba(var(--color-dark-rgb), 0.09); background: var(--color-bg);">
-            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--color-ink);">
+            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-bold text-lg" style="color: var(--color-ink);">
               How fast can you get to my job?
               <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
@@ -1141,7 +1167,7 @@
           </details>
 
           <details class="rounded-2xl border overflow-hidden" style="border-color: rgba(var(--color-dark-rgb), 0.09); background: var(--color-bg);">
-            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--color-ink);">
+            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-bold text-lg" style="color: var(--color-ink);">
               Do you offer free estimates?
               <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
@@ -1151,7 +1177,7 @@
           </details>
 
           <details class="rounded-2xl border overflow-hidden" style="border-color: rgba(var(--color-dark-rgb), 0.09); background: var(--color-bg);">
-            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--color-ink);">
+            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-bold text-lg" style="color: var(--color-ink);">
               Do you come to me?
               <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
@@ -1161,7 +1187,7 @@
           </details>
 
           <details class="rounded-2xl border overflow-hidden" style="border-color: rgba(var(--color-dark-rgb), 0.09); background: var(--color-bg);">
-            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--color-ink);">
+            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-bold text-lg" style="color: var(--color-ink);">
               How much will my job cost?
               <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
@@ -1171,7 +1197,7 @@
           </details>
 
           <details class="rounded-2xl border overflow-hidden" style="border-color: rgba(var(--color-dark-rgb), 0.09); background: var(--color-bg);">
-            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--color-ink);">
+            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-bold text-lg" style="color: var(--color-ink);">
               How do I get started?
               <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
@@ -1194,7 +1220,7 @@
 
         <div class="text-center mb-12 fade-up">
           <div class="flex justify-center mb-3"><div class="section-title-accent"></div></div>
-          <h2 class="font-display text-4xl lg:text-5xl font-700 text-white mb-4" style="letter-spacing: -0.03em;">
+          <h2 class="font-display text-4xl lg:text-5xl font-bold text-white mb-4" style="letter-spacing: -0.03em;">
             Request Service or<br />Get a Free Quote
           </h2>
           <p class="text-muted text-lg max-w-xl mx-auto" style="line-height: 1.7;">
@@ -1207,7 +1233,7 @@
           <!-- Contact info -->
           <div>
             <div class="area-card h-full">
-              <h3 class="font-display font-700 text-white text-xl mb-6">Get in Touch</h3>
+              <h3 class="font-display font-bold text-white text-xl mb-6">Get in Touch</h3>
 
               <div class="space-y-5">
                 <a href="tel:+15550000000" class="flex items-start gap-4 group">
@@ -1215,8 +1241,8 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.54 6.54l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                   </div>
                   <div>
-                    <div class="text-xs font-700 uppercase tracking-widest mb-1" style="color: var(--color-accent); font-family: 'Barlow', sans-serif;">Call or Text</div>
-                    <div class="font-display font-700 text-white text-lg group-hover:text-accent transition-colors duration-150">(555) 000-0000</div>
+                    <div class="text-xs font-bold uppercase tracking-widest mb-1" style="color: var(--color-accent); font-family: 'Barlow', sans-serif;">Call or Text</div>
+                    <div class="font-display font-bold text-white text-lg group-hover:text-accent transition-colors duration-150">(555) 000-0000</div>
                   </div>
                 </a>
 
@@ -1225,8 +1251,8 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                   </div>
                   <div>
-                    <div class="text-xs font-700 uppercase tracking-widest mb-1" style="color: var(--color-accent); font-family: 'Barlow', sans-serif;">Email Us</div>
-                    <div class="font-display font-700 text-white text-base group-hover:underline">hello@yourbusiness.com</div>
+                    <div class="text-xs font-bold uppercase tracking-widest mb-1" style="color: var(--color-accent); font-family: 'Barlow', sans-serif;">Email Us</div>
+                    <div class="font-display font-bold text-white text-base group-hover:underline">hello@yourbusiness.com</div>
                   </div>
                 </a>
 
@@ -1235,8 +1261,8 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                   </div>
                   <div>
-                    <div class="text-xs font-700 uppercase tracking-widest mb-1" style="color: var(--color-accent); font-family: 'Barlow', sans-serif;">Visit Us</div>
-                    <div class="font-display font-700 text-white text-base">[Street Address]</div>
+                    <div class="text-xs font-bold uppercase tracking-widest mb-1" style="color: var(--color-accent); font-family: 'Barlow', sans-serif;">Visit Us</div>
+                    <div class="font-display font-bold text-white text-base">[Street Address]</div>
                     <div class="text-muted text-sm">[City], [ST] [ZIP]</div>
                   </div>
                 </div>
@@ -1253,7 +1279,7 @@
             <!-- GHL CONTACT FORM EMBED GOES HERE -->
             <div style="text-align: center; padding: 48px 32px; color: var(--color-muted);">
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 16px; opacity: 0.75;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
-              <p class="font-display font-700" style="color: var(--color-ink); font-size: 1rem; margin-bottom: 6px;">Contact form goes here</p>
+              <p class="font-display font-bold" style="color: var(--color-ink); font-size: 1rem; margin-bottom: 6px;">Contact form goes here</p>
               <p class="text-sm" style="color: var(--color-muted);">Paste the GHL contact form embed to activate this form.</p>
             </div>
           </div>
@@ -1266,7 +1292,7 @@
             <!-- GOOGLE MAPS EMBED GOES HERE -->
             <div style="text-align: center; padding: 40px; color: var(--color-muted);">
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 16px; opacity: 0.75;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <p class="font-display font-700" style="color: var(--color-ink); font-size: 1rem; margin-bottom: 6px;">Google Map goes here</p>
+              <p class="font-display font-bold" style="color: var(--color-ink); font-size: 1rem; margin-bottom: 6px;">Google Map goes here</p>
               <p class="text-sm" style="color: var(--color-muted);">Paste the client's Google Maps embed for their service area.</p>
             </div>
           </div>
@@ -1292,7 +1318,7 @@
 
       <div class="relative z-10 max-w-3xl mx-auto px-5 text-center fade-up">
         <div class="flex justify-center mb-3"><div class="section-title-accent"></div></div>
-        <h2 class="font-display text-4xl lg:text-5xl font-800 text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.1;">
+        <h2 class="font-display text-4xl lg:text-5xl font-extrabold text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.1;">
           Ready When<br />You Are.<br /><span style="color: var(--color-accent);">Get It Done Today.</span>
         </h2>
         <p class="text-muted text-lg mb-10 max-w-xl mx-auto" style="line-height: 1.7;">
@@ -1363,7 +1389,7 @@
 
         <!-- Services -->
         <div>
-          <h2 class="font-display font-700 text-white text-sm uppercase tracking-widest mb-4">Services</h2>
+          <h2 class="font-display font-bold text-white text-sm uppercase tracking-widest mb-4">Services</h2>
           <ul class="space-y-2.5">
             <li><a href="/services/service-one.html"        class="text-muted text-sm hover:text-white transition-colors duration-150">Service One</a></li>
             <li><a href="/services/service-two.html"  class="text-muted text-sm hover:text-white transition-colors duration-150">Service Two</a></li>
@@ -1376,7 +1402,7 @@
 
         <!-- Company -->
         <div>
-          <h2 class="font-display font-700 text-white text-sm uppercase tracking-widest mb-4">Company</h2>
+          <h2 class="font-display font-bold text-white text-sm uppercase tracking-widest mb-4">Company</h2>
           <ul class="space-y-2.5">
             <li><a href="/#why-us"       class="text-muted text-sm hover:text-white transition-colors duration-150">About Us</a></li>
             <!-- OPTIONAL MODULE LINK (footer, #reviews): re-enable with the Review widget module: <li><a href="/#reviews"      class="text-muted text-sm hover:text-white transition-colors duration-150">Reviews</a></li> -->
@@ -1389,7 +1415,7 @@
 
         <!-- Service Area -->
         <div>
-          <h2 class="font-display font-700 text-white text-sm uppercase tracking-widest mb-4">Areas We Serve</h2>
+          <h2 class="font-display font-bold text-white text-sm uppercase tracking-widest mb-4">Areas We Serve</h2>
           <ul class="space-y-2.5">
             <li><a href="/areas/city-one.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City]</a></li>
             <li><a href="/areas/city-two.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City 2]</a></li>
@@ -1428,6 +1454,7 @@
     hamburger.addEventListener('click', () => {
       const open = mobileMenu.classList.toggle('open');
       hamburger.setAttribute('aria-expanded', open);
+      hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     });
     document.querySelectorAll('.mobile-nav-link').forEach(link => {
       link.addEventListener('click', () => mobileMenu.classList.remove('open'));

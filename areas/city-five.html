@@ -116,7 +116,6 @@
       letter-spacing: -0.02em; color: var(--color-bg); line-height: 1;
       transition: color 0.25s cubic-bezier(0.4,0,0.2,1);
     }
-    .nav-wordmark .plus { color: var(--color-accent); }
     #navbar.scrolled .nav-wordmark { color: var(--color-ink); }
 
     /* Nav bar + logo sizing — driven by --nav-height / --nav-logo-height /
@@ -130,7 +129,6 @@
       font-weight: 800; font-size: 28px;
       letter-spacing: -0.02em; color: var(--color-bg); line-height: 1;
     }
-    .footer-wordmark .plus { color: var(--color-accent); }
 
     /* ── Nav ── */
     #navbar {
@@ -350,11 +348,13 @@
       box-shadow: 0 0 6px rgba(var(--color-dark-rgb), 0.40); flex-shrink: 0;
     }
 
-    /* ── Stars ── */
-    .stars { color: var(--color-rating); letter-spacing: 1px; }
-
     /* ── Mobile menu ── */
-    #mobile-menu { display: none; }
+    #mobile-menu {
+      display: none;
+      max-height: calc(100vh - var(--nav-height) - 12px);
+      max-height: calc(100dvh - var(--nav-height) - 12px);
+      overflow-y: auto;
+    }
     #mobile-menu.open { display: block; }
 
     /* ── Scroll animations ── */
@@ -365,10 +365,16 @@
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
     /* ── Phone pulse ── */
-    .phone-pulse { animation: pulse-ring 2.5s cubic-bezier(0.4,0,0.6,1) infinite; }
+    .phone-pulse { position: relative; }
+    .phone-pulse::after {
+      content: ""; position: absolute; inset: -3px; border-radius: 11px;
+      border: 2px solid rgba(var(--color-accent-rgb), 0.45);
+      opacity: 0; pointer-events: none;
+      animation: pulse-ring 2.5s cubic-bezier(0.4,0,0.6,1) infinite;
+    }
     @keyframes pulse-ring {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(var(--color-accent-rgb), 0.4); }
-      50%       { box-shadow: 0 0 0 10px rgba(var(--color-accent-rgb), 0); }
+      0%        { transform: scale(0.98); opacity: 0.55; }
+      70%, 100% { transform: scale(1.15); opacity: 0; }
     }
 
     /* ── Hero layout left-aligned on desktop ── */
@@ -381,6 +387,23 @@
     }
 
     /* ── Scrollbar ── */
+    /* ── Skip link, anchor offset, FAQ chevron, reduced motion ── */
+    .skip-link {
+      position: absolute; top: 0; left: -9999px; z-index: 100;
+      background: var(--color-bg); color: var(--color-ink);
+      padding: 10px 18px; border-radius: 0 0 10px 0; font-weight: 600;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+    }
+    .skip-link:focus { left: 0; }
+    section[id] { scroll-margin-top: calc(var(--nav-height) + 8px); }
+    .faq-chevron { transition: transform 0.22s cubic-bezier(0.4,0,0.2,1); }
+    details[open] .faq-chevron { transform: rotate(180deg); }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .phone-pulse::after { animation: none; opacity: 0; }
+      .fade-up { opacity: 1; transform: none; transition: none; }
+    }
+
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--color-bg-2); }
     ::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 3px; }
@@ -439,21 +462,6 @@
         radial-gradient(ellipse 85% 65% at 100% 100%, rgba(var(--color-accent-rgb), 0.08) 0%, transparent 52%),
         var(--color-dark);
     }
-    #why-us .feature-card {
-      background: linear-gradient(135deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.02) 100%), rgba(var(--color-dark-rgb), 0.45);
-      border: 1px solid rgba(255,255,255,0.10);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.30), 0 20px 50px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.06);
-    }
-    #why-us .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.30), 0 28px 62px rgba(0,0,0,0.46), inset 0 1px 0 rgba(255,255,255,0.08);
-    }
-    #why-us .icon-wrap {
-      background: rgba(var(--color-dark-rgb), 0.22);
-      border: 1px solid rgba(var(--color-accent-rgb), 0.30);
-      box-shadow: 0 2px 10px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.07);
-    }
-    #why-us .icon-wrap svg { stroke: var(--color-accent); }
     #insurance strong { color: var(--color-accent) !important; }
   </style>
 
@@ -461,7 +469,7 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": "[BUSINESS @TYPE]",
     "@id": "https://yourbusiness.com/#business",
     "name": "Your Business Name",
     "url": "https://yourbusiness.com/",
@@ -534,6 +542,8 @@
 </head>
 <body class="font-body leading-body">
 
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
   <!-- ============================================================
        STICKY NAVIGATION
   ============================================================ -->
@@ -548,33 +558,33 @@
       <!-- Desktop Nav -->
       <div class="hidden md:flex items-center gap-7">
         <div class="nav-dropdown">
-          <a href="/#services" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150" aria-haspopup="true">
+          <a href="/#services" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150">
             Services
             <svg class="nav-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </a>
-          <div class="nav-dropdown-menu" role="menu" aria-label="Services">
-            <a href="/services/service-one.html" role="menuitem">Service One</a>
-            <a href="/services/service-two.html" role="menuitem">Service Two</a>
-            <a href="/services/service-three.html" role="menuitem">Service Three</a>
-            <a href="/services/service-five.html" role="menuitem">Service Five</a>
-            <a href="/services/service-four.html" role="menuitem">Service Four</a>
-            <a href="/services/service-six.html" role="menuitem">Service Six</a>
+          <div class="nav-dropdown-menu" aria-label="Services">
+            <a href="/services/service-one.html">Service One</a>
+            <a href="/services/service-two.html">Service Two</a>
+            <a href="/services/service-three.html">Service Three</a>
+            <a href="/services/service-four.html">Service Four</a>
+            <a href="/services/service-five.html">Service Five</a>
+            <a href="/services/service-six.html">Service Six</a>
           </div>
         </div>
         <!-- SHARED ZONE: Areas We Serve dropdown — do NOT modify during
              city-page clone-and-localize pass. All city entries constant. -->
         <div class="nav-dropdown">
-          <a href="/#service-area" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150" aria-haspopup="true">
+          <a href="/#service-area" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150">
             Areas We Serve
             <svg class="nav-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </a>
-          <div class="nav-dropdown-menu" role="menu" aria-label="Areas We Serve">
-            <a href="/areas/city-one.html" role="menuitem" aria-current="page">[City]</a>
-            <a href="/areas/city-two.html" role="menuitem">[City 2]</a>
-            <a href="/areas/city-three.html" role="menuitem">[City 3]</a>
-            <a href="/areas/city-four.html" role="menuitem">[City 4]</a>
-            <a href="/areas/city-five.html" role="menuitem">[City 5]</a>
-            <a href="/areas/city-six.html" role="menuitem">[City 6]</a>
+          <div class="nav-dropdown-menu" aria-label="Areas We Serve">
+            <a href="/areas/city-one.html" aria-current="page">[City]</a>
+            <a href="/areas/city-two.html">[City 2]</a>
+            <a href="/areas/city-three.html">[City 3]</a>
+            <a href="/areas/city-four.html">[City 4]</a>
+            <a href="/areas/city-five.html">[City 5]</a>
+            <a href="/areas/city-six.html">[City 6]</a>
           </div>
         </div>
         <!-- END SHARED ZONE: Areas We Serve dropdown -->
@@ -589,7 +599,7 @@
       </div>
 
       <!-- Mobile hamburger -->
-      <button id="hamburger" class="md:hidden p-2 rounded-lg border border-white/10 text-white hover:border-white/30 transition-colors duration-150" aria-label="Open menu">
+      <button id="hamburger" class="md:hidden p-2 rounded-lg border border-white/10 text-white hover:border-white/30 transition-colors duration-150" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
         <svg id="hamburger-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <line x1="3" y1="6" x2="21" y2="6"/>
           <line x1="3" y1="12" x2="21" y2="12"/>
@@ -609,8 +619,8 @@
           <a href="/services/service-one.html">Service One</a>
           <a href="/services/service-two.html">Service Two</a>
           <a href="/services/service-three.html">Service Three</a>
-          <a href="/services/service-five.html">Service Five</a>
           <a href="/services/service-four.html">Service Four</a>
+          <a href="/services/service-five.html">Service Five</a>
           <a href="/services/service-six.html">Service Six</a>
         </div>
         <!-- SHARED ZONE: Areas We Serve dropdown — do NOT modify during
@@ -649,7 +659,7 @@
     <img
       src="https://placehold.co/1920x1080"
       alt="Professional home services in [City 5], [ST] — Your Business Name serving the [Region]"
-      aria-hidden="true"
+      fetchpriority="high"
       style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; z-index: 0;"
     />
 
@@ -702,17 +712,17 @@
         <!-- Stats row -->
         <div class="flex flex-wrap gap-8">
           <div>
-            <div class="font-display font-700 text-2xl text-white" style="text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Upfront</div>
+            <div class="font-display font-bold text-2xl text-white" style="text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Upfront</div>
             <div class="text-muted text-sm mt-0.5">Honest Pricing</div>
           </div>
           <div class="w-px" style="background: rgba(255,255,255,0.14);"></div>
           <div>
-            <div class="font-display font-700 text-2xl text-white" style="text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Mobile</div>
+            <div class="font-display font-bold text-2xl text-white" style="text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Mobile</div>
             <div class="text-muted text-sm mt-0.5">Service Available</div>
           </div>
           <div class="w-px" style="background: rgba(255,255,255,0.14);"></div>
           <div>
-            <div class="font-display font-700 text-2xl text-white" style="text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Free</div>
+            <div class="font-display font-bold text-2xl text-white" style="text-shadow: 0 1px 8px rgba(0,0,0,0.4);">Free</div>
             <div class="text-muted text-sm mt-0.5">Free Estimates</div>
           </div>
         </div>
@@ -735,7 +745,7 @@
       <div class="max-w-3xl mx-auto px-5 text-center fade-up">
         <div class="flex justify-center mb-3"><div class="section-title-accent"></div></div>
         <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 14px;">[City 5], [ST] · The [Region]</p>
-        <h2 class="font-display text-4xl lg:text-5xl font-700 text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.1;">
+        <h2 class="font-display text-4xl lg:text-5xl font-bold text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.1;">
           Your Local Home Services Team in [City 5]
         </h2>
         <p class="text-muted text-lg mb-4" style="line-height: 1.7;">
@@ -761,7 +771,7 @@
           <!-- Text left -->
           <div class="fade-up lg:order-1">
             <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 14px;">Coverage Across [City 5]</p>
-            <h2 class="font-display text-4xl lg:text-[2.5rem] font-700 text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.12;">
+            <h2 class="font-display text-4xl lg:text-[2.5rem] font-bold text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.12;">
               Home Services in Every [City 5] Neighborhood
             </h2>
             <p class="text-muted text-lg mb-6" style="line-height: 1.7;">
@@ -772,28 +782,28 @@
               <div class="flex items-start gap-3">
                 <svg class="mt-1 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 <div>
-                  <div class="font-display font-700 text-white text-sm mb-0.5">[City 5] &amp; central neighborhoods</div>
+                  <div class="font-display font-bold text-white text-sm mb-0.5">[City 5] &amp; central neighborhoods</div>
                   <p class="text-sm" style="color: var(--color-muted); line-height: 1.6;">Our home turf — jobs in central [City 5] near [Landmark] are usually same-day.</p>
                 </div>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="mt-1 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 <div>
-                  <div class="font-display font-700 text-white text-sm mb-0.5">Downtown [City 5]</div>
+                  <div class="font-display font-bold text-white text-sm mb-0.5">Downtown [City 5]</div>
                   <p class="text-sm" style="color: var(--color-muted); line-height: 1.6;">Homes and businesses across downtown [City 5], handled on-site.</p>
                 </div>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="mt-1 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 <div>
-                  <div class="font-display font-700 text-white text-sm mb-0.5">The [Highway] corridor</div>
+                  <div class="font-display font-bold text-white text-sm mb-0.5">The [Highway] corridor</div>
                   <p class="text-sm" style="color: var(--color-muted); line-height: 1.6;">Quick to reach along the [Highway] — we cover the busy [City 5] corridors.</p>
                 </div>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="mt-1 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 <div>
-                  <div class="font-display font-700 text-white text-sm mb-0.5">Out toward [Landmark]</div>
+                  <div class="font-display font-bold text-white text-sm mb-0.5">Out toward [Landmark]</div>
                   <p class="text-sm" style="color: var(--color-muted); line-height: 1.6;">Out toward [Landmark] and the edge of town, same fast turnaround.</p>
                 </div>
               </div>
@@ -818,7 +828,7 @@
       <div class="max-w-4xl mx-auto px-5">
         <div class="text-center mb-10 fade-up">
           <div class="flex justify-center mb-3"><div class="section-title-accent"></div></div>
-          <h2 class="font-display text-4xl font-700 text-white mb-4" style="letter-spacing: -0.03em; line-height: 1.1;">
+          <h2 class="font-display text-4xl font-bold text-white mb-4" style="letter-spacing: -0.03em; line-height: 1.1;">
             Why [City 5] Chooses Your Business Name
           </h2>
           <p class="text-muted text-lg max-w-2xl mx-auto" style="line-height: 1.7;">
@@ -829,28 +839,28 @@
               <div class="flex items-start gap-3">
                 <svg class="mt-1 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 <div>
-                  <div class="font-display font-700 text-white text-sm mb-0.5">Service You Can Trust</div>
+                  <div class="font-display font-bold text-white text-sm mb-0.5">Service You Can Trust</div>
                   <p class="text-sm" style="color: var(--color-muted-light); line-height: 1.6;">You deal with the same team every time — the people [City 5] homeowners count on.</p>
                 </div>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="mt-1 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 <div>
-                  <div class="font-display font-700 text-white text-sm mb-0.5">Straight Answers</div>
+                  <div class="font-display font-bold text-white text-sm mb-0.5">Straight Answers</div>
                   <p class="text-sm" style="color: var(--color-muted-light); line-height: 1.6;">Our team explains what your home needs and why — no upsell, no runaround.</p>
                 </div>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="mt-1 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 <div>
-                  <div class="font-display font-700 text-white text-sm mb-0.5">Fair, Honest Pricing</div>
+                  <div class="font-display font-bold text-white text-sm mb-0.5">Fair, Honest Pricing</div>
                   <p class="text-sm" style="color: var(--color-muted-light); line-height: 1.6;">You get your price before any work starts — no hidden fees, no surprises.</p>
                 </div>
               </div>
               <div class="flex items-start gap-3">
                 <svg class="mt-1 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 <div>
-                  <div class="font-display font-700 text-white text-sm mb-0.5">Quick Response</div>
+                  <div class="font-display font-bold text-white text-sm mb-0.5">Quick Response</div>
                   <p class="text-sm" style="color: var(--color-muted-light); line-height: 1.6;">Same-day service across [City 5], with a clear step-by-step from our team.</p>
                 </div>
               </div>
@@ -868,7 +878,7 @@
         <div class="grid lg:grid-cols-2 gap-14 items-center">
           <div class="fade-up">
             <div class="section-title-accent mb-3"></div>
-            <h2 class="font-display text-4xl font-700 text-white mb-6" style="letter-spacing: -0.03em; line-height: 1.1;">
+            <h2 class="font-display text-4xl font-bold text-white mb-6" style="letter-spacing: -0.03em; line-height: 1.1;">
               Insurance in [City 5]
             </h2>
             <p class="text-muted text-lg mb-5" style="line-height: 1.7;">
@@ -883,7 +893,7 @@
             </a>
           </div>
           <div class="fade-up">
-            <p class="text-muted text-sm font-600 uppercase tracking-widest mb-5">We Work Directly With These Carriers</p>
+            <p class="text-muted text-sm font-semibold uppercase tracking-widest mb-5">We Work Directly With These Carriers</p>
             <div class="flex flex-wrap gap-3">
               <span class="insurer-pill">Allstate</span>
               <span class="insurer-pill">USAA</span>
@@ -894,7 +904,7 @@
               <span class="insurer-pill">Farmers Insurance</span>
               <span class="insurer-pill">Assurance</span>
             </div>
-            <p class="text-muted text-sm mt-5" style="line-height: 1.7;">Don't see your carrier? Call <a href="tel:+15550000000" class="text-white font-600 hover:opacity-80 transition-opacity">(555) 000-0000</a> and we'll check your coverage together.</p>
+            <p class="text-muted text-sm mt-5" style="line-height: 1.7;">Don't see your carrier? Call <a href="tel:+15550000000" class="text-white font-semibold hover:opacity-80 transition-opacity">(555) 000-0000</a> and we'll check your coverage together.</p>
           </div>
 
         </div>
@@ -909,7 +919,7 @@
       <div class="max-w-4xl mx-auto px-5">
         <div class="text-center mb-12 fade-up">
           <div class="flex justify-center mb-3"><div class="section-title-accent"></div></div>
-          <h2 class="font-display text-4xl font-700 text-white mb-4" style="letter-spacing: -0.03em; line-height: 1.1;">
+          <h2 class="font-display text-4xl font-bold text-white mb-4" style="letter-spacing: -0.03em; line-height: 1.1;">
             Common Questions About Home Services in [City 5]
           </h2>
         </div>
@@ -917,7 +927,7 @@
         <div class="space-y-4 fade-up">
 
           <details class="rounded-2xl border overflow-hidden" style="border-color: rgba(var(--color-dark-rgb), 0.09); background: var(--color-bg);" open>
-            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--color-ink);">
+            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-bold text-lg" style="color: var(--color-ink);">
               Do you come to me in [City 5]?
               <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
@@ -927,7 +937,7 @@
           </details>
 
           <details class="rounded-2xl border overflow-hidden" style="border-color: rgba(var(--color-dark-rgb), 0.09); background: var(--color-bg);">
-            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--color-ink);">
+            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-bold text-lg" style="color: var(--color-ink);">
               How fast can you get to my [City 5] job?
               <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
@@ -937,7 +947,7 @@
           </details>
 
           <details class="rounded-2xl border overflow-hidden" style="border-color: rgba(var(--color-dark-rgb), 0.09); background: var(--color-bg);">
-            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--color-ink);">
+            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-bold text-lg" style="color: var(--color-ink);">
               How much will the job cost?
               <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
@@ -947,7 +957,7 @@
           </details>
 
           <details class="rounded-2xl border overflow-hidden" style="border-color: rgba(var(--color-dark-rgb), 0.09); background: var(--color-bg);">
-            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-700 text-lg" style="color: var(--color-ink);">
+            <summary class="flex items-center justify-between gap-4 px-7 py-5 cursor-pointer select-none list-none font-display font-bold text-lg" style="color: var(--color-ink);">
               My problem seems small — should I wait?
               <svg class="faq-chevron flex-shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
@@ -978,7 +988,7 @@
 
       <div class="relative z-10 max-w-3xl mx-auto px-5 text-center fade-up">
         <div class="flex justify-center mb-3"><div class="section-title-accent"></div></div>
-        <h2 class="font-display text-4xl lg:text-5xl font-800 text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.1;">
+        <h2 class="font-display text-4xl lg:text-5xl font-extrabold text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.1;">
           Need Home Services in [City 5]?<br /><span style="color: var(--color-accent);">Call Your Business Name Today.</span>
         </h2>
         <p class="text-muted text-lg mb-10 max-w-xl mx-auto" style="line-height: 1.7;">
@@ -1049,10 +1059,10 @@
 
         <!-- Services -->
         <div>
-          <h2 class="font-display font-700 text-white text-sm uppercase tracking-widest mb-4">Services</h2>
+          <h2 class="font-display font-bold text-white text-sm uppercase tracking-widest mb-4">Services</h2>
           <ul class="space-y-2.5">
-            <li><a href="/services/service-two.html" class="text-muted text-sm hover:text-white transition-colors duration-150">Service Two</a></li>
             <li><a href="/services/service-one.html"       class="text-muted text-sm hover:text-white transition-colors duration-150">Service One</a></li>
+            <li><a href="/services/service-two.html" class="text-muted text-sm hover:text-white transition-colors duration-150">Service Two</a></li>
             <li><a href="/services/service-three.html"        class="text-muted text-sm hover:text-white transition-colors duration-150">Service Three</a></li>
             <li><a href="/services/service-four.html"    class="text-muted text-sm hover:text-white transition-colors duration-150">Service Four</a></li>
             <li><a href="/services/service-five.html"           class="text-muted text-sm hover:text-white transition-colors duration-150">Service Five</a></li>
@@ -1062,7 +1072,7 @@
 
         <!-- Company -->
         <div>
-          <h2 class="font-display font-700 text-white text-sm uppercase tracking-widest mb-4">Company</h2>
+          <h2 class="font-display font-bold text-white text-sm uppercase tracking-widest mb-4">Company</h2>
           <ul class="space-y-2.5">
             <li><a href="/#why-us"       class="text-muted text-sm hover:text-white transition-colors duration-150">About Us</a></li>
             <!-- OPTIONAL MODULE LINK (footer, #reviews): re-enable with the Review widget module: <li><a href="/#reviews"      class="text-muted text-sm hover:text-white transition-colors duration-150">Reviews</a></li> -->
@@ -1075,7 +1085,7 @@
 
         <!-- Service Area -->
         <div>
-          <h2 class="font-display font-700 text-white text-sm uppercase tracking-widest mb-4">Areas We Serve</h2>
+          <h2 class="font-display font-bold text-white text-sm uppercase tracking-widest mb-4">Areas We Serve</h2>
           <ul class="space-y-2.5">
             <li><a href="/areas/city-one.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City]</a></li>
             <li><a href="/areas/city-two.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City 2]</a></li>
@@ -1116,6 +1126,7 @@
     hamburger.addEventListener('click', () => {
       const open = mobileMenu.classList.toggle('open');
       hamburger.setAttribute('aria-expanded', open);
+      hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     });
     document.querySelectorAll('.mobile-nav-link').forEach(link => {
       link.addEventListener('click', () => mobileMenu.classList.remove('open'));

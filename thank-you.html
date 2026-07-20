@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thank You | Your Business Name Home Services in [City], [ST]</title>
+  <title>Thank You | Your Business Name Home Services in [City]</title>
   <meta name="description" content="Thank you for contacting Your Business Name. Our team will be in touch shortly. Need help now in [City]? Call (555) 000-0000." />
   <meta name="robots" content="noindex, nofollow" />
 
@@ -69,7 +69,6 @@
       letter-spacing: -0.02em; color: var(--color-bg); line-height: 1;
       transition: color 0.25s cubic-bezier(0.4,0,0.2,1);
     }
-    .nav-wordmark .plus { color: var(--color-accent); }
     #navbar.scrolled .nav-wordmark { color: var(--color-ink); }
 
     /* Nav bar + logo sizing — driven by --nav-height / --nav-logo-height /
@@ -83,7 +82,6 @@
       font-weight: 800; font-size: 28px;
       letter-spacing: -0.02em; color: var(--color-bg); line-height: 1;
     }
-    .footer-wordmark .plus { color: var(--color-accent); }
 
     /* ── Nav ── */
     #navbar {
@@ -219,10 +217,16 @@
     }
 
     /* ── Phone pulse ── */
-    .phone-pulse { animation: pulse-ring 2.5s cubic-bezier(0.4,0,0.6,1) infinite; }
+    .phone-pulse { position: relative; }
+    .phone-pulse::after {
+      content: ""; position: absolute; inset: -3px; border-radius: 11px;
+      border: 2px solid rgba(var(--color-accent-rgb), 0.45);
+      opacity: 0; pointer-events: none;
+      animation: pulse-ring 2.5s cubic-bezier(0.4,0,0.6,1) infinite;
+    }
     @keyframes pulse-ring {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(var(--color-accent-rgb), 0.4); }
-      50%       { box-shadow: 0 0 0 10px rgba(var(--color-accent-rgb), 0); }
+      0%        { transform: scale(0.98); opacity: 0.55; }
+      70%, 100% { transform: scale(1.15); opacity: 0; }
     }
 
     /* ── Success check badge ── */
@@ -240,8 +244,28 @@
     }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-    #mobile-menu { display: none; }
+    #mobile-menu {
+      display: none;
+      max-height: calc(100vh - var(--nav-height) - 12px);
+      max-height: calc(100dvh - var(--nav-height) - 12px);
+      overflow-y: auto;
+    }
     #mobile-menu.open { display: block; }
+
+    /* ── Skip link, anchor offset, FAQ chevron, reduced motion ── */
+    .skip-link {
+      position: absolute; top: 0; left: -9999px; z-index: 100;
+      background: var(--color-bg); color: var(--color-ink);
+      padding: 10px 18px; border-radius: 0 0 10px 0; font-weight: 600;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+    }
+    .skip-link:focus { left: 0; }
+    section[id] { scroll-margin-top: calc(var(--nav-height) + 8px); }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .phone-pulse::after { animation: none; opacity: 0; }
+      .fade-up { opacity: 1; transform: none; transition: none; }
+    }
 
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--color-bg-2); }
@@ -250,6 +274,8 @@
   </style>
 </head>
 <body class="font-body leading-body">
+
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
   <!-- ============================================================
        STICKY NAVIGATION
@@ -265,33 +291,33 @@
       <!-- Desktop Nav -->
       <div class="hidden md:flex items-center gap-7">
         <div class="nav-dropdown">
-          <a href="/#services" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150" aria-haspopup="true">
+          <a href="/#services" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150">
             Services
             <svg class="nav-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </a>
-          <div class="nav-dropdown-menu" role="menu" aria-label="Services">
-            <a href="/services/service-one.html" role="menuitem">Service One</a>
-            <a href="/services/service-two.html" role="menuitem">Service Two</a>
-            <a href="/services/service-three.html" role="menuitem">Service Three</a>
-            <a href="/services/service-five.html" role="menuitem">Service Five</a>
-            <a href="/services/service-four.html" role="menuitem">Service Four</a>
-            <a href="/services/service-six.html" role="menuitem">Service Six</a>
+          <div class="nav-dropdown-menu" aria-label="Services">
+            <a href="/services/service-one.html">Service One</a>
+            <a href="/services/service-two.html">Service Two</a>
+            <a href="/services/service-three.html">Service Three</a>
+            <a href="/services/service-four.html">Service Four</a>
+            <a href="/services/service-five.html">Service Five</a>
+            <a href="/services/service-six.html">Service Six</a>
           </div>
         </div>
         <!-- SHARED ZONE: Areas We Serve dropdown — do NOT modify during
              city-page clone-and-localize pass. All city entries constant. -->
         <div class="nav-dropdown">
-          <a href="/#service-area" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150" aria-haspopup="true">
+          <a href="/#service-area" class="nav-link nav-dropdown-trigger text-sm font-medium text-muted hover:text-white transition-colors duration-150">
             Areas We Serve
             <svg class="nav-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </a>
-          <div class="nav-dropdown-menu" role="menu" aria-label="Areas We Serve">
-            <a href="/areas/city-one.html" role="menuitem">[City]</a>
-            <a href="/areas/city-two.html" role="menuitem">[City 2]</a>
-            <a href="/areas/city-three.html" role="menuitem">[City 3]</a>
-            <a href="/areas/city-four.html" role="menuitem">[City 4]</a>
-            <a href="/areas/city-five.html" role="menuitem">[City 5]</a>
-            <a href="/areas/city-six.html" role="menuitem">[City 6]</a>
+          <div class="nav-dropdown-menu" aria-label="Areas We Serve">
+            <a href="/areas/city-one.html">[City]</a>
+            <a href="/areas/city-two.html">[City 2]</a>
+            <a href="/areas/city-three.html">[City 3]</a>
+            <a href="/areas/city-four.html">[City 4]</a>
+            <a href="/areas/city-five.html">[City 5]</a>
+            <a href="/areas/city-six.html">[City 6]</a>
           </div>
         </div>
         <!-- END SHARED ZONE: Areas We Serve dropdown -->
@@ -306,7 +332,7 @@
       </div>
 
       <!-- Mobile hamburger -->
-      <button id="hamburger" class="md:hidden p-2 rounded-lg border border-white/10 text-white hover:border-white/30 transition-colors duration-150" aria-label="Open menu">
+      <button id="hamburger" class="md:hidden p-2 rounded-lg border border-white/10 text-white hover:border-white/30 transition-colors duration-150" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
         <svg id="hamburger-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <line x1="3" y1="6" x2="21" y2="6"/>
           <line x1="3" y1="12" x2="21" y2="12"/>
@@ -326,8 +352,8 @@
           <a href="/services/service-one.html">Service One</a>
           <a href="/services/service-two.html">Service Two</a>
           <a href="/services/service-three.html">Service Three</a>
-          <a href="/services/service-five.html">Service Five</a>
           <a href="/services/service-four.html">Service Four</a>
+          <a href="/services/service-five.html">Service Five</a>
           <a href="/services/service-six.html">Service Six</a>
         </div>
         <!-- SHARED ZONE: Areas We Serve dropdown — do NOT modify during
@@ -366,8 +392,8 @@
       <!-- OFF-LIMITS: hero-background — dedicated named file only, never a content photo -->
       <img
         src="https://placehold.co/1920x1080"
-        alt="Open road in the [Region] — Your Business Name serves [City] and the [Region]"
-        aria-hidden="true"
+        alt="Your Business Name — home services for [City] and the [Region]"
+        fetchpriority="high"
         style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; z-index: 0;"
       />
 
@@ -446,10 +472,10 @@
 
         <!-- Services -->
         <div>
-          <h2 class="font-display font-700 text-white text-sm uppercase tracking-widest mb-4">Services</h2>
+          <h2 class="font-display font-bold text-white text-sm uppercase tracking-widest mb-4">Services</h2>
           <ul class="space-y-2.5">
-            <li><a href="/services/service-two.html" class="text-muted text-sm hover:text-white transition-colors duration-150">Service Two</a></li>
             <li><a href="/services/service-one.html"       class="text-muted text-sm hover:text-white transition-colors duration-150">Service One</a></li>
+            <li><a href="/services/service-two.html" class="text-muted text-sm hover:text-white transition-colors duration-150">Service Two</a></li>
             <li><a href="/services/service-three.html"        class="text-muted text-sm hover:text-white transition-colors duration-150">Service Three</a></li>
             <li><a href="/services/service-four.html"    class="text-muted text-sm hover:text-white transition-colors duration-150">Service Four</a></li>
             <li><a href="/services/service-five.html"           class="text-muted text-sm hover:text-white transition-colors duration-150">Service Five</a></li>
@@ -459,7 +485,7 @@
 
         <!-- Company -->
         <div>
-          <h2 class="font-display font-700 text-white text-sm uppercase tracking-widest mb-4">Company</h2>
+          <h2 class="font-display font-bold text-white text-sm uppercase tracking-widest mb-4">Company</h2>
           <ul class="space-y-2.5">
             <li><a href="/#why-us"       class="text-muted text-sm hover:text-white transition-colors duration-150">About Us</a></li>
             <!-- OPTIONAL MODULE LINK (footer, #reviews): re-enable with the Review widget module: <li><a href="/#reviews"      class="text-muted text-sm hover:text-white transition-colors duration-150">Reviews</a></li> -->
@@ -472,7 +498,7 @@
 
         <!-- Service Area -->
         <div>
-          <h2 class="font-display font-700 text-white text-sm uppercase tracking-widest mb-4">Areas We Serve</h2>
+          <h2 class="font-display font-bold text-white text-sm uppercase tracking-widest mb-4">Areas We Serve</h2>
           <ul class="space-y-2.5">
             <li><a href="/areas/city-one.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City]</a></li>
             <li><a href="/areas/city-two.html" class="text-muted text-sm hover:text-white transition-colors duration-150">[City 2]</a></li>
@@ -513,6 +539,7 @@
     hamburger.addEventListener('click', () => {
       const open = mobileMenu.classList.toggle('open');
       hamburger.setAttribute('aria-expanded', open);
+      hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     });
     document.querySelectorAll('.mobile-nav-link').forEach(link => {
       link.addEventListener('click', () => mobileMenu.classList.remove('open'));
