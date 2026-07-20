@@ -4,13 +4,16 @@
    Neutral graphite / slate placeholders — the template ships NO
    brand color. Recolor a client by editing ONLY the tokens in the
    first :root block below; everything else references these.
+   Recolor check (every build): accent-deep vs bg >=4.5:1 ·
+   accent-bright vs dark >=4.5:1 · muted vs bg-2 >=4.5:1.
    ============================================================ */
 :root {
   /* — Core palette (hex) — */
   --color-primary:      #232838;  /* brand primary slot (= dark) */
   --color-primary-mid:  #313749;  /* first dark-elevation step + primary hover */
   --color-accent:       #5E6675;  /* the "pop" / CTA accent — replace per client */
-  --color-accent-deep:  #4A515E;  /* accent hover / pressed */
+  --color-accent-deep:  #4A515E;  /* accent hover / pressed — the on-LIGHT accent fallback */
+  --color-accent-bright:#A2AEC3;  /* on-DARK accent — every accent use on --color-dark; keep >=4.5:1 vs dark */
   --color-dark:         #232838;  /* single canonical dark-section bg (== primary) */
   --color-dark-3:       #363D4E;  /* deepest dark-elevation surface */
   --color-ink:          #1A1D28;  /* body + heading text */
@@ -26,6 +29,7 @@
   --color-primary-mid-rgb: 49, 55, 73;
   --color-accent-rgb:      94, 102, 117;
   --color-accent-deep-rgb: 74, 81, 94;
+  --color-accent-bright-rgb: 162, 174, 195;
   --color-dark-rgb:        35, 40, 56;
   --color-dark-3-rgb:      54, 61, 78;
   --color-ink-rgb:         26, 29, 40;

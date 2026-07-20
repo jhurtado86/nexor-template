@@ -88,6 +88,8 @@
     .dark-section .btn-outline:hover { border-color: rgba(255,255,255,0.60); background: rgba(255,255,255,0.06); }
     .dark-section .divider           { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent); }
     .dark-section .section-title-accent { background: linear-gradient(90deg, transparent 0%, var(--color-accent) 25%, var(--color-accent) 75%, transparent 100%); }
+    .dark-section .link-arrow        { color: var(--color-accent-bright); }
+    .dark-section .link-arrow:hover  { color: var(--color-line); }
 
     /* ── Light-section text overrides ── */
     .section-dark .text-white,
@@ -401,7 +403,8 @@
     #insurance strong { color: var(--color-accent) !important; }
   </style>
 
-  <!-- LocalBusiness Structured Data (same LocalBusiness schema as homepage) -->
+  <!-- Business ref — same @id as the homepage entity (NOT a re-declaration; the full
+       declaration with hours/areaServed/hasOfferCatalog lives on the homepage only). -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -411,42 +414,7 @@
     "description": "Professional home services in [City], [ST] and across the [Region]. Serving homes and businesses with same-day appointments, free estimates, and mobile service.",
     "url": "https://yourbusiness.com/",
     "telephone": "+15550000000",
-    "email": "hello@yourbusiness.com",
-    "priceRange": "[priceRange]",
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-        "opens": "08:00",
-        "closes": "18:00"
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "Saturday",
-        "opens": "09:00",
-        "closes": "16:00"
-      }
-    ],
-    "areaServed": [
-      { "@type": "City", "name": "[City]",   "containedInPlace": { "@type": "State", "name": "[State]" } },
-      { "@type": "City", "name": "[City 2]",  "containedInPlace": { "@type": "State", "name": "[State]" } },
-      { "@type": "City", "name": "[City 3]",   "containedInPlace": { "@type": "State", "name": "[State]" } },
-      { "@type": "City", "name": "[City 4]",     "containedInPlace": { "@type": "State", "name": "[State]" } },
-      { "@type": "City", "name": "[City 5]",  "containedInPlace": { "@type": "State", "name": "[State]" } },
-      { "@type": "City", "name": "[City 6]", "containedInPlace": { "@type": "State", "name": "[State]" } }
-    ],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Our Services",
-      "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Service One" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Service Two" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Service Three" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Service Four" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Service Five" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Service Six" } }
-      ]
-    }
+    "email": "hello@yourbusiness.com"
   }
   </script>
 
@@ -608,7 +576,7 @@
         <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-line); margin-bottom: 20px; text-shadow: 0 1px 8px rgba(0,0,0,0.45);">Trusted Local Home Services — [City] &amp; [Region]</p>
 
         <h1 class="font-display text-white mb-5" style="font-size: clamp(2.4rem, 6vw, 3.8rem); letter-spacing: -0.03em; line-height: 1.06; font-weight: 800; text-shadow: 0 2px 24px rgba(0,0,0,0.45);">
-          About <span style="color: var(--color-accent);">Your Business Name</span>
+          About <span style="color: var(--color-accent-bright);">Your Business Name</span>
         </h1>
 
         <p class="mb-8 max-w-xl" style="color: rgba(255,255,255,0.88); font-size: clamp(1rem, 2.2vw, 1.125rem); line-height: 1.72; text-shadow: 0 1px 8px rgba(0,0,0,0.35);">
@@ -669,7 +637,7 @@
         <div class="grid lg:grid-cols-2 gap-14 items-center">
 
           <div class="fade-up lg:order-1" style="transition-delay: 0.1s;">
-            <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 14px;">Rooted Local</p>
+            <p style="font-family: 'Barlow', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-accent-bright); margin-bottom: 14px;">Rooted Local</p>
             <h2 class="font-display text-4xl lg:text-[2.5rem] font-bold text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.12;">
               Rooted in [City], Trusted Across the [Region]
             </h2>
@@ -677,19 +645,19 @@
             <p class="text-muted text-lg mb-7" style="line-height: 1.7;">Every job runs the same way, wherever you are in the [Region] — clear communication, careful work, and a clean finish. That's the standard our whole team is measured against.</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 mt-2 mb-2">
               <div class="flex items-start gap-2.5 text-sm text-muted" style="line-height: 1.6;">
-                <svg class="mt-0.5 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="mt-0.5 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-bright)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 Upfront, honest pricing
               </div>
               <div class="flex items-start gap-2.5 text-sm text-muted" style="line-height: 1.6;">
-                <svg class="mt-0.5 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="mt-0.5 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-bright)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 Mobile service across the [Region]
               </div>
               <div class="flex items-start gap-2.5 text-sm text-muted" style="line-height: 1.6;">
-                <svg class="mt-0.5 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="mt-0.5 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-bright)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 Quality materials, careful work
               </div>
               <div class="flex items-start gap-2.5 text-sm text-muted" style="line-height: 1.6;">
-                <svg class="mt-0.5 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                <svg class="mt-0.5 flex-shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-bright)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
                 Same-day response on most jobs
               </div>
             </div>
@@ -799,7 +767,7 @@
       <div class="relative z-10 max-w-3xl mx-auto px-5 text-center fade-up">
         <div class="flex justify-center mb-3"><div class="section-title-accent"></div></div>
         <h2 class="font-display text-4xl lg:text-5xl font-extrabold text-white mb-5" style="letter-spacing: -0.03em; line-height: 1.1;">
-          Ready to Meet the Team?<br /><span style="color: var(--color-accent);">Call Your Business Name Today.</span>
+          Ready to Meet the Team?<br /><span style="color: var(--color-accent-bright);">Call Your Business Name Today.</span>
         </h2>
         <p class="text-muted text-lg mb-10 max-w-xl mx-auto" style="line-height: 1.7;">
           Whether it is <a href="/services/service-two.html" class="text-white font-semibold hover:opacity-80 transition-opacity">a quick fix</a> or <a href="/services/service-one.html" class="text-white font-semibold hover:opacity-80 transition-opacity">a full project</a>, our team will take care of you the same way we take care of our neighbors. Call now or request a free quote and we'll reach out fast.
@@ -816,22 +784,22 @@
         </div>
         <div class="flex flex-wrap items-center justify-center gap-5">
           <span class="flex items-center gap-1.5 text-muted text-sm">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-bright)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             Honest work
           </span>
           <span style="color: rgba(255,255,255,0.20);">·</span>
           <span class="flex items-center gap-1.5 text-muted text-sm">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-bright)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             Fair pricing
           </span>
           <span style="color: rgba(255,255,255,0.20);">·</span>
           <span class="flex items-center gap-1.5 text-muted text-sm">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-bright)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             Mobile service
           </span>
           <span style="color: rgba(255,255,255,0.20);">·</span>
           <span class="flex items-center gap-1.5 text-muted text-sm">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-bright)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             [City] &amp; the [Region]
           </span>
         </div>
@@ -853,15 +821,15 @@
           <a href="/" class="flex items-center mb-2" aria-label="Your Business Name home">
             <span class="footer-wordmark">Your Business Name</span>
           </a>
-          <p style="font-family: 'Barlow', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 14px; opacity: 0.85;">Trusted Local Home Services</p>
+          <p style="font-family: 'Barlow', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--color-accent-bright); margin-bottom: 14px; opacity: 0.85;">Trusted Local Home Services</p>
           <p class="text-muted text-sm mb-5" style="line-height: 1.7;">Professional home services you can count on — serving [City] and the surrounding [Region].</p>
           <div class="space-y-2">
             <a href="tel:+15550000000" class="flex items-center gap-2 text-white text-sm font-medium hover:opacity-80 transition-opacity duration-150">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.54 6.54l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-bright)" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.56a16 16 0 0 0 6.54 6.54l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               (555) 000-0000
             </a>
             <a href="mailto:hello@yourbusiness.com" class="flex items-center gap-2 text-muted text-sm hover:text-white transition-colors duration-150">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent-bright)" stroke-width="2.2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
               hello@yourbusiness.com
             </a>
           </div>

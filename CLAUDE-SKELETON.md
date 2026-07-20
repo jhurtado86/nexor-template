@@ -71,8 +71,9 @@ page.
 |---|---|---|
 | `--color-primary` | [DERIVE from logo] | Primary brand — dark hero/sections, footer, nav, primary buttons |
 | `--color-primary-mid` | [DERIVE] | Mid-tone — hover, secondary buttons, borders/dividers on dark |
-| `--color-accent` | [DERIVE] | Accent — icons, link accents, eyebrow, highlights on dark |
+| `--color-accent` | [DERIVE] | Accent — icons, link accents, eyebrows, highlights on light |
 | `--color-accent-deep` | [DERIVE] | On-light fallback for the accent (see rule below) |
+| `--color-accent-bright` | [DERIVE] | On-dark counterpart of the accent (see rule below) |
 | `--color-silver` / neutral | [DERIVE] | Muted borders, secondary text on dark, chrome |
 | `--color-dark` (canonical) | [= primary] | THE single dark-section background token |
 | `--color-ink` | [DERIVE] | Near-black headings/body |
@@ -82,6 +83,17 @@ page.
 **FROZEN rules:**
 - **Accent-on-light fallback:** a bright accent is fine as fill / text-on-dark; as small
   text or dividers on white it goes low-contrast — fall back to `--color-accent-deep`.
+- **Accent-on-dark fallback:** the same failure runs in reverse on dark sections — a deep
+  or mid-tone accent goes low-contrast on `--color-dark`. Every accent use on a dark
+  background (colored heading spans, dark-section eyebrows, step numbers, the footer
+  tagline, check strokes) uses `--color-accent-bright`, holding ≥4.5:1 against
+  `--color-dark` (≥3:1 covers large text/graphics, but the same token also sets small
+  text, so hold 4.5). Documented cross-build lesson — never ship raw `--color-accent` on
+  a dark section.
+- **Recolor contrast check (every build):** after deriving the palette and before any page
+  work, verify: `--color-accent-deep` vs `--color-bg` ≥4.5:1 · `--color-accent-bright` vs
+  `--color-dark` ≥4.5:1 · `--color-muted` vs `--color-bg-2` ≥4.5:1. Fix the token, never
+  the page.
 - **One canonical dark token:** `--color-dark` is the only dark-section background. Never
   let a second near-identical dark hex drift in.
 - **Strip the template's red.** The template ships red as de-facto primary — remove it.
@@ -338,8 +350,8 @@ block keeps its functional call/email/address icons (contact affordances, not ca
 
 ### Homepage FAQ + gallery — FROZEN
 The homepage ships an **active** FAQ accordion (5–6 token Q&As, same `<details>` styling as
-service/city pages) and an **active** uniform gallery grid (8 `.photo-frame` tiles at 2-
-and 4-column breakpoints so the last row always fills). These are page sections, distinct
+service/city pages) and an **active** uniform gallery grid (8 `.photo-frame` tiles at 1-
+and 2-column breakpoints so the last row always fills). These are page sections, distinct
 from the optional inventory/gallery *page* below.
 
 ### Gallery / inventory section — uniform grid, no dead space

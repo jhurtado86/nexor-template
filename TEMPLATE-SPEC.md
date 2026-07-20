@@ -34,11 +34,18 @@ quality bar — the template is not all-placeholder skeletons. Clones inherit fr
 
 ### Color tokens
 All colors live in `:root` + `tailwind.config` as named tokens (`--color-primary`,
-`--color-primary-mid`, `--color-accent`, `--color-accent-deep`, `--color-dark` (single
-canonical dark, same as primary), `--color-ink`, `--color-muted`, `--color-bg`). Neutral
-placeholder values + comment: `/* primary = derive from client logo */`. No per-page
-hardcoded hexes anywhere. Template ships **no red** as primary. A deprecated-alias block
-in `brand.css` remaps old token names so a future recolor is one sweep.
+`--color-primary-mid`, `--color-accent`, `--color-accent-deep`, `--color-accent-bright`,
+`--color-dark` (single canonical dark, same as primary), `--color-ink`, `--color-muted`,
+`--color-bg`). Neutral placeholder values + comment: `/* primary = derive from client
+logo */`. No per-page hardcoded hexes anywhere. Template ships **no red** as primary. A
+deprecated-alias block in `brand.css` remaps old token names so a future recolor is one
+sweep. **Accent contrast rule:** `--color-accent-deep` is the accent's on-light fallback;
+`--color-accent-bright` is its on-dark counterpart — every accent use on `--color-dark`
+(colored heading spans, dark-section eyebrows, step numbers, the footer tagline, check
+strokes) uses it, holding ≥4.5:1 against `--color-dark` (≥3:1 covers large text/graphics,
+but the same token also sets small text, so hold 4.5). Recolor-time check, every build:
+accent-deep vs bg ≥4.5:1 · accent-bright vs dark ≥4.5:1 · muted vs bg-2 ≥4.5:1 — fix the
+token, never the page.
 
 ### Named background slots (hero + final-CTA)
 - The hero background and final-CTA background are dedicated slots, sourced **only** from
@@ -71,8 +78,8 @@ a translucent dark-card treatment so their text stays legible. (The contact bloc
 functional call/email/address icons — those are contact affordances, not card emblems.)
 
 ### Homepage gallery (active section)
-The homepage ships an **active** uniform gallery grid — 8 `.photo-frame` tiles at 2- and
-4-column breakpoints so the last row always fills (no ragged row, no dead space). This is
+The homepage ships an **active** uniform gallery grid — 8 `.photo-frame` tiles at 1- and
+2-column breakpoints so the last row always fills (no ragged row, no dead space). This is
 distinct from the optional inventory/gallery **page** (below), which is not in the base
 template.
 
