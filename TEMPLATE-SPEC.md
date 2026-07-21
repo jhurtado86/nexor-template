@@ -37,9 +37,11 @@ All colors live in `:root` + `tailwind.config` as named tokens (`--color-primary
 `--color-primary-mid`, `--color-accent`, `--color-accent-deep`, `--color-accent-bright`,
 `--color-dark` (single canonical dark, same as primary), `--color-ink`, `--color-muted`,
 `--color-bg`). Neutral placeholder values + comment: `/* primary = derive from client
-logo */`. No per-page hardcoded hexes anywhere. Template ships **no red** as primary. A
-deprecated-alias block in `brand.css` remaps old token names so a future recolor is one
-sweep. **Accent contrast rule:** `--color-accent-deep` is the accent's on-light fallback;
+logo */`. No per-page hardcoded hexes anywhere. Template ships **no red** as primary. The
+template ships **no alias layer** — the legacy `--glass-*` / `--ember` / `--ink-body` /
+`--slate` tokens were retired and their remap block deliberately deleted; every page
+references the canonical tokens directly. Do **not** restore a deprecated-alias block.
+**Accent contrast rule:** `--color-accent-deep` is the accent's on-light fallback;
 `--color-accent-bright` is its on-dark counterpart — every accent use on `--color-dark`
 (colored heading spans, dark-section eyebrows, step numbers, the footer tagline, check
 strokes) uses it, holding ≥4.5:1 against `--color-dark` (≥3:1 covers large text/graphics,
@@ -98,6 +100,8 @@ None are active by default. Financing is **not** a module in the base template �
 Financing" was dropped from the insurance heading; add financing per-client only if
 offered. Pricing/transparency messaging lives inside a service-page split and the
 "What's Included" cards — there is no separate `id="pricing"` section.
+
+**OPTIONAL MODULE accent sweep:** the commented-out OPTIONAL MODULE blocks (insurance carrier row, review widget) sit on dark sections and use raw `--color-accent` internally on their dark-card labels — any build that enables one must sweep those labels to `--color-accent-bright` per the accent-on-dark rule.
 
 ### Navigation
 Sticky nav: transparent-at-top → solid on scroll. Standardized **Services** and **Areas**
@@ -208,8 +212,8 @@ root-relative (`/brand_assets/…`).
 ---
 
 ## Files present in template root — FROZEN
-`serve.mjs`, `screenshot.mjs`, `sitemap.xml` (tokened), `robots.txt`, `brand.css` (tokens
-+ deprecated-alias block), and `CLAUDE.md` = the current `CLAUDE-SKELETON.md` (so every
+`serve.mjs`, `screenshot.mjs`, `sitemap.xml` (tokened), `robots.txt`, `brand.css` (canonical
+tokens only — no alias layer), and `CLAUDE.md` = the current `CLAUDE-SKELETON.md` (so every
 clone starts from the blank skeleton, not a prior client's file).
 
 ---

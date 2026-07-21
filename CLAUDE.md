@@ -348,6 +348,8 @@ unchanged. **Numbered step cards keep their 01–04 numbers** — those aren't i
 a dark section take a translucent dark-card treatment so text stays legible. The contact
 block keeps its functional call/email/address icons (contact affordances, not card emblems).
 
+**OPTIONAL MODULE accent sweep:** the commented-out OPTIONAL MODULE blocks (insurance carrier row, review widget) sit on dark sections and use raw `--color-accent` internally on their dark-card labels — any build that enables one must sweep those labels to `--color-accent-bright` per the accent-on-dark rule.
+
 ### Homepage FAQ + gallery — FROZEN
 The homepage ships an **active** FAQ accordion (5–6 token Q&As, same `<details>` styling as
 service/city pages) and an **active** uniform gallery grid (8 `.photo-frame` tiles at 1-
